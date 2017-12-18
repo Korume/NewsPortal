@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    namespace="NewsPortal.Models" assembly="NewsPortal">
+
+  <class name="User" table="Users">
+    <id name="Id">
+      <column name="Id" sql-type="int" not-null="true"/>
+      <generator class="native" />
+    </id>
+    <property name="Email">
+      <column name="Email" unique="true" sql-type="text" not-null="true"/>
+    </property>
+    <property name="Login">
+      <column name="Login" sql-type="text" not-null="true"/>
+    </property>
+    <property name="Password">
+      <column name="Password" sql-type="text" not-null="true"/>
+    </property>
+  </class>
+
+</hibernate-mapping>

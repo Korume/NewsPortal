@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Новостной портал</title>
+
+    <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
+
+    @RenderSection("StyleSheet")
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div>
+            <span>
+                @Html.ActionLink("NewsPortal","Index","Home")
+            </span>
+        </div>
+        <div>
+            <span class="item_menu">
+                @Html.ActionLink("Log in", "Index", "Authorization")
+                @Html.ActionLink("Sign in", "Index", "Registration")
+            </span>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer></footer>
+</body>
+</html>
