@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NewsPortal.Models;
+using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
@@ -15,40 +16,31 @@ namespace NewsPortal.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(RegisterModel model)
+        public ActionResult Index(RegisterInputVM registerModel)
         {
-            User user = new User() { Email = model.Email, Login = model.Login, Password = model.Password };
-
+            if (!ModelState.IsValid)
+            {
+                return View(registerModel);
+            }
             var session = NHibernateHelper.GetCurrentSession();
             try
             {
-                if (user == null)
+                using (var transaction = session.BeginTransaction())
                 {
-                    return RedirectToAction("Index", "Home");
-                }
-                using (var tx = session.BeginTransaction())
-                {
-                    var list = session.QueryOver<User>().List();
+                    var list = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).List();
+                    if (list.Count > 0)
+                    {
+                        ModelState.AddModelError("Email", "Данный E-mail адрес занят.");
+                        return View(registerModel);
+                    }
 
-                    //var criteria = session.CreateCriteria<User>();
-                    //var list = criteria.List<User>();
-
-                    foreach (var item in list)
-                    {
-                        if (user.Email == item.Email)
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                    }
-                    if (ModelState.IsValid)
-                    {
-                        session.Save(user);
-                        tx.Commit();
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    User newUser = new User() {
+                        Email = registerModel.Email,
+                        Login = registerModel.Login,
+                        Password = registerModel.Password
+                    };
+                    session.Save(newUser);
+                    transaction.Commit();
                 }
             }
             finally

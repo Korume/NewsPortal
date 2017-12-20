@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
-    namespace="NewsPortal.Models" assembly="NewsPortal">
+    namespace="NewsPortal.Models.DataBaseModels" assembly="NewsPortal">
 
   <class name="User" table="Users">
     <id name="Id">
