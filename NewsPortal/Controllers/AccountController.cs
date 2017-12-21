@@ -1,23 +1,31 @@
-﻿using System;
+﻿using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Models.ViewModels;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
-    public class RegistrationController : Controller
+    public class AccountController : Controller
     {
+        // GET: Authorization
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult IndexAuthorization()
         {
             return View();
         }
 
+        //GET: Registation
+        [HttpGet]
+        public ActionResult IndexRegistration()
+        {
+            return View();
+        }
         [HttpPost]
-        public ActionResult Index(RegisterInputVM registerModel)
+        public ActionResult IndexRegistration(RegisterInputVM registerModel)
         {
             if (!ModelState.IsValid)
             {
@@ -34,7 +42,8 @@ namespace NewsPortal.Controllers
                         ModelState.AddModelError("Email", "Данный E-mail адрес занят.");
                         return View(registerModel);
                     }
-                    User newUser = new User() {
+                    User newUser = new User()
+                    {
                         Email = registerModel.Email,
                         Login = registerModel.Login,
                         Password = registerModel.Password

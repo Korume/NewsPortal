@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Новостной портал</title>
+    <title>@ViewBag.Title</title>
 
     <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
 
@@ -15,13 +15,13 @@
     <header>
         <div>
             <span>
-                @Html.ActionLink("NewsPortal","Index","Home")
+                @Html.ActionLink("NewsPortal","Index", "Home")
             </span>
         </div>
         <div>
             <span class="item_menu">
-                @Html.ActionLink("Войти", "Index", "Authorization")
-                @Html.ActionLink("Регистрация", "Index", "Registration")
+                @Html.ActionLink("Войти", "Index", "Account/IndexAuthorization")
+                @Html.ActionLink("Регистрация", "Index", "Account/IndexRegistration")
             </span>
         </div>
     </header>

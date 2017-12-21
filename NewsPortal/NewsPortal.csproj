@@ -177,13 +177,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
+    <Compile Include="Models\ViewModels\LoginInputVM.cs" />
     <Compile Include="Models\ViewModels\RegisterInputVM.cs" />
     <Compile Include="Models\DataBaseModels\User.cs" />
     <Compile Include="NHibernateHelper.cs" />
@@ -198,8 +198,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config" />
-    <Content Include="Views\Registration\Index.cshtml" />
-    <Content Include="Views\Authorization\Index.cshtml" />
+    <Content Include="Views\Account\IndexRegistration.cshtml" />
+    <Content Include="Views\Account\IndexAuthorization.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Web.Debug.config">

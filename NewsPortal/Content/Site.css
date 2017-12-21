@@ -1,6 +1,7 @@
-﻿        /* styles for validation helpers */
+﻿/* styles for validation helpers */
+
 .field-validation-error {
-    color: #b94a48;
+    color: red;
 }
  
 .field-validation-valid {
