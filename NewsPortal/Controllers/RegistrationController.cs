@@ -14,21 +14,21 @@ namespace NewsPortal.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost] //Разобраться по-глубже
         public ActionResult Index(RegisterModel model)
         {
             User user = new User() { Email = model.Email, Login = model.Login, Password = model.Password };
 
-            var session = NHibernateHelper.GetCurrentSession();
+            var session = NHibernateHelper.GetCurrentSession(); //Сессия должна быть ниже
             try
             {
-                if (user == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                //if (user == null)
+                //{
+                //    return RedirectToAction("Index", "Home");
+                //}
                 using (var tx = session.BeginTransaction())
                 {
-                    var list = session.QueryOver<User>().List();
+                    var list = session.QueryOver<User>().List(); //Получить один Email
 
                     //var criteria = session.CreateCriteria<User>();
                     //var list = criteria.List<User>();

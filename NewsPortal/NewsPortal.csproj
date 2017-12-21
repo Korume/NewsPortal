@@ -153,8 +153,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\NewsItem.cs" />
-    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\Account\LoginModel.cs" />
+    <Compile Include="Models\Home\NewsItem.cs" />
+    <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

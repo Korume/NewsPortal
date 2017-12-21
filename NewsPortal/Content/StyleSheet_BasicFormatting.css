@@ -64,3 +64,6 @@ header div:last-child a {
     color: white;
     text-decoration: none;
 }
+header div:last-child a:last-child {
+    margin-left: 10px;
+}
