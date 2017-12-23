@@ -161,6 +161,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <EmbeddedResource Include="Models\DataBaseModels\NewsItem.hbm.xml" />
+    <EmbeddedResource Include="Models\DataBaseModels\Picture.hbm.xml" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -184,6 +186,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
+    <Compile Include="Models\DataBaseModels\Picture.cs" />
+    <Compile Include="Models\ViewModels\NewsItemThumbnailVM.cs" />
     <Compile Include="Models\ViewModels\RegisterInputVM.cs" />
     <Compile Include="Models\DataBaseModels\User.cs" />
     <Compile Include="NHibernateHelper.cs" />

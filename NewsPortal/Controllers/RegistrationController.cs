@@ -45,7 +45,7 @@ namespace NewsPortal.Controllers
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                //NHibernateHelper.CloseSession();
             }
             return RedirectToAction("Index", "Authorization");
         }

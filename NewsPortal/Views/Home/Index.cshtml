@@ -1,68 +1,54 @@
-﻿@section StyleSheet
+﻿@using NewsPortal.Models.ViewModels
+@model IEnumerable<NewsItemThumbnailVM>
+@section StyleSheet
 {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
-
 <section>
     <div class="background-image">
         <!--Тут находится картиночка-->
     </div>
     <div class="background-text">
-        <span>Новость дня</span> <br />
+        <span>Новость дня</span> <br>
         <span>"Программисты захватили мир"</span>
     </div>
 </section>
 <section>
     <span>SectionTwo</span>
+
+    @if (Model.First().Id < Model.Last().Id)
+    {
+        using (Html.BeginForm("Sort", "Home", FormMethod.Get))
+        {
+            <input type="submit" value="Сортировка по дате" />
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <input type="submit" value="Сортировка по дате" />
+        }
+    }
+
 </section>
 <section>
-    <!-- NewsItem -->
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
+    @foreach (var item in Model)
+    {
+        <article>
+            <div class="Title">
+                <span>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </span>
+            </div>
+            <div class="NewsInformation">
+                <div class="NameUser">
+                    @Html.DisplayFor(modelItem => item.User.Login)
+                </div>
+                <div class="CreationDate">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+            </div>
+        </article>
+    }
 </section>

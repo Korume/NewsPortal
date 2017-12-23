@@ -12,13 +12,6 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual string Login { set; get; }
         public virtual string Password { set; get; }
 
-        //public string FirstName { set; get; }
-        //public string LastName { set; get; }
-        //public string PathToAvatar { set; get; }
-        //public DateTime DateOfBirth { set; get; }
-        //public DateTime RegistrationDate { set; get; }
-
-        // Виды юзеров будут добавлены позже
-        // public Status Status { set; get; }
+        private IList<NewsItem> NewsItems { set; get; }
     }
 }
