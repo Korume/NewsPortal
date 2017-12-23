@@ -1,4 +1,4 @@
-﻿@model NewsPortal.Models.ViewModels.RegisterInputVM
+﻿@model NewsPortal.Models.ViewModels.RegisterViewModel
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
@@ -11,7 +11,7 @@
         </span>
     </div>
     <div class="form-reg">
-        @using (Html.BeginForm("Index", "Registration", FormMethod.Post, new { @class = "registration-form" }))
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "registration-form" }))
         {
             @Html.EditorForModel()
             <input type="submit" value="Регистрация" />

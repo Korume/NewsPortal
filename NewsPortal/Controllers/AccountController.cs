@@ -8,15 +8,18 @@ using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
-    public class RegistrationController : Controller
+    public class AccountController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Register()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Index(RegisterInputVM registerModel)
+        public ActionResult Register(RegisterViewModel registerModel)
         {
             if (!ModelState.IsValid)
             {
@@ -45,9 +48,9 @@ namespace NewsPortal.Controllers
             }
             finally
             {
-                //NHibernateHelper.CloseSession();
+                NHibernateHelper.CloseSession();
             }
-            return RedirectToAction("Index", "Authorization");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

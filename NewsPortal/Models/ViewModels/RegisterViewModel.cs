@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class RegisterInputVM
+    public class RegisterViewModel
     {
         [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
