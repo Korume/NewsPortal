@@ -13,17 +13,36 @@
 </head>
 <body>
     <header>
-        <div>
-            <span>
-                @Html.ActionLink("NewsPortal","Index", "Home")
-            </span>
-        </div>
-        <div>
-            <span class="item_menu">
-                @Html.ActionLink("Войти", "Index", "Account/IndexAuthorization")
-                @Html.ActionLink("Регистрация", "Index", "Account/IndexRegistration")
-            </span>
-        </div>
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <span>
+                        @Html.ActionLink("NewsPortal", "Index", "Home")
+                    </span>
+                </div>
+                <div>
+                    <span class="item_menu">
+                        @Html.ActionLink("Профиль", "Index", "Account/IndexAuthorization")
+                        @Html.ActionLink("Выйти", "Index", "Account/LogOff")
+                    </span>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <span>
+                        @Html.ActionLink("NewsPortal", "Index", "Home")
+                    </span>
+                </div>
+                <div>
+                    <span class="item_menu">
+                        @Html.ActionLink("Войти", "Index", "Account/IndexAuthorization")
+                        @Html.ActionLink("Регистрация", "Index", "Account/IndexRegistration")
+                    </span>
+                </div>
+            }
+        }      
     </header>
     <main>
         @RenderBody()

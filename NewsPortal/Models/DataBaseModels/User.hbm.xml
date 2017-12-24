@@ -7,6 +7,9 @@
       <column name="Id" sql-type="int" not-null="true"/>
       <generator class="native" />
     </id>
+    <property name="UserName">
+      <column name="UserName" unique="true" sql-type="text" not-null="true"/>
+    </property>
     <property name="Email">
       <column name="Email" unique="true" sql-type="text" not-null="true"/>
     </property>
@@ -16,6 +19,9 @@
     <property name="Password">
       <column name="Password" sql-type="text" not-null="true"/>
     </property>
+    <property name="PasswordHash">
+      <column name="PasswordHash" sql-type="text" not-null="true"/>
+    </property>
   </class>
-
+  
 </hibernate-mapping>

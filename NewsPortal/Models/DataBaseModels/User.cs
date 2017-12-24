@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using FluentNHibernate.Mapping;
 
 namespace NewsPortal.Models.DataBaseModels
 {
-    public class User
+    public class User : IUser<int>
     {
-        public virtual int Id { set; get; }
+        //Создаем поля, с помощью которых работаем с базом
+        public virtual int Id { get; protected set; }
+
+        public virtual string UserName { get; set; }
+        public virtual string Login { get; set; }
         public virtual string Email { set; get; }
-        public virtual string Login { set; get; }
-        public virtual string Password { set; get; }
+        
+        public virtual string Password { get; set; }
+        public virtual string PasswordHash { get; set; }
 
-        //public string FirstName { set; get; }
-        //public string LastName { set; get; }
-        //public string PathToAvatar { set; get; }
-        //public DateTime DateOfBirth { set; get; }
-        //public DateTime RegistrationDate { set; get; }
-
-        // Виды юзеров будут добавлены позже
-        // public Status Status { set; get; }
+        //public class Map : ClassMap<User>
+        //{
+        //    public Map()
+        //    {
+        //        Id(x => x.Id).GeneratedBy.Identity();
+        //        Map(x => x.Login).Not.Nullable();
+        //        Map(x => x.Password).Not.Nullable();
+        //    }
+        //}
     }
 }

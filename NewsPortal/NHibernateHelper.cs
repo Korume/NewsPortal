@@ -2,6 +2,9 @@
 using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
+using Microsoft.AspNet.Identity;
+using NHibernateAspNetIdentityExample.Models.Identity;
+using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal
 {
@@ -50,6 +53,12 @@ namespace NewsPortal
             {
                 _sessionFactory.Close();
             }
+        }
+
+        //GetCurrentSession
+        public IUserStore<User, int> Users
+        {
+            get { return new IdentityStore(GetCurrentSession()); }
         }
     }
 }

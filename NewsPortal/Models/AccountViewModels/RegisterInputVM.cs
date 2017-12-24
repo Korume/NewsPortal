@@ -12,6 +12,11 @@ namespace NewsPortal.Models.ViewModels
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
+        [Required(ErrorMessage = "Введите Имя пользователя.")]
+        [Display(Name = "Имя пользователя: ")]
+        [DataType(DataType.Text)]
+        public string UserName { set; get; }
+
         [Required(ErrorMessage = "Введите E-mail адрес.")]
         [Display(Name = "E-mail адрес: ")]
         [DataType(DataType.EmailAddress)]

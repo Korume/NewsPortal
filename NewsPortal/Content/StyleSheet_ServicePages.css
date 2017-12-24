@@ -95,7 +95,7 @@ main {
     height: 50px;
 }
 
-.login-confirm .FirstButton label > input[type="button"],
+.login-confirm .FirstButton label > input[type="submit"],
 .registration-form input[type=submit] {
     width: 80%;
     height: 40px;
