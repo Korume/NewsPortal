@@ -11,6 +11,7 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual string Email { set; get; }
         public virtual string Login { set; get; }
         public virtual string Password { set; get; }
+        public virtual bool EmailConfirmed { set; get; }
 
         private IList<NewsItem> NewsItems { set; get; }
     }

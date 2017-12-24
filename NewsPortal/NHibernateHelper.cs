@@ -2,6 +2,10 @@
 using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.AspNet.Identity.Helpers;
+using NHibernate.AspNet.Identity;
+using NewsPortal.Models;
+using Microsoft.AspNet.Identity;
 
 namespace NewsPortal
 {
