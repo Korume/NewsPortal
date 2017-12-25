@@ -19,6 +19,7 @@ namespace NewsPortal.Controllers
         // GET: Authorization
         public ActionResult Login()
         {
+            HttpContext.User.Identity.GetUserId();
             return View();
         }
 
