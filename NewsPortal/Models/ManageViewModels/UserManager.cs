@@ -13,7 +13,7 @@ namespace NewsPortal.Account
             : base(store)
         {
             UserValidator = new UserValidator<User, int>(this);
-            PasswordValidator = new PasswordValidator() { RequiredLength = 8 };
+            PasswordValidator = new PasswordValidator() { RequiredLength = 6 };
         }
     }
 }

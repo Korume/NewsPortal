@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using FluentNHibernate.Mapping;
 
 namespace NewsPortal.Models.DataBaseModels
 {
@@ -15,9 +14,12 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual string UserName { get; set; }
         public virtual string Login { get; set; }
         public virtual string Email { set; get; }
-        
+        public virtual bool EmailConfirmed { set; get; }
+
         public virtual string Password { get; set; }
         public virtual string PasswordHash { get; set; }
+
+        private IList<NewsItem> NewsItems { set; get; }
 
         //public class Map : ClassMap<User>
         //{

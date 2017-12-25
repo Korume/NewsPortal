@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class RegisterInputVM
+    public class RegisterViewModel
     {
         [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
@@ -36,6 +36,7 @@ namespace NewsPortal.Models.ViewModels
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [Display(Name = "Пароль (подтверждение): ")]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Пароль должен иметь минимум 6 символов")]
         public string ConfirmPassword { set; get; }
     }
 }

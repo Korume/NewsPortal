@@ -5,7 +5,7 @@ using NHibernate;
 using Microsoft.AspNet.Identity;
 using NewsPortal;
 
-namespace NHibernateAspNetIdentityExample.Models.Identity
+namespace NewsPortal.Models.Identity
 {
     public class IdentityStore : IUserStore<User, int>, IUserPasswordStore<User, int>, 
         IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>

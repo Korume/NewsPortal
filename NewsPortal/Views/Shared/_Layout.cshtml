@@ -23,8 +23,8 @@
                 </div>
                 <div>
                     <span class="item_menu">
-                        @Html.ActionLink("Профиль", "Index", "Account/IndexAuthorization")
-                        @Html.ActionLink("Выйти", "Index", "Account/LogOff")
+                        @Html.ActionLink("Профиль", "Index", "Account/Login")
+                        @Html.ActionLink("Выйти", "LogOff", "Account")
                     </span>
                 </div>
             }
@@ -37,8 +37,8 @@
                 </div>
                 <div>
                     <span class="item_menu">
-                        @Html.ActionLink("Войти", "Index", "Account/IndexAuthorization")
-                        @Html.ActionLink("Регистрация", "Index", "Account/IndexRegistration")
+                        @Html.ActionLink("Войти", "Login", "Account")
+                        @Html.ActionLink("Регистрация", "Register", "Account")
                     </span>
                 </div>
             }
