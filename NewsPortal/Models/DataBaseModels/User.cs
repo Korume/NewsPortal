@@ -20,15 +20,5 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual string PasswordHash { get; set; }
 
         private IList<NewsItem> NewsItems { set; get; }
-
-        //public class Map : ClassMap<User>
-        //{
-        //    public Map()
-        //    {
-        //        Id(x => x.Id).GeneratedBy.Identity();
-        //        Map(x => x.Login).Not.Nullable();
-        //        Map(x => x.Password).Not.Nullable();
-        //    }
-        //}
     }
 }

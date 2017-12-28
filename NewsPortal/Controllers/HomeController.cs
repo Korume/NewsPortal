@@ -21,10 +21,10 @@ namespace NewsPortal.Controllers
             var thumbnails = GetThumbnails().Reverse();
             return View("Index", thumbnails);
         }
-        private IList<NewsItemThumbnailVM> GetThumbnails()
+        private IList<NewsItemVM> GetThumbnails()
         {
             var session = NHibernateHelper.GetCurrentSession();
-            IList<NewsItemThumbnailVM> thumbnails = new List<NewsItemThumbnailVM>(20);
+            IList<NewsItemVM> thumbnails = new List<NewsItemVM>(20);
             try
             {
                 using (var transaction = session.BeginTransaction())
@@ -32,7 +32,7 @@ namespace NewsPortal.Controllers
                     var newsItemList = session.QueryOver<NewsItem>().List();
                     for (int i = 0; i < newsItemList.Count; i++)
                     {
-                        thumbnails.Add(new NewsItemThumbnailVM()
+                        thumbnails.Add(new NewsItemVM()
                         {
                             Id = newsItemList[i].Id,
                             Title = newsItemList[i].Title,

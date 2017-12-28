@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class LoginInputVM
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Введите логин.")]
         [Display(Name = "Логин: ")]

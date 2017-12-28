@@ -19,19 +19,16 @@ namespace NewsPortal.Models.Identity
         #region IUserStore<User, int>
         public Task CreateAsync(User user)
         {
-            string result = user.Password;
             return Task.Run(() => session.SaveOrUpdate(user));
         }
         public Task DeleteAsync(User user)
         {
             return Task.Run(() => session.Delete(user));
         }
-
         public Task<User> FindByIdAsync(int userId)
         {
             return Task.Run(() => session.Get<User>(userId));
         }
-        //Проверка по логину
         public Task<User> FindByNameAsync(string Login)
         {
             return Task.Run(() =>

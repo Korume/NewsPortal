@@ -23,7 +23,7 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginInputVM model)
+        public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -34,22 +34,18 @@ namespace NewsPortal.Controllers
                 }
                 else
                 {
-                    //ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     return RedirectToAction("Login", "Account");
                 }
+                
             }
-            //NHibernateHelper.CloseSession();
             return View(model);
         }
-
-        //[HttpPost] //Выйти с сервера
+        [HttpPost]
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        //COOKIES
         public SignInManager SignInManager
         {
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
@@ -58,9 +54,6 @@ namespace NewsPortal.Controllers
         {
             get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
         }
-
-
-        //GET: Registation
         [HttpGet]
         public ActionResult Register()
         {
@@ -116,6 +109,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        //Работа с подтверждением по почте 
         private void SendEmail(int id, string email)
         {
             MailAddress from = new MailAddress("inging234@gmail.com", "NewsPortal registration");

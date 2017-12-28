@@ -1,56 +1,49 @@
 ﻿@using NewsPortal.Models.ViewModels
-@model IEnumerable<NewsItemThumbnailVM>
+@model IEnumerable<NewsItemVM>
 @section StyleSheet
 {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
-<section>
+<section class="back-image">
     <div class="background-image">
         <!--Тут находится картиночка-->
     </div>
     <div class="background-text">
-        <span>Новость дня</span> <br>
-        <span>Программисты захватили мир</span>
+        <span>Новость дня</span> <br />
+        <span>"Программисты захватили мир"</span>
     </div>
 </section>
-<section>
-    <span>SectionTwo</span>
-    @if (Model.Any())
-    {
-        if (Model.First().Id < Model.Last().Id)
+<section class="news-head">
+    <span>Новости</span>
+</section>
+<section class="news-item">
+    <!-- NewsItem -->
+    <form>
+        @foreach (var item in Model)
         {
-            using (Html.BeginForm("Sort", "Home", FormMethod.Get))
-            {
-            <input type="submit" value="Сортировка по дате" />
-            }
-        }
-        else
-        {
-            using (Html.BeginForm("Index", "Home", FormMethod.Get))
-            {
-            <input type="submit" value="Сортировка по дате" />
-            }
-        }
-    }
+            <article>
+                <div class="menu-news-item">
+                    <input type="button" id="show-pop-up-window">
+                    <!--Возможность добавления новые елементов-->
+                </div>
 
-</section>
-<section>
-    @foreach (var item in Model)
-    {
-        <article>
-            <div class="Title">
-                <span>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </span>
-            </div>
-            <div class="NewsInformation">
-                <div class="NameUser">
-                    @Html.DisplayFor(modelItem => item.User.Login)
+                @RenderSection("YesOrNo")
+
+                <div class="Title">
+                    <span>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </span>
                 </div>
-                <div class="CreationDate">
-                    @Html.DisplayFor(modelItem => item.CreationDate)
+                <div class="NewsInformation">
+                    <div class="NameUser">
+                        @Html.DisplayFor(modelItem => item.User.Login)
+                    </div>
+                    <div class="CreationDate">
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </div>
                 </div>
-            </div>
-        </article>
-    }
+            </article>
+        }
+    </form>
 </section>
+
