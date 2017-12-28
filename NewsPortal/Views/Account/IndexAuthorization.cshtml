@@ -1,4 +1,4 @@
-﻿@model NewsPortal.Models.ViewModels.LoginInputVM
+﻿@model NewsPortal.Models.ViewModels.LoginViewModel
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
@@ -13,13 +13,13 @@
     {
         <div class="login-FFF">
             <div>
-                @Html.EditorFor(LoginInputVM => LoginInputVM.Login)
+                @Html.EditorFor(LoginViewModel => LoginViewModel.Login)
                 <div class="Image1">
                     <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
                 </div>
             </div>
             <div>
-                @Html.EditorFor(LoginInputVM => LoginInputVM.Password)
+                @Html.EditorFor(LoginViewModel => LoginViewModel.Password)
                 <div class="Image2">
                     <!--<img src="../AdditionalFiles/pass-lock.png">-->
                 </div>

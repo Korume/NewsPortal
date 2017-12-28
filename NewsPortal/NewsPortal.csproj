@@ -51,6 +51,7 @@
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
@@ -81,6 +82,8 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+=======
+>>>>>>> 45fc478... Обновление дизайна
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -256,6 +259,7 @@
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\Sprite.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
+    <Content Include="Scripts\JavaScript.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet_BasicFormatting.css" />
     <Content Include="Content\StyleSheet_MainPage.css" />
@@ -287,6 +291,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -295,6 +300,21 @@
     <Compile Include="Models\AccountViewModels\LoginInputVM.cs" />
     <Compile Include="Models\AccountViewModels\RegisterInputVM.cs" />
     <Compile Include="Models\DatabaseModels\User.cs" />
+=======
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataBaseModels\NewsItem.cs" />
+    <Compile Include="Models\DataBaseModels\Picture.cs" />
+    <Compile Include="Models\IdentityModels\IdentityStore.cs" />
+    <Compile Include="Models\ManageViewModels\SignInManager.cs" />
+    <Compile Include="Models\ManageViewModels\UserManager.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\NewsItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Models\DataBaseModels\User.cs" />
+>>>>>>> 45fc478... Обновление дизайна
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -311,6 +331,8 @@
     <Content Include="Views\Account\IndexAuthorization.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\News\MainNews.cshtml" />
+    <Content Include="Views\Shared\Dialog\YesOrNo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -318,6 +340,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

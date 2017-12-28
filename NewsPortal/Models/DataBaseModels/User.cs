@@ -19,6 +19,7 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual string Password { get; set; }
         public virtual string PasswordHash { get; set; }
 
+<<<<<<< HEAD
         //public class Map : ClassMap<User>
         //{
         //    public Map()
@@ -28,5 +29,8 @@ namespace NewsPortal.Models.DataBaseModels
         //        Map(x => x.Password).Not.Nullable();
         //    }
         //}
+=======
+        private IList<NewsItem> NewsItems { set; get; }
+>>>>>>> 45fc478... Обновление дизайна
     }
 }

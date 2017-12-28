@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 ﻿@section StyleSheet
 {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
 
 <section>
+=======
+﻿@using NewsPortal.Models.ViewModels
+@model IEnumerable<NewsItemVM>
+@section StyleSheet
+{
+    <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
+}
+<section class="back-image">
+>>>>>>> 45fc478... Обновление дизайна
     <div class="background-image">
         <!--Тут находится картиночка-->
     </div>
@@ -12,6 +22,7 @@
         <span>"Программисты захватили мир"</span>
     </div>
 </section>
+<<<<<<< HEAD
 <section>
     <span>SectionTwo</span>
 </section>
@@ -66,3 +77,39 @@
         </div>
     </article>
 </section>
+=======
+<section class="news-head">
+    <span>Новости</span>
+</section>
+<section class="news-item">
+    <!-- NewsItem -->
+    <form>
+        @foreach (var item in Model)
+        {
+            <article>
+                <div class="menu-news-item">
+                    <input type="button" id="show-pop-up-window">
+                    <!--Возможность добавления новые елементов-->
+                </div>
+
+                @RenderSection("YesOrNo")
+
+                <div class="Title">
+                    <span>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </span>
+                </div>
+                <div class="NewsInformation">
+                    <div class="NameUser">
+                        @Html.DisplayFor(modelItem => item.User.Login)
+                    </div>
+                    <div class="CreationDate">
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </div>
+                </div>
+            </article>
+        }
+    </form>
+</section>
+
+>>>>>>> 45fc478... Обновление дизайна

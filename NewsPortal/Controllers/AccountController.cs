@@ -22,7 +22,11 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
+<<<<<<< HEAD
         public ActionResult IndexAuthorization(LoginInputVM model)
+=======
+        public ActionResult Login(LoginViewModel model)
+>>>>>>> 45fc478... Обновление дизайна
         {
             if (ModelState.IsValid)
             {
@@ -33,13 +37,18 @@ namespace NewsPortal.Controllers
                 }
                 else
                 {
+<<<<<<< HEAD
                     //ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     return RedirectToAction("IndexAuthorization", "Account");
+=======
+                    return RedirectToAction("Login", "Account");
+>>>>>>> 45fc478... Обновление дизайна
                 }
+                
             }
-            //NHibernateHelper.CloseSession();
             return View(model);
         }
+<<<<<<< HEAD
         //public ActionResult IndexRegistration()
         //{
         //    return View();
@@ -67,13 +76,14 @@ namespace NewsPortal.Controllers
 
 
         //[HttpPost] //Выйти с сервера
+=======
+        [HttpPost]
+>>>>>>> 45fc478... Обновление дизайна
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        //COOKIES
         public SignInManager SignInManager
         {
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
@@ -82,9 +92,6 @@ namespace NewsPortal.Controllers
         {
             get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
         }
-
-
-        //GET: Registation
         [HttpGet]
         public ActionResult IndexRegistration()
         {
@@ -143,7 +150,58 @@ namespace NewsPortal.Controllers
             {
                 NHibernateHelper.CloseSession();
             }
+<<<<<<< HEAD
             return RedirectToAction("IndexAuthorization", "Account");
+=======
+            return RedirectToAction("Login", "Account");
+        }
+
+        //Работа с подтверждением по почте 
+        private void SendEmail(int id, string email)
+        {
+            MailAddress from = new MailAddress("inging234@gmail.com", "NewsPortal registration");
+            MailAddress to = new MailAddress(email);
+            using (MailMessage message = new MailMessage(from, to))
+            using (SmtpClient smtp = new SmtpClient())
+            {
+                message.Subject = "Email confirmation";
+                message.Body = string.Format("Для завершения регистрации перейдите по ссылке:" +
+                                "<a href=\"{0}\" title=\"Подтвердить регистрацию\">{0}</a>",
+                    Url.Action("ConfirmEmail", "Account", new { token = id, code = email },
+                    Request.Url.Scheme));
+                message.IsBodyHtml = true;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential(from.Address, "3m0a0r3i7n6a");
+                smtp.Send(message);
+            }
+        }
+        public ActionResult ConfirmEmail(int token, string code)
+        {
+            if (code != null)
+            {
+                var session = NHibernateHelper.GetCurrentSession();
+                try
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        var userToUpdate = session.Get<User>(token);
+                        userToUpdate.EmailConfirmed = true;
+
+                        session.Save(userToUpdate);
+                        transaction.Commit();
+                    }
+                }
+                finally
+                {
+                    NHibernateHelper.CloseSession();
+                }
+            }
+            return RedirectToAction("Login", "Account");
+>>>>>>> 45fc478... Обновление дизайна
         }
     }
 }
