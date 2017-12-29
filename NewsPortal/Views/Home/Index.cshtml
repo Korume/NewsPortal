@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-﻿@section StyleSheet
-{
-    <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
-}
-
-<section>
-=======
 ﻿@using NewsPortal.Models.ViewModels
-@model IEnumerable<NewsItemVM>
+@model IEnumerable<NewsItemViewModel>
 @section StyleSheet
 {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
 <section class="back-image">
->>>>>>> 45fc478... Обновление дизайна
     <div class="background-image">
         <!--Тут находится картиночка-->
     </div>
@@ -22,69 +13,14 @@
         <span>"Программисты захватили мир"</span>
     </div>
 </section>
-<<<<<<< HEAD
-<section>
-    <span>SectionTwo</span>
-</section>
-<section>
-    <!-- NewsItem -->
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-    <article>
-        <div class="Title">
-            <span>
-                "Девушки захватили мир!"
-            </span>
-        </div>
-        <!--<div class="Content"> </div>-->
-        <div class="NewsInformation">
-            <div class="NameUser">Сергей Филипович</div>
-            <div class="CreationDate">12.12.2017</div>
-        </div>
-    </article>
-</section>
-=======
 <section class="news-head">
     <span>Новости</span>
 </section>
 <section class="news-item">
     <!-- NewsItem -->
-    <form>
-        @foreach (var item in Model)
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("NewsItem", "News", FormMethod.Post, new { @class = "NewsItem-form" }))
         {
             <article>
                 <div class="menu-news-item">
@@ -92,7 +28,23 @@
                     <!--Возможность добавления новые елементов-->
                 </div>
 
-                @RenderSection("YesOrNo")
+                <dialog class="pop-up-window">
+                    <div class="pop-up-window-close">
+                        <input type="button" id="close-pop-up-window">
+                    </div>
+                    <div class="pop-up-window-head">
+                        <p>
+                            Вы подтверждаете удаление новости <br>
+                            <span>"Девушки захватили мир!"</span>
+                        </p>
+                    </div>
+                    <div class="pop-up-window-main">
+                        <form>
+                            <input type="submit" id="yes" value="Да">
+                            <input type="submit" id="no" value="Нет">
+                        </form>
+                    </div>
+                </dialog>
 
                 <div class="Title">
                     <span>
@@ -109,7 +61,5 @@
                 </div>
             </article>
         }
-    </form>
+    }
 </section>
-
->>>>>>> 45fc478... Обновление дизайна

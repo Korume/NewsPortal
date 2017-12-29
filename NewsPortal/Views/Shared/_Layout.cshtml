@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-
     <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
     <script rel="script" src="~/Scripts/JavaScript.js" async></script>
-
     @RenderSection("StyleSheet")
-
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,700i&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
@@ -25,8 +22,8 @@
                 </div>
                 <div>
                     <span class="item_menu">
-                        @Html.ActionLink("Профиль", "Index", "Account/IndexAuthorization")
-                        @Html.ActionLink("Выйти", "Index", "Account/LogOff")
+                        @Html.ActionLink("Профиль", "Index", "Account/Login")
+                        @Html.ActionLink("Выйти", "LogOff", "Account")
                     </span>
                 </div>
             }
@@ -39,12 +36,12 @@
                 </div>
                 <div>
                     <span class="item_menu">
-                        @Html.ActionLink("Войти", "Index", "Account/IndexAuthorization")
-                        @Html.ActionLink("Регистрация", "Index", "Account/IndexRegistration")
+                        @Html.ActionLink("Войти", "Login", "Account")
+                        @Html.ActionLink("Регистрация", "Register", "Account")
                     </span>
                 </div>
             }
-        }      
+        }
     </header>
     <main>
         @RenderBody()

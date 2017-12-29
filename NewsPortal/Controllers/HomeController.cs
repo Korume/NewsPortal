@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
         public ActionResult Index()
         {
-<<<<<<< HEAD
-            return View();
-=======
             var thumbnails = GetThumbnails();
             return View(thumbnails);
         }
@@ -22,10 +20,10 @@ namespace NewsPortal.Controllers
             var thumbnails = GetThumbnails().Reverse();
             return View("Index", thumbnails);
         }
-        private IList<NewsItemVM> GetThumbnails()
+        private IList<NewsItemViewModel> GetThumbnails()
         {
             var session = NHibernateHelper.GetCurrentSession();
-            IList<NewsItemVM> thumbnails = new List<NewsItemVM>(20);
+            IList<NewsItemViewModel> thumbnails = new List<NewsItemViewModel>(20);
             try
             {
                 using (var transaction = session.BeginTransaction())
@@ -33,7 +31,7 @@ namespace NewsPortal.Controllers
                     var newsItemList = session.QueryOver<NewsItem>().List();
                     for (int i = 0; i < newsItemList.Count; i++)
                     {
-                        thumbnails.Add(new NewsItemVM()
+                        thumbnails.Add(new NewsItemViewModel()
                         {
                             Id = newsItemList[i].Id,
                             Title = newsItemList[i].Title,
@@ -54,7 +52,6 @@ namespace NewsPortal.Controllers
                 NHibernateHelper.CloseSession();
             }
             return thumbnails;
->>>>>>> 45fc478... Обновление дизайна
         }
     }
 }

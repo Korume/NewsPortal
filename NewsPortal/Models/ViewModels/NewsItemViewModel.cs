@@ -7,7 +7,7 @@ using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class NewsItemVM
+    public class NewsItemViewModel
     {
         public int Id { set; get; }
         public string Title { set; get; }

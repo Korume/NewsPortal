@@ -3,8 +3,11 @@ using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
 using Microsoft.AspNet.Identity;
-using NHibernateAspNetIdentityExample.Models.Identity;
 using NewsPortal.Models.DataBaseModels;
+using NHibernate.AspNet.Identity.Helpers;
+using NHibernate.AspNet.Identity;
+using NewsPortal.Models;
+using NewsPortal.Models.Identity;
 
 namespace NewsPortal
 {
