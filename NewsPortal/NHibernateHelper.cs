@@ -42,7 +42,6 @@ namespace NewsPortal
 
             if (currentSession == null)
             {
-                // No current session
                 return;
             }
 

@@ -25,10 +25,6 @@
     <property name="PasswordHash">
       <column name="PasswordHash" sql-type="nvarchar(40)" not-null="true"/>
     </property>
-    <bag name="NewsItems" inverse="true">
-      <key column="UserId"/>
-      <one-to-many class="NewsItem"/>
-    </bag>
   </class>
   
 </hibernate-mapping>

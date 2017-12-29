@@ -16,10 +16,8 @@ namespace NewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Authorization
         public ActionResult Login()
         {
-            HttpContext.User.Identity.GetUserId();
             return View();
         }
 
@@ -43,7 +41,7 @@ namespace NewsPortal.Controllers
             return View(model);
         }
 
-        //[HttpPost] //Выйти с сервера
+        //Выйти с сервера
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
@@ -55,18 +53,17 @@ namespace NewsPortal.Controllers
         {
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
         }
+
         public UserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
         }
 
-
-        //GET: Registation
-        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Register(RegisterViewModel registerModel)
         {
@@ -139,6 +136,7 @@ namespace NewsPortal.Controllers
                 smtp.Send(message);
             }
         }
+
         public ActionResult ConfirmEmail(int token, string code)
         {
             if (code != null)
