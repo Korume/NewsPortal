@@ -8,9 +8,10 @@ using NewsPortal;
 namespace NewsPortal.Models.Identity
 {
     public class IdentityStore : IUserStore<User, int>, IUserPasswordStore<User, int>, 
-        IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>
+        IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>, IUserEmailStore<User, int>
     {
         private readonly ISession session;
+
         public IdentityStore(ISession session)
         {
             this.session = session;
@@ -19,7 +20,6 @@ namespace NewsPortal.Models.Identity
         #region IUserStore<User, int>
         public Task CreateAsync(User user)
         {
-            string result = user.Password;
             return Task.Run(() => session.SaveOrUpdate(user));
         }
         public Task DeleteAsync(User user)
@@ -31,7 +31,7 @@ namespace NewsPortal.Models.Identity
         {
             return Task.Run(() => session.Get<User>(userId));
         }
-        //Проверка по логину
+
         public Task<User> FindByNameAsync(string Login)
         {
             return Task.Run(() =>
@@ -39,10 +39,12 @@ namespace NewsPortal.Models.Identity
                 return session.QueryOver<User>().Where(u => u.Login == Login).SingleOrDefault();
             });
         }
+
         public Task UpdateAsync(User user)
         {
             return Task.Run(() => session.SaveOrUpdate(user));
-        }   
+        }
+
         #endregion
         #region IUserPasswordStore<User, int>
         public Task SetPasswordHashAsync(User user, string password)
@@ -104,6 +106,34 @@ namespace NewsPortal.Models.Identity
         public void Dispose()
         {
             //do nothing
+        }
+
+        public Task SetEmailAsync(User user, string email)
+        {
+            return Task.Run(() => user.Email = email);
+        }
+
+        public Task<string> GetEmailAsync(User user)
+        {
+            return Task.FromResult(user.Email); ;
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user)
+        {
+            return Task.FromResult(user.EmailConfirmed);
+        }
+
+        public Task SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+            return Task.Run(() => user.EmailConfirmed = confirmed);
+        }
+
+        public Task<User> FindByEmailAsync(string email)
+        {
+            return Task.Run(() =>
+            {
+                return session.QueryOver<User>().Where(u => u.Email == email).SingleOrDefault();
+            });
         }
     }
 }
