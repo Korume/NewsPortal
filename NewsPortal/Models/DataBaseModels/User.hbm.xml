@@ -19,12 +19,12 @@
     <property name="Email">
       <column name="Email" unique="true" sql-type="nvarchar(40)" not-null="true"/>
     </property>
-    <property name="EmailConfirmed">
+    <!--<property name="EmailConfirmed">
       <column name="EmailConfirmed" sql-type="bit" not-null="true"/>
-    </property>
-    <property name="PasswordHash">
+    </property>-->
+    <!--<property name="PasswordHash">
       <column name="PasswordHash" sql-type="nvarchar(40)" not-null="true"/>
-    </property>
+    </property>-->
     <bag name="NewsItems" inverse="true">
       <key column="UserId"/>
       <one-to-many class="NewsItem"/>

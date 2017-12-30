@@ -40,7 +40,7 @@ namespace NewsPortal.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
@@ -87,7 +87,6 @@ namespace NewsPortal.Controllers
                     Login = registerModel.Login,
                     Password = registerModel.Password,
                     UserName = registerModel.UserName,
-                    PasswordHash = registerModel.Password,
                     EmailConfirmed = false
                 };
 

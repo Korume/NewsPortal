@@ -17,7 +17,6 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual bool EmailConfirmed { set; get; }
 
         public virtual string Password { get; set; }
-        public virtual string PasswordHash { get; set; }
 
         private IList<NewsItem> NewsItems { set; get; }
     }
