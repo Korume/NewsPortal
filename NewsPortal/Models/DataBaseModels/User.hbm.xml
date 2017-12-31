@@ -8,7 +8,7 @@
       <generator class="native" />
     </id>
     <property name="UserName">
-      <column name="UserName" unique="true" sql-type="nvarchar(40)" not-null="true"/>
+      <column name="UserName" unique="true" sql-type="nvarchar(40)" not-null="false"/>
     </property>
     <property name="Login">
       <column name="Login" sql-type="nvarchar(40)" not-null="true"/>
@@ -20,15 +20,8 @@
       <column name="Email" unique="true" sql-type="nvarchar(40)" not-null="true"/>
     </property>
     <property name="EmailConfirmed">
-      <column name="EmailConfirmed" sql-type="bit" not-null="true"/>
+      <column name="EmailConfirmed" sql-type="bit" not-null="false"/>
     </property>
-    <property name="PasswordHash">
-      <column name="PasswordHash" sql-type="nvarchar(40)" not-null="true"/>
-    </property>
-    <bag name="NewsItems" inverse="true">
-      <key column="UserId"/>
-      <one-to-many class="NewsItem"/>
-    </bag>
   </class>
   
 </hibernate-mapping>

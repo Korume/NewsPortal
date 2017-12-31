@@ -19,10 +19,6 @@
     <property name="CreationDate">
       <column name="CreationDate" sql-type="datetime" not-null="true"/>
     </property>
-    <property name="PictureId">
-      <column name="PictureId" sql-type="int" not-null="true"/>
-    </property>
-    <many-to-one name="User" class="User" column="UserId" cascade="save-update"/>
   </class>
 
 </hibernate-mapping>

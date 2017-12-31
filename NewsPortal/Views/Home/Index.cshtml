@@ -1,9 +1,12 @@
-﻿@using NewsPortal.Models.ViewModels
-@model IEnumerable<NewsItemVM>
+﻿@using NewsPortal.Models.ViewModels;
+@using Microsoft.AspNet.Identity;
+@model List<NewsItemThumbnailViewModel>
+
 @section StyleSheet
 {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
+
 <section class="back-image">
     <div class="background-image">
         <!--Тут находится картиночка-->
@@ -15,6 +18,17 @@
 </section>
 <section class="news-head">
     <span>Новости</span>
+    @if (Model.Any())
+    {
+        if (Model.First().CreationDate < Model.Last().CreationDate)
+        {
+            @Html.ActionLink("Сортировка по дате", "Sort", "Home")
+        }
+        else
+        {
+            @Html.ActionLink("Сортировка по дате", "Index", "Home")
+        }
+    }
 </section>
 <section class="news-item">
     <!-- NewsItem -->
@@ -22,12 +36,21 @@
         @foreach (var item in Model)
         {
             <article>
-                <div class="menu-news-item">
-                    <input type="button" id="show-pop-up-window">
-                    <!--Возможность добавления новые елементов-->
-                </div>
+                @if (item.UserId == User.Identity.GetUserId().AsInt())
+                {
+                    <div class="menu-news-item">
+                        @using (Html.BeginForm("EditNewsItem", "News", FormMethod.Post))
+                        {
+                            @Html.Hidden("newsItemId", item.Id)
+                            <input type="submit" value="Редактировать" />
+                        }
+                        <input type="button" id="show-pop-up-window">
+                        <!--Возможность добавления новые елементов-->
+                    </div>
+                }
 
-                @RenderSection("YesOrNo")
+
+                @*@RenderSection("YesOrNo")*@
 
                 <div class="Title">
                     <span>
@@ -36,7 +59,7 @@
                 </div>
                 <div class="NewsInformation">
                     <div class="NameUser">
-                        @Html.DisplayFor(modelItem => item.User.Login)
+                        @Html.DisplayFor(modelItem => item.UserLogin)
                     </div>
                     <div class="CreationDate">
                         @Html.DisplayFor(modelItem => item.CreationDate)
@@ -46,4 +69,3 @@
         }
     </form>
 </section>
-

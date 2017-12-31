@@ -7,13 +7,12 @@ using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class NewsItemVM
+    public class NewsItemThumbnailViewModel
     {
         public int Id { set; get; }
         public string Title { set; get; }
         public DateTime CreationDate { set; get; }
-
         public int? UserId { set; get; }
-        public User User { set; get; }
+        public string UserLogin { set; get; }
     }
 }
