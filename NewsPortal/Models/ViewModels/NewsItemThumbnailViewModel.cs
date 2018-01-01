@@ -14,5 +14,6 @@ namespace NewsPortal.Models.ViewModels
         public DateTime CreationDate { set; get; }
         public int? UserId { set; get; }
         public string UserLogin { set; get; }
+
     }
 }

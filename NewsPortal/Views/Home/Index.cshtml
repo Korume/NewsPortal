@@ -41,7 +41,7 @@
                     <div class="menu-news-item">
                         @using (Html.BeginForm("EditNewsItem", "News", FormMethod.Post))
                         {
-                            @Html.Hidden("newsItemId", item.Id)
+                            @Html.Hidden("newsItemId", (int)item.Id)
                             <input type="submit" value="Редактировать" />
                         }
                         <input type="button" id="show-pop-up-window">
