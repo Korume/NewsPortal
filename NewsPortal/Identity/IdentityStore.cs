@@ -98,7 +98,6 @@ namespace NewsPortal.Models.Identity
             return Task.FromResult(false);
         }
         #endregion
-
         #region IUserEmailStore<User, int>
         public Task SetEmailAsync(User user, string email)
         {
@@ -128,6 +127,7 @@ namespace NewsPortal.Models.Identity
             });
         }
         #endregion
+
 
         public void Dispose()
         {

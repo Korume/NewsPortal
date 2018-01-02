@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NewsPortal.Models.DataBaseModels;
+﻿using NewsPortal.Models.DataBaseModels;
 using Microsoft.AspNet.Identity;
 using NewsPortal.Models.ManageViewModels;
 using Microsoft.AspNet.Identity.Owin;

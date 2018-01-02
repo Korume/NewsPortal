@@ -13,7 +13,6 @@ namespace NewsPortal.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            //NHibernateHelper
             app.CreatePerOwinContext(() => new UserManager(new NHibernateHelper().Users));
             app.CreatePerOwinContext<SignInManager>((options, context) => 
             new SignInManager(context.GetUserManager<UserManager>(), context.Authentication));

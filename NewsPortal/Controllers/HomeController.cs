@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
@@ -15,14 +12,12 @@ namespace NewsPortal.Controllers
             List<NewsItemThumbnailViewModel> thumbnails = GetThumbnails();
             return View(thumbnails);
         }
-
         public ActionResult Sort()
         {
             var thumbnails = GetThumbnails();
             thumbnails.Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
             return View("Index", thumbnails);
         }
-
         private List<NewsItemThumbnailViewModel> GetThumbnails()
         {
             List<NewsItemThumbnailViewModel> thumbnails;
@@ -42,11 +37,11 @@ namespace NewsPortal.Controllers
                         CreationDate = item.CreationDate,
                         UserLogin = user.Login
                     });
-
                 }
                 transaction.Commit();
             }
             return thumbnails;
         }
+  
     }
 }
