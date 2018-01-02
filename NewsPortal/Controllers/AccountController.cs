@@ -83,7 +83,6 @@ namespace NewsPortal.Controllers
                     Login = registerModel.Login,
                     Password = registerModel.Password,
                     UserName = registerModel.UserName,
-                    //PasswordHash = registerModel.Password,    
                     EmailConfirmed = false
                 };
                 var creationResult = UserManager.Create(newUser, registerModel.Password);
