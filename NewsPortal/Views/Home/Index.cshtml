@@ -1,0 +1,44 @@
+﻿@using NewsPortal.Models.ViewModels
+@model IEnumerable<NewsItemViewModel>
+@section StyleSheet
+{
+    <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
+}
+<section>
+    <div class="background-image">
+        <!--Тут находится картиночка-->
+    </div>
+    <div class="background-text">
+        <span>Новость дня</span> <br>
+        <span>Программисты захватили мир</span>
+    </div>
+</section>
+<section>
+    <span>SectionTwo<a href="/CreationItem/Index">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <img class="createImg" src="http://иксмюзик.рф/uploads/images/p/l/u/plus.jpg" alt="">
+    }
+</a></span>
+
+</section>
+<section>
+    @foreach (var item in Model)
+    {
+        <article>
+            <div class="Title">
+                <span>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </span>
+            </div>
+            <div class="NewsInformation">
+                <div class="NameUser">
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </div>
+                <div class="CreationDate">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+            </div>
+        </article>
+    }
+</section>

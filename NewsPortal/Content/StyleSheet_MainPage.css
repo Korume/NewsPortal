@@ -1,0 +1,115 @@
+﻿/*-----------------------MainContent---------------------------*/
+main section:first-child {
+    height: 450px;
+    position: relative;
+    border: 1px solid white;
+    border-left: none;
+    border-right: none;
+}
+.background-image {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: inherit;
+    background: url("AdditionalFiles/Image/NewYork.jpg") no-repeat fixed;
+    filter: blur(5px);
+}
+.background-text {
+    position: inherit;
+    height: inherit;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+main section span {
+    display: block;
+    color: white;
+    text-align: center;
+}
+
+.background-text span:first-child {
+    font-size: 100px;
+}
+.background-text span:last-child {
+    font-size: 80px;
+}
+
+main section:nth-child(2) {
+    /*border: 1px solid aqua;*/
+    width: 100%;
+    height: 60px;
+    /*padding: 5px;*/
+    text-align: center;
+    font-size: 50px;
+    background-color: white;
+    box-sizing: border-box;
+}
+main section:nth-child(2) span {
+    margin: 0;
+    color: black;
+}
+
+/*-------------------Основа новости----------------------*/
+main section:last-child {
+    /*border: 1px solid red;*/
+    width: 100%;
+    /*height: 500px;*/
+    height: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /*!!!!!!!!!!!!!*/
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+main section:last-child article {
+    width: 430px;
+    height: 100px;
+    background-color: white;
+    /*border: 1px solid white;*/
+    margin: 5px;
+}
+
+/*-------------------Органы----------------------*/
+.Title {
+    width: 100%;
+    height: 70px;
+    padding: 5px;
+    /*border: 1px solid #252525;*/
+    box-sizing: border-box;
+    /*background-color: #252525;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Title span {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    /*text-align: center;*/
+}
+.NewsInformation {
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px solid white;
+    background-color: #252525;
+    color: white;
+}
+.NameUser {
+    float: left;
+}
+.CreationDate {
+    float: right;
+}
+/*-------------------Creation----------------------*/
+.createImg {
+    width: 40px;
+    height: 40px;
+    margin: 10px 15px 0px 0px;
+    float: right;
+}

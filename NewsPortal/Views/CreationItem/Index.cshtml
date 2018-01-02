@@ -1,0 +1,44 @@
+﻿@model NewsPortal.Models.ViewModels.NewsItemViewModel
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+}
+<body>
+    @using (Html.BeginForm("Index", "CreationItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <h4 class="creation-control">Creation</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div>
+
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "creation-control" })
+                <div>
+                    @Html.TextAreaFor(model => model.Title, 1, 120, new { htmlAttributes = new { @class = "" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "creation-control" })
+                <div>
+                    @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = "" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                <input type="file" name="uploadedImage" />
+            </div>
+            <div>
+                <input type="submit" value="Create" class="btn-submit-creation" />
+            </div>
+        </div>
+
+    }
+    <div class="clean">
+        @Html.ActionLink("Clean", "Index")
+    </div>
+</body>

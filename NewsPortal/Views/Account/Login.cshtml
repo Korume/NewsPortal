@@ -1,0 +1,56 @@
+﻿@model NewsPortal.Models.ViewModels.LoginInputVM
+
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+}
+
+<section class="Section-Authorization">
+    <div class="title-head">
+        <span>Авторизация</span>
+    </div>
+    <!-- Fields for filling-->
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
+    {
+        <div class="login-FFF">
+            <div>
+                @Html.EditorFor(LoginInputVM => LoginInputVM.Login)
+                <div class="Image1">
+                    <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
+                </div>
+            </div>
+            <div>
+                @Html.EditorFor(LoginInputVM => LoginInputVM.Password)
+                <div class="Image2">
+                    <!--<img src="../AdditionalFiles/pass-lock.png">-->
+                </div>
+            </div>
+        </div>
+        <div class="login-confirm">
+            <div class="FirstButton">
+                <label>
+                    <input type="submit" name="Authorization" value="Войти">
+                </label>
+            </div>
+            <div class="SecondButton">
+                <span>
+                    <a href="#">Забыли пароль?</a>
+                </span>
+            </div>
+        </div>
+        <div class="login-footer">
+            <div>
+                <span>Авторизоваться через:</span>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    }
+
+</section>
+
