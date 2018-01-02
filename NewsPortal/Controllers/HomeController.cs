@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
@@ -12,46 +9,39 @@ namespace NewsPortal.Controllers
     {
         public ActionResult Index()
         {
-            var thumbnails = GetThumbnails();
+            List<NewsItemThumbnailViewModel> thumbnails = GetThumbnails();
             return View(thumbnails);
         }
         public ActionResult Sort()
         {
-            var thumbnails = GetThumbnails().Reverse();
+            var thumbnails = GetThumbnails();
+            thumbnails.Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
             return View("Index", thumbnails);
         }
-        private IList<NewsItemViewModel> GetThumbnails()
+        private List<NewsItemThumbnailViewModel> GetThumbnails()
         {
-            var session = NHibernateHelper.GetCurrentSession();
-            IList<NewsItemViewModel> thumbnails = new List<NewsItemViewModel>(20);
-            try
+            List<NewsItemThumbnailViewModel> thumbnails;
+            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
             {
-                using (var transaction = session.BeginTransaction())
+                var newsItemList = session.QueryOver<NewsItem>().List();
+                thumbnails = new List<NewsItemThumbnailViewModel>(newsItemList.Count);
+                foreach (var item in newsItemList)
                 {
-                    var newsItemList = session.QueryOver<NewsItem>().List();
-                    for (int i = 0; i < newsItemList.Count; i++)
+                    var user = session.Get<User>(item.UserId);
+                    thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
-                        thumbnails.Add(new NewsItemViewModel()
-                        {
-                            Id = newsItemList[i].Id,
-                            Title = newsItemList[i].Title,
-                            UserId = newsItemList[i].UserId,
-                            CreationDate = newsItemList[i].CreationDate,
-                            User = new User()
-                            {
-                                Email = newsItemList[i].User.Email,
-                                Login = newsItemList[i].User.Login,
-                                Password = newsItemList[i].User.Password
-                            }
-                        });
-                    }
+                        Id = item.Id,
+                        Title = item.Title,
+                        UserId = item.UserId,
+                        CreationDate = item.CreationDate,
+                        UserLogin = user.Login
+                    });
                 }
-            }
-            finally
-            {
-                NHibernateHelper.CloseSession();
+                transaction.Commit();
             }
             return thumbnails;
         }
+  
     }
 }

@@ -1,0 +1,21 @@
+﻿@model NewsPortal.Models.ViewModels.NewsItemAddViewModel
+@using System.Web.Mvc;
+ 
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+}
+<section class="Section-NewsAdding">
+    <div class="title-head">
+        <span>
+            Добавление новости
+        </span>
+    </div>
+    <div class="form-news-adding">
+        @using (Html.BeginForm("SaveNewsItem", "News", FormMethod.Post))
+        {
+            @Html.EditorForModel()
+            <input type="submit" value="Добавить" />
+        }
+    </div>
+</section>

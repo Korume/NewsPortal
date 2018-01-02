@@ -16,6 +16,6 @@ namespace NewsPortal.Models.ViewModels
         [Required(ErrorMessage = "Введите пароль.")]
         [Display(Name = "Пароль: ")]
         [DataType(DataType.Password)]
-        public string Password { set; get; }        
+        public string Password { set; get; }
     }
 }

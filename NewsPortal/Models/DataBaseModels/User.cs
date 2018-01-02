@@ -8,9 +8,7 @@ namespace NewsPortal.Models.DataBaseModels
 {
     public class User : IUser<int>
     {
-        //Создаем поля, с помощью которых работаем с базом
         public virtual int Id { get; protected set; }
-
         public virtual string UserName { get; set; }
         public virtual string Login { get; set; }
         public virtual string Email { set; get; }

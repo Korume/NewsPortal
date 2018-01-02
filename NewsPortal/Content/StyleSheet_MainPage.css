@@ -12,7 +12,7 @@ main .back-image {
     z-index: 1;
     width: 100%;
     height: inherit;
-    background: url("AdditionalFiles/Image/NewYork.jpg") no-repeat fixed;
+    background: url("AdditionalFiles/NewYork.jpg") no-repeat fixed;
     filter: blur(5px);
 }
 
@@ -220,11 +220,16 @@ main .news-item {
         background-color: white;
     }
 
-        .NewsItemPage .main-news-items > div {
-            /*min-w 
+        /*.NewsItemPage .main-news-items > div {
+<<<<<<< HEAD
+            min-width: 850px;
+=======
+            min-w 
+>>>>>>> Rostyslav
             margin: 5px 5px 10px 5px;
             padding: 5px;
-        }
+        }*/
+    
 
 .main-news-items-head {
     text-align: center;

@@ -5,6 +5,7 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
     <script rel="script" src="~/Scripts/JavaScript.js" async></script>
+
     @RenderSection("StyleSheet")
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
@@ -22,8 +23,10 @@
                 </div>
                 <div>
                     <span class="item_menu">
+                        @Html.ActionLink(User.Identity.Name, "Index", "Account/Login")
                         @Html.ActionLink("Профиль", "Index", "Account/Login")
                         @Html.ActionLink("Выйти", "LogOff", "Account")
+                        @Html.ActionLink("Добавить новость", "Add", "News")
                     </span>
                 </div>
             }

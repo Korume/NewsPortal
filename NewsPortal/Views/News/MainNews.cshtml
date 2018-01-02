@@ -1,1 +1,67 @@
-﻿
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+}
+    <section class="nip-news-items news-item">
+        <!-- NewsItem -->
+        <form>
+            <article>
+                <!-- DeleteNews -->
+                <div class="menu-news-item">
+                    <input type="button" id="show-pop-up-window">
+                    <!--Возможность добавления новые елементов-->
+                </div>
+                <!-- DialogShow -->
+                <dialog class="pop-up-window">
+                    <div class="pop-up-window-close">
+                        <input type="button" id="close-pop-up-window">
+                    </div>
+                    <div class="pop-up-window-head">
+                        <p>
+                            Вы подтверждаете удаление новости <br>
+                            <span>"Девушки захватили мир!"</span>
+                        </p>
+                    </div>
+                    <div class="pop-up-window-main">
+                        <form>
+                            <input type="button" id="yes" value="Да">
+                            <input type="button" id="no" value="Нет">
+                        </form>
+                    </div>
+                </dialog>
+                <!-- News -->
+                <div class="Title">
+                    <span>
+                        <a href="#">"Почему быть программистом — круто"</a>
+                    </span>
+                </div>
+                <div class="NewsInformation">
+                    <div class="NameUser">Сергей Филипович</div>
+                    <div class="CreationDate">12.12.2017</div>
+                </div>
+            </article>
+        </form>
+
+    </section>
+    <section class="main-news-items">
+        <div class="main-news-items-head">
+            <span>
+                Почему быть программистом — круто
+            </span>
+        </div>
+        <div class="main-news-items-content">
+            <div class="image">
+
+            </div>
+            <div class="text">
+                Образ гика — неловкого интроверта в вытянутой толстовке, который читает комиксы и хорошо разбирается в науке —
+                активно популяризируется в обществе. «Smart is the new sexy», — так говорил Говард из сериала «Теория Большого Взрыва»
+                почти 8 лет назад. С тех пор масло в топку только подливалось — Марк Цукерберг, который надевает сандалии на носки,
+                и Сергей Брин, щеголяющий в кроксах, стали символами поколения. На них равняются, им завидуют. Больше не стыдно быть
+                ботаником, даже наоборот — стыдно быть тупым. Апогей этого образа — те, кого называют кодерами, разработчиками или
+                Software Engineers — программисты.
+            </div>
+        </div>
+        <div class="main-news-items-footer">
+
+        </div>
+    </section>

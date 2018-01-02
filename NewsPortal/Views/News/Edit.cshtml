@@ -1,0 +1,13 @@
+﻿@model NewsPortal.Models.ViewModels.NewsItemEditViewModel
+
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+}
+
+<div class="edit-form">
+    @using (Html.BeginForm("SaveEditedNewsItem", "News", FormMethod.Post))
+    {
+        @Html.EditorForModel()
+        <input type="submit" value="Сохранить изменения" />
+    }
+</div>

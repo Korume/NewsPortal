@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin.Host.SystemWeb;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Account;
-using System.Text;
-using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace NewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Authorization
         public ActionResult Login()
         {
             return View();
@@ -40,17 +34,16 @@ namespace NewsPortal.Controllers
             }
             return View(model);
         }
-
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
         public SignInManager SignInManager
         {
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
         }
+
         public UserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
@@ -61,51 +54,77 @@ namespace NewsPortal.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult Register(RegisterViewModel registerModel)
+        public async Task<ActionResult> Register(RegisterViewModel registerModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(registerModel);
             }
-
-            var session = NHibernateHelper.GetCurrentSession();
-
+            using (var session = NHibernateHelper.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {
-                var list = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).List();
-                if (list.Count > 0)
+                var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
+                if (user != null)
                 {
-                    ModelState.AddModelError("Email", "Данный E-mail адрес занят.");
+                    ModelState.AddModelError("Email", "This E-mail address is not available.");
                     return View(registerModel);
                 }
-                var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager>();
-
-                User newUser = new User()
+                var newUser = new User()
                 {
                     Email = registerModel.Email,
                     Login = registerModel.Login,
                     Password = registerModel.Password,
                     UserName = registerModel.UserName,
+                    //PasswordHash = registerModel.Password,    
                     EmailConfirmed = false
                 };
-
-                var result = UserManager.Create(newUser, registerModel.Password);
-                if (result.Succeeded)
+                var creationResult = UserManager.Create(newUser, registerModel.Password);
+                if (creationResult.Succeeded)
                 {
-                    SignInManager.SignIn(newUser, false, false);
                     session.Save(newUser);
                     transaction.Commit();
 
-                    var id = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).List().First().Id;
-                    //SendEmail(id, registerModel.Email);
-                    return RedirectToAction("Register", "Account");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code },
+                        protocol: Request.Url.Scheme);
+                    var message = new IdentityMessage()
+                    {
+                        Body = "Confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                        Subject = "Account confirmation",
+                        Destination = newUser.Email
+                    };
+                    await UserManager.EmailService.SendAsync(message);
                 }
-                NHibernateHelper.CloseSession();
             }
             return RedirectToAction("Login", "Account");
         }
 
-
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        {
+            if (code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if (result.Succeeded)
+            {
+                using (var session = NHibernateHelper.GetCurrentSession())
+                using (var transaction = session.BeginTransaction())
+                {
+                    var user = session.Get<User>(userId);
+                    user.EmailConfirmed = true;
+                    session.Update(user);
+                    transaction.Commit();
+                }
+                return View("Login");
+            }
+            else
+            {
+                return View("Register");
+            }
+        }
     }
 }
