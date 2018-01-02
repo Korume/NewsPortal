@@ -2,8 +2,9 @@
 @using Microsoft.AspNet.Identity;
 @model List<NewsItemThumbnailViewModel>
 
+
 @section StyleSheet
-{
+                    {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
 
@@ -28,44 +29,67 @@
         {
             @Html.ActionLink("Сортировка по дате", "Index", "Home")
         }
+
     }
 </section>
 <section class="news-item">
+
     <!-- NewsItem -->
-    <form>
-        @foreach (var item in Model)
-        {
-            <article>
-                @if (item.UserId == User.Identity.GetUserId().AsInt())
-                {
-                    <div class="menu-news-item">
-                        @using (Html.BeginForm("EditNewsItem", "News", FormMethod.Post))
-                        {
-                            @Html.Hidden("newsItemId", item.Id)
-                            <input type="submit" value="Редактировать" />
-                        }
-                        <input type="button" id="show-pop-up-window">
-                        <!--Возможность добавления новые елементов-->
-                    </div>
-                }
+    @foreach (var item in Model)
+    {
 
+        <article>
+            @if (item.UserId == User.Identity.GetUserId().AsInt())
+            {
+                <div class="menu-news-item">
+                    @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+                    {
+                        @Html.Hidden("newsItemId", item.Id)
+                        <input type="submit" value="Edit" />
+                    }
+                    @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
+                    {
+                        @Html.Hidden("newsItemId", item.Id)
+                        <input type="submit" value="Delete" />
+                    }
 
-                @*@RenderSection("YesOrNo")*@
-
-                <div class="Title">
-                    <span>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </span>
+                    <input type="button" id="show-pop-up-window">
+                    <!--Возможность добавления новые елементов-->
                 </div>
-                <div class="NewsInformation">
-                    <div class="NameUser">
-                        @Html.DisplayFor(modelItem => item.UserLogin)
-                    </div>
-                    <div class="CreationDate">
-                        @Html.DisplayFor(modelItem => item.CreationDate)
-                    </div>
+            }
+            <!--Временное решение-->
+            <dialog class="pop-up-window">
+                <div class="pop-up-window-close">
+                    <input type="button" id="close-pop-up-window">
                 </div>
-            </article>
-        }
-    </form>
+                <div class="pop-up-window-head">
+                    <p>
+                        Вы подтверждаете удаление новости <br>
+                        <span>"Девушки захватили мир!"</span>
+                    </p>
+                </div>
+                <div class="pop-up-window-main">
+                    <form>
+                        <input type="submit" id="yes" value="Да">
+                        <input type="submit" id="no" value="Нет">
+                    </form>
+                </div>
+            </dialog>
+
+            <div class="Title">
+                <span>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </span>
+            </div>
+            <div class="NewsInformation">
+                <div class="NameUser">
+                    @Html.DisplayFor(modelItem => item.UserLogin)
+                </div>
+                <div class="CreationDate">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+            </div>
+        </article>
+
+    }
 </section>

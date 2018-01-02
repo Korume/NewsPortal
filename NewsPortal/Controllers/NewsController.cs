@@ -1,29 +1,23 @@
-
 ﻿using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Web.WebPages;
-
+using System;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-
-        // GET: News
         public ActionResult MainNews()
         {
             return View();
         }
 
-        [Authorize]
+
         [HttpPost]
-        public ActionResult EditNewsItem(int newsItemId)
+        [Authorize]
+        public ActionResult Edit(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
@@ -46,8 +40,8 @@ namespace NewsPortal.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
@@ -62,5 +56,52 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Add()
+        {
+            //return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult SaveNewsItem(NewsItemAddViewModel NewNewsItem)
+        {
+            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
+            {
+
+                NewsItem newItem = new NewsItem()
+                {
+                    Id = NewNewsItem.Id,
+                    Title = NewNewsItem.Title,
+                    Content = NewNewsItem.Content,
+                    CreationDate = DateTime.Now,
+                    UserId = Convert.ToInt32(User.Identity.GetUserId())
+                };
+                session.Save(newItem);
+                transaction.Commit();
+                NHibernateHelper.CloseSession();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult DeleteNewsItem(int newsItemId)
+        {
+            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var MyNewsItem = session.Get<NewsItem>(newsItemId);
+                session.Delete(MyNewsItem);
+                transaction.Commit();
+                NHibernateHelper.CloseSession();
+            }        
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

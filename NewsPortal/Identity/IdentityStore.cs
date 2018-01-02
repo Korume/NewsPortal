@@ -79,10 +79,8 @@ namespace NewsPortal.Models.Identity
         {
             return Task.FromResult(0);
         }
-        //Blocked -- (Value)LockedOut
         public Task<bool> GetLockoutEnabledAsync(User user)
         {
-            //-
             return Task.FromResult(false);
         }
         public Task SetLockoutEnabledAsync(User user, bool enabled)
@@ -100,12 +98,7 @@ namespace NewsPortal.Models.Identity
             return Task.FromResult(false);
         }
         #endregion
-
-        public void Dispose()
-        {
-            //do nothing
-        }
-
+        #region IUserEmailStore<User, int>
         public Task SetEmailAsync(User user, string email)
         {
             return Task.Run(() => user.Email = email);
@@ -132,6 +125,13 @@ namespace NewsPortal.Models.Identity
             {
                 return session.QueryOver<User>().Where(u => u.Email == email).SingleOrDefault();
             });
+        }
+        #endregion
+
+
+        public void Dispose()
+        {
+            //do nothing
         }
     }
 }

@@ -22,6 +22,12 @@
     <property name="EmailConfirmed">
       <column name="EmailConfirmed" sql-type="bit" not-null="false"/>
     </property>
+    
+    <bag name="NewsItems" inverse="true">
+      <key column="UserId"/>
+      <one-to-many class="NewsItem"/>
+    </bag>
+    
   </class>
   
 </hibernate-mapping>

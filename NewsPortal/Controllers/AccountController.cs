@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin.Host.SystemWeb;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Account;
-using System.Text;
-using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace NewsPortal.Controllers
@@ -114,7 +108,7 @@ namespace NewsPortal.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 using (var session = NHibernateHelper.GetCurrentSession())
                 using (var transaction = session.BeginTransaction())

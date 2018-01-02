@@ -11,14 +11,17 @@
       <column name="UserId" sql-type="int" not-null="true"/>
     </property>
     <property name="Title">
-      <column name="Title" sql-type="nvarchar(100)" not-null="true"/>
+      <column name="Title" sql-type="nvarchar(250)" not-null="true"/>
     </property>
     <property name="Content">
-      <column name="Content" sql-type="nvarchar(100)" not-null="true"/>
+      <column name="Content" sql-type="nvarchar(MAX)" not-null="true"/>
     </property>
     <property name="CreationDate">
       <column name="CreationDate" sql-type="datetime" not-null="true"/>
     </property>
+    <!--<property name="SourceImage">
+      <column name="SourceImage" sql-type="text" not-null="false"/>
+    </property> -->
   </class>
-
+  
 </hibernate-mapping>
