@@ -104,7 +104,9 @@ main {
     }
 
         .login-confirm .FirstButton label > input[type="submit"],
-        .registration-form input[type=submit] {
+        .registration-form input[type=submit],
+        .form-news-adding input[type=submit],
+        .form-news-edit input[type=submit] {
             width: 80%;
             height: 40px;
             background-color: transparent;
@@ -219,4 +221,17 @@ main {
 
 .form-reg {
     border-bottom: 2px solid white;
+}
+/*---------------------------------------------Добавление и редактирование новости---------------------------------------------*/
+.form-news-adding input[type=submit],
+.form-news-edit input[type=submit] {
+    width: 100%;
+}
+.form-news-adding .editor-field > textarea,
+.form-news-edit .editor-field > textarea{
+    resize: none;
+    width: 760px;
+    height: 130px;
+    font-family: "Lora", "sans-serif";
+    font-size: 18px;
 }

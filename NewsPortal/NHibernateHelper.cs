@@ -4,14 +4,11 @@ using NHibernate;
 using NHibernate.Cfg;
 using Microsoft.AspNet.Identity;
 using NewsPortal.Models.DataBaseModels;
-using NHibernate.AspNet.Identity.Helpers;
-using NHibernate.AspNet.Identity;
-using NewsPortal.Models;
 using NewsPortal.Models.Identity;
 
 namespace NewsPortal
 {
-    public sealed class NHibernateHelper
+    public sealed class NHibernateHelper : IDisposable 
     {
         private const string CurrentSessionKey = "nhibernate.current_session";
         private static readonly ISessionFactory _sessionFactory;
@@ -33,7 +30,7 @@ namespace NewsPortal
             }
 
             return currentSession;
-        }
+        }   
 
         public static void CloseSession()
         {
@@ -57,10 +54,16 @@ namespace NewsPortal
             }
         }
 
-        //GetCurrentSession
         public IUserStore<User, int> Users
         {
             get { return new IdentityStore(GetCurrentSession()); }
         }
+
+        public void Dispose()
+        {
+            //нужно реализовать
+        }
+
+
     }
 }

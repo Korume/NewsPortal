@@ -9,7 +9,7 @@ namespace NewsPortal.Models.ViewModels
 
         [Required(ErrorMessage = "Введите заголовок.")]
         [Display(Name = "Заголовок: ")]
-        [DataType(DataType.Text)]
+        [DataType(DataType.MultilineText)]
         public string Title { set; get; }
 
         [Required(ErrorMessage = "Введите содержание.")]

@@ -4,10 +4,17 @@
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
 }
 
-<div class="edit-form">
-    @using (Html.BeginForm("SaveEditedNewsItem", "News", FormMethod.Post))
-    {
-        @Html.EditorForModel()
-        <input type="submit" value="Сохранить изменения" />
-    }
-</div>
+<section class="Section-NewsEdit">
+    <div class="title-head">
+        <span>
+            Editing news
+        </span>
+    </div>
+    <div class="form-news-edit">
+        @using (Html.BeginForm("SaveEditedNewsItem", "News", FormMethod.Post))
+        {
+            @Html.EditorForModel()
+            <input type="submit" value="Добавить" />
+        }
+    </div>
+</section>

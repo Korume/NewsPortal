@@ -9,18 +9,20 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
+<<<<<<< HEAD
         public ActionResult MainNews()
         {
             return View();
         }
 
 
+=======
+>>>>>>> 34a495f... Улучшение и обновление проекта
         [HttpPost]
         [Authorize]
         public ActionResult Edit(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
 
@@ -35,7 +37,6 @@ namespace NewsPortal.Controllers
                     Title = newsItem.Title,
                     Content = newsItem.Content
                 };
-                transaction.Commit();
                 return View(editedNewsItem);
             }
         }
@@ -45,34 +46,59 @@ namespace NewsPortal.Controllers
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
             {
                 var newsItemToUpdate = session.Get<NewsItem>(model.Id);
+
                 newsItemToUpdate.Title = model.Title;
                 newsItemToUpdate.Content = model.Content;
 
                 session.Update(newsItemToUpdate);
-                transaction.Commit();
             }
+
+            //?
             return RedirectToAction("Index", "Home");
         }
 
+<<<<<<< HEAD
+=======
+        [HttpPost]
+        public ActionResult MainNews(int newsItemId)
+        {
+            using (var session = NHibernateHelper.GetCurrentSession())
+            {
+                var newsItem = session.Get<NewsItem>(newsItemId);
+                var showMainNews = new NewsItemMainPageViewModel()
+                {
+                    Id = newsItem.Id,
+                    Title = newsItem.Title,
+                    Content = newsItem.Content
+                };
+                return View(showMainNews);
+            }
+        }
+
+>>>>>>> 34a495f... Улучшение и обновление проекта
         [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
-            //return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult SaveNewsItem(NewsItemAddViewModel NewNewsItem)
+        public ActionResult Add(NewsItemAddViewModel NewNewsItem)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
-            {
+<<<<<<< HEAD
+=======
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(NewNewsItem);
+            //}
 
+>>>>>>> 34a495f... Улучшение и обновление проекта
+            using (var session = NHibernateHelper.GetCurrentSession())
+            {
                 NewsItem newItem = new NewsItem()
                 {
                     Id = NewNewsItem.Id,
@@ -82,8 +108,6 @@ namespace NewsPortal.Controllers
                     UserId = Convert.ToInt32(User.Identity.GetUserId())
                 };
                 session.Save(newItem);
-                transaction.Commit();
-                NHibernateHelper.CloseSession();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -93,12 +117,9 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteNewsItem(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
-                transaction.Commit();
-                NHibernateHelper.CloseSession();
             }        
             return RedirectToAction("Index", "Home");
         }
