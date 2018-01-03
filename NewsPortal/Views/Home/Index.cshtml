@@ -16,18 +16,28 @@
 </section>
 <section class="news-head">
     <span>Новости</span>
-    @if (Model.Any())
-    {
-        if (Model.First().CreationDate < Model.Last().CreationDate)
+    <div>
+        @if (User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Сортировка по дате", "Sort", "Home")
+            <div class="add-icon">
+                @Html.ActionLink(" ", "Add", "News")
+            </div>
         }
-        else
-        {
-            @Html.ActionLink("Сортировка по дате", "Index", "Home")
-        }
+        <div class="sort-icon">
+            @if (Model.Any())
+            {
+                if (Model.First().CreationDate < Model.Last().CreationDate)
+                {
+                    @Html.ActionLink(" ", "Sort", "Home")
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Index", "Home")
+                }
 
-    }
+            }
+        </div>
+    </div>
 </section>
 <section class="news-item">
     <!-- NewsItem -->
@@ -45,14 +55,14 @@
                             Временное решение:  value=""-->
                         <input type="submit" id="edit-submit" value=""/>
                     }
-                    <input type="button" id="delete-button" name="OpenPopup" onclick="Open()">
+                    <input type="button" id="delete-button" name="OpenPopup" onclick="Open(@item.Id)">
                     <!--Возможность добавления новые елементов-->
                 </div>
 
                 <!--Временное решение-->
-                <dialog class="pop-up-window">
+                <dialog class="pop-up-window" id="@item.Id">
                     <div class="pop-up-window-close">
-                        <input type="button" name="ClosePopup" onclick="Close()">
+                        <input type="button" name="ClosePopup" onclick="Close(@item.Id)">
                     </div>
                     <div class="pop-up-window-head">
                         <p>
@@ -65,7 +75,7 @@
                         {
                             @Html.Hidden("newsItemId", item.Id)
                             <input type="submit" value="Yes" />
-                            <input type="button" name="ClosePopup" value="No" onclick="Close()">
+                            <input type="button" name="ClosePopup" value="No" onclick="Close(@item.Id)">
                         }
                     </div>
                 </dialog>
@@ -89,6 +99,5 @@
                 </div>
             </div>
         </article>
-
     }
 </section>

@@ -1,9 +1,9 @@
-﻿function Open() {
-	var dialog = document.querySelector('dialog');
+﻿function Open(text) {
+	var dialog = document.getElementById(text);
 	dialog.showModal();
 }
-function Close() {
-	var dialog = document.querySelector('dialog');
+function Close(text) {
+	var dialog = document.querySelector(text);
 	dialog.close();
 }
 

@@ -8,11 +8,11 @@
 <section class="Section-NewsAdding">
     <div class="title-head">
         <span>
-            Добавление новости
+            Adding news
         </span>
     </div>
     <div class="form-news-adding">
-        @using (Html.BeginForm("SaveNewsItem", "News", FormMethod.Post))
+        @using (Html.BeginForm("Add", "News", FormMethod.Post))
         {
             @Html.EditorForModel()
             <input type="submit" value="Добавить" />
