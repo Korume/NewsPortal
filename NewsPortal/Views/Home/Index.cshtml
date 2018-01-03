@@ -2,12 +2,9 @@
 @using Microsoft.AspNet.Identity;
 @model List<NewsItemThumbnailViewModel>
 
-
-@section StyleSheet
-                    {
+@section StyleSheet {
     <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
 }
-
 <section class="back-image">
     <div class="background-image">
         <!--Тут находится картиночка-->
@@ -33,7 +30,6 @@
     }
 </section>
 <section class="news-item">
-
     <!-- NewsItem -->
     @foreach (var item in Model)
     {
@@ -45,40 +41,43 @@
                     @using (Html.BeginForm("Edit", "News", FormMethod.Post))
                     {
                         @Html.Hidden("newsItemId", item.Id)
-                        <input type="submit" value="Edit" />
+                        <!--Проблема: Появляется "Отправить" на кнопке
+                            Временное решение:  value=""-->
+                        <input type="submit" id="edit-submit" value=""/>
                     }
-                    @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
-                    {
-                        @Html.Hidden("newsItemId", item.Id)
-                        <input type="submit" value="Delete" />
-                    }
-
-                    <input type="button" id="show-pop-up-window">
+                    <input type="button" id="delete-button" name="OpenPopup" onclick="Open()">
                     <!--Возможность добавления новые елементов-->
                 </div>
-            }
-            <!--Временное решение-->
-            <dialog class="pop-up-window">
-                <div class="pop-up-window-close">
-                    <input type="button" id="close-pop-up-window">
-                </div>
-                <div class="pop-up-window-head">
-                    <p>
-                        Вы подтверждаете удаление новости <br>
-                        <span>"Девушки захватили мир!"</span>
-                    </p>
-                </div>
-                <div class="pop-up-window-main">
-                    <form>
-                        <input type="submit" id="yes" value="Да">
-                        <input type="submit" id="no" value="Нет">
-                    </form>
-                </div>
-            </dialog>
 
+                <!--Временное решение-->
+                <dialog class="pop-up-window">
+                    <div class="pop-up-window-close">
+                        <input type="button" name="ClosePopup" onclick="Close()">
+                    </div>
+                    <div class="pop-up-window-head">
+                        <p>
+                            Вы подтверждаете удаление новости <br>
+                            <span>"@Html.DisplayFor(modelItem => item.Title)"</span>
+                        </p>
+                    </div>
+                    <div class="pop-up-window-main">
+                        @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
+                        {
+                            @Html.Hidden("newsItemId", item.Id)
+                            <input type="submit" value="Yes" />
+                            <input type="button" name="ClosePopup" value="No" onclick="Close()">
+                        }
+                    </div>
+                </dialog>
+            }
             <div class="Title">
                 <span>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @using (Html.BeginForm("MainNews", "News", FormMethod.Post))
+                    {
+                        @Html.Hidden("newsItemId", item.Id)
+                        <input type="submit" id="show-submit" 
+                               value="@Html.DisplayFor(modelItem => item.Title)" />
+                    }
                 </span>
             </div>
             <div class="NewsInformation">

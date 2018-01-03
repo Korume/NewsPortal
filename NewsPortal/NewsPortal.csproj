@@ -217,6 +217,7 @@
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
     <Content Include="Content\AdditionalFiles\Icon\user.png" />
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
+    <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
     <Content Include="Content\AdditionalFiles\Sprite\Sprite.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
     <Content Include="Scripts\JavaScript.js" />
@@ -263,6 +264,7 @@
     <Compile Include="Models\ViewModels\News\NewsItemAddViewModel.cs" />
     <!-- <Compile Include="Models\ViewModels\NewsItemViewModel.cs" /> -->
     <Compile Include="Models\ViewModels\News\NewsItemEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\News\NewsItemMainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\News\NewsItemThumbnailViewModel.cs" />
     <!-- Slava -->
     <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />

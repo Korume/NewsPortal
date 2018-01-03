@@ -4,15 +4,16 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Web.WebPages;
 using System;
+using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        public ActionResult MainNews()
-        {
-            return View();
-        }
+        //public ActionResult MainNews()
+        //{
+        //    return View();
+        //}
 
 
         [HttpPost]
@@ -39,7 +40,7 @@ namespace NewsPortal.Controllers
                 return View(editedNewsItem);
             }
         }
-
+       
         [HttpPost]
         [Authorize]
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
@@ -57,6 +58,30 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public ActionResult MainNews(int newsItemId)
+        {
+            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var newsItem = session.Get<NewsItem>(newsItemId);
+
+                bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
+                if (!isUserNewsItemOwner)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                var showMainNews = new NewsItemMainPageViewModel()
+                {
+                    Id = newsItem.Id,
+                    Title = newsItem.Title,
+                    Content = newsItem.Content
+                };
+                transaction.Commit();
+                return View(showMainNews);
+            }
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult Add()
@@ -69,6 +94,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult SaveNewsItem(NewsItemAddViewModel NewNewsItem)
         {
+            
             using (var session = NHibernateHelper.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {

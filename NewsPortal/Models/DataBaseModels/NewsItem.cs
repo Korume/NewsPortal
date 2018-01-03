@@ -8,6 +8,7 @@ namespace NewsPortal.Models.DataBaseModels
         public virtual int UserId { set; get; }
         public virtual string Title { set; get; }
         public virtual string Content { set; get; }
+        //public virtual string PathNewsItem { set; get; }
         public virtual DateTime CreationDate { set; get; }
     }
 }

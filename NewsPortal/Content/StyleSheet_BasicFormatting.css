@@ -74,3 +74,43 @@ header div {
             header div:last-child a:last-child {
                 margin-left: 10px;
             }
+
+/*ScrollBar*/
+html body::-webkit-scrollbar {
+    width: 6px;
+}
+
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
+}
+
+    html body::-webkit-scrollbar-thumb:hover {
+        border-width: 1px 1px 1px 2px;
+        border-color: #555;
+        background-color: #777;
+    }
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
+}
+
+    html body::-webkit-scrollbar-track:hover {
+        border-left: solid 1px #aaa;
+        background-color: #eee;
+    }
+/*html body::-webkit-scrollbar {
+    width: 6px;
+    background-color: #252525;
+}
+
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
+}
+
+
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
+}*/

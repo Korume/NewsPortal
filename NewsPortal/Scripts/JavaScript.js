@@ -1,8 +1,14 @@
-﻿var dialog = document.querySelector('dialog');
-document.querySelector('#show-pop-up-window').onclick = function () {
+﻿function Open() {
+	var dialog = document.querySelector('dialog');
 	dialog.showModal();
-};
-document.querySelector('#close-pop-up-window').onclick = function () {
+}
+function Close() {
+	var dialog = document.querySelector('dialog');
 	dialog.close();
-};
+}
+
+
+
+
+
 
