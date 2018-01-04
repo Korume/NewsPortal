@@ -14,7 +14,6 @@ namespace NewsPortal.Controllers
             return View();
         }
 
-
         [HttpPost]
         [Authorize]
         public ActionResult Edit(int newsItemId)
