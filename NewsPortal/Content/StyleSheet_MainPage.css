@@ -116,46 +116,64 @@ main .news-item {
         margin: 5px;
     }
 
+/*--------------------------------05.01.2018-------------------------------*/
+/*-------------------Временное решение с DialogWindow----------------------*/
+.popup-window-close a,
+.menu-news-item a {
+    display: block;
+    height: 25px;
+    width: 25px;
+    border: 1px solid white;
+    background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+    background-color: #252525;
+    box-sizing: border-box;
+}
+
+.menu-news-item a {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.menu-news-item a {
+    background-position: -452px 4px;
+}
+
+.popup-window-close a {
+    background-position: -306px 4px;
+    border: none;
+    outline: none;
+}
+
 /*-------------------Органы----------------------*/
 .menu-news-item {
     position: relative;
 }
+
     /*Buttons*/
-    .menu-news-item input[type=button],
-    .menu-news-item input[type=submit],
-    .pop-up-window-close input[type=button] {
+    .menu-news-item input[type=submit] {
+        display: block;
         height: 25px;
         width: 25px;
         border: 1px solid white;
         background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
         background-color: #252525;
+        box-sizing: border-box;
     }
 
-    .menu-news-item input[type=button],
     .menu-news-item input[type=submit] {
         position: absolute;
         top: 0;
         right: 0;
     }
 
-    .menu-news-item #delete-button {
-        background-position: -452px 4px;
-    }
-
-    .menu-news-item #edit-submit {
+    .menu-news-item input[type=submit] {
         background-position: 5px -68px;
         right: 25px;
     }
 
-.pop-up-window-close input[type=button]:nth-child(1) {
-    background-position: -306px 4px;
-    border: none;
-    outline: none;
-}
-
-
 /*Pop-up Window*/
-.pop-up-window {
+.popup-window {
     width: 500px;
     height: 200px;
     border: 2px solid white;
@@ -165,12 +183,12 @@ main .news-item {
     box-sizing: border-box;
 }
 
-.pop-up-window-head, .pop-up-window-main {
+.popup-window-head, .popup-window-main {
     margin: 5px;
     padding: 5px;
 }
 
-    .pop-up-window-head p {
+    .popup-window-head p {
         color: white;
         padding: 0;
         margin: 0;
@@ -179,8 +197,12 @@ main .news-item {
         font-family: 'PT Sans', sans-serif;
     }
 
-    .pop-up-window-main input[type=submit],
-    .pop-up-window-main input[type=button] {
+    .popup-window-main form {
+        display: inline-block;
+        float: left;
+    }
+
+    .popup-window-main input[type=submit] {
         width: 210px;
         height: 45px;
         color: white;
@@ -190,14 +212,47 @@ main .news-item {
         background-color: #252525;
     }
 
-.pop-up-window::backdrop {
-    background-color: rgba(37, 37, 37, 0.67);
-}
-
-.pop-up-window-close {
+    /*-------------------Временное решенеи с DialogWindow----------------------*/
+    .popup-window-main a {
+        display: block;
+        width: 210px;
+        height: 45px;
+        color: white;
+        font-size: 20px;
+        font-family: 'PT Sans', sans-serif;
+        /*05.01.2018*/
+        text-decoration: none;
+        text-align: center;
+        line-height: 42px;
+        /*----------*/
+        border: 1px solid white;
+        background-color: #252525;
+        box-sizing: border-box;
+        float: right;
+    }
+/*-------------------------------------------------------------------------*/
+.popup-window-close {
     margin: -20px -20px 0 0;
     float: right;
 }
+
+.popup-backdrop {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+    .popup-backdrop:target {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+/*--------------------------------05.01.2018-------------------------------*/
 
 /*Header*/
 .Title {
@@ -209,36 +264,27 @@ main .news-item {
     align-items: center;
     justify-content: center;
 }
-
     .Title span {
-        display: block;      
-    }
-
-    .Title #show-submit {
-        max-width: 420px;  
-
-        background-color: transparent;
-        border: none;
-        outline: none;
-
+        display: block;
         font-size: 25px;
         font-weight: bold;
-        font-family: 'Lora', sans-serif;
-
+        font-family: "Lora", "sans-serif";
         color: black;
 
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        transition-duration: 0.5s;
-
-        cursor: pointer;
     }
 
-        .Title #show-submit:hover {
-            color: #767775;
+        .Title span a {
+            text-decoration: none;
+            color: black;
+            transition-duration: 0.5s;
         }
+
+            .Title span a:hover {
+                color: #767775;
+            }
 
 /*Bottom*/
 .NewsInformation {

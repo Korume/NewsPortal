@@ -8,25 +8,26 @@ namespace NewsPortal.Models.ViewModels
 {
     public class NewsItemAddViewModel
     {
+        [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
         [Required(ErrorMessage = "Введите заголовок.")]
         [Display(Name = "Заголовок: ")]
         [DataType(DataType.MultilineText)]
-        //[MaxLength(80, ErrorMessage = "MaxLength = 80")]
-        //[MinLength(5, ErrorMessage = "MinLength = 10")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Длина строки должна быть от 5 до 50 символов")]
         public string Title { set; get; }
 
         [Required(ErrorMessage = "Введите содержимое.")]
         [Display(Name = "Содержимое: ")]
         [DataType(DataType.MultilineText)]
-        //[MinLength(5, ErrorMessage = "MinLength = 50")]
         public string Content { set; get; }
 
+        [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public DateTime CreationDate { set; get; }
 
+        [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int? UserId { set; get; }
 

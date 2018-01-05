@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
+    min-width: 625px;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -14,11 +15,10 @@ header {
     z-index: 100;
     height: 60px;
     width: 100%;
+    min-width: inherit;
     padding: 0 10%;
     box-sizing: border-box;
     border-bottom: 1px solid white;
-    display: inherit;
-    justify-content: space-around;
     background-color: #252525;
     font-family: 'Roboto', sans-serif;
 }
@@ -51,18 +51,23 @@ header div {
     width: 50%;
 }
 
-    header div:first-child a {
-        font-size: 50px;
-        text-decoration: none;
-        color: white;
+    header div:first-child {
+        float: left;
     }
+
+        header div:first-child a {
+            font-size: 50px;
+            text-decoration: none;
+            color: white;
+        }
 
     header div:last-child {
         padding: 20px 0;
+        float: right;
     }
 
         header div:last-child span {
-            float: right;
+            float: inherit;
         }
 
         header div:last-child a {
@@ -108,8 +113,6 @@ html body::-webkit-scrollbar-thumb {
     background-color: white;
     border-radius: 2px 0 0 2px;
 }
-
-
 
 html body::-webkit-scrollbar-track {
     border-width: 0;

@@ -222,7 +222,6 @@
     <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
     <Content Include="Content\AdditionalFiles\Sprite\Sprite.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
-    <Content Include="Scripts\JavaScript.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet_BasicFormatting.css" />
     <Content Include="Content\StyleSheet_MainPage.css" />

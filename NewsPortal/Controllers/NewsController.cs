@@ -38,6 +38,7 @@ namespace NewsPortal.Controllers
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
             {
                 var newsItemToUpdate = session.Get<NewsItem>(model.Id);
 
@@ -45,13 +46,13 @@ namespace NewsPortal.Controllers
                 newsItemToUpdate.Content = model.Content;
 
                 session.Update(newsItemToUpdate);
+                transaction.Commit();
             }
-
             //?
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult MainNews(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
@@ -66,6 +67,10 @@ namespace NewsPortal.Controllers
                 return View(showMainNews);
             }
         }
+        public string MainNews(string newsTitle, int newsItemId)
+        {
+            return newsTitle + " " + newsItemId.ToString();
+        }
 
         [HttpGet]
         [Authorize]
@@ -78,10 +83,10 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult Add(NewsItemAddViewModel NewNewsItem)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(NewNewsItem);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(NewNewsItem);
+            }
 
             using (var session = NHibernateHelper.GetCurrentSession())
             {
@@ -103,9 +108,11 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteNewsItem(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
+                transaction.Commit();
             }        
             return RedirectToAction("Index", "Home");
         }
