@@ -4,23 +4,17 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Web.WebPages;
 using System;
+using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-<<<<<<< HEAD
         public ActionResult MainNews()
         {
             return View();
         }
 
-<<<<<<< HEAD
-=======
-
-=======
->>>>>>> 34a495f... Улучшение и обновление проекта
->>>>>>> 7ef35db4f171d9b19cd24f5c2a061b7f3c4cc6ff
         [HttpPost]
         [Authorize]
         public ActionResult Edit(int newsItemId)
@@ -62,8 +56,6 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-<<<<<<< HEAD
-=======
         [HttpPost]
         public ActionResult MainNews(int newsItemId)
         {
@@ -80,8 +72,6 @@ namespace NewsPortal.Controllers
             }
         }
 
->>>>>>> 34a495f... Улучшение и обновление проекта
-        [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
@@ -92,14 +82,6 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult Add(NewsItemAddViewModel NewNewsItem)
         {
-<<<<<<< HEAD
-=======
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(NewNewsItem);
-            //}
-
->>>>>>> 34a495f... Улучшение и обновление проекта
             using (var session = NHibernateHelper.GetCurrentSession())
             {
                 NewsItem newItem = new NewsItem()

@@ -57,17 +57,6 @@
                         @Html.Hidden("newsItemId", item.Id)
                         <input type="submit" value="Edit" />
                     }
-<<<<<<< HEAD
-                    @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
-                    {
-                        @Html.Hidden("newsItemId", item.Id)
-                        <input type="submit" value="Delete" />
-                    }
-
-                    <input type="button" id="show-pop-up-window">
-                    <!--Возможность добавления новые елементов-->
-                </div>
-=======
                     <input type="button" id="delete-button" name="OpenPopup" onclick="Open(@item.Id)">
                     <!--Возможность добавления новые елементов-->
                 </div>
@@ -92,7 +81,6 @@
                         }
                     </div>
                 </dialog>
->>>>>>> 34a495f... Улучшение и обновление проекта
             }
             <!--Временное решение-->
             <dialog class="pop-up-window">
