@@ -8,7 +8,7 @@ using NewsPortal.Models.Identity;
 
 namespace NewsPortal
 {
-    public sealed class NHibernateHelper : IDisposable 
+    public class NHibernateHelper : IDisposable 
     {
         private const string CurrentSessionKey = "nhibernate.current_session";
         private static readonly ISessionFactory _sessionFactory;
@@ -61,7 +61,7 @@ namespace NewsPortal
 
         public void Dispose()
         {
-            //нужно реализовать
+            CloseSession();
         }
 
 

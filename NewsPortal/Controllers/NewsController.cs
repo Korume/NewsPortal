@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using System.Web.WebPages;
 using System;
 using NewsPortal.Models.ViewModels.News;
+using NewsPortal.Managers.Commentary;
+using NewsPortal.Managers.NHibernate;
 
 namespace NewsPortal.Controllers
 {
@@ -32,7 +34,7 @@ namespace NewsPortal.Controllers
                 return View(editedNewsItem);
             }
         }
-       
+
         [HttpPost]
         [Authorize]
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
@@ -55,18 +57,25 @@ namespace NewsPortal.Controllers
         [HttpGet]
         public ActionResult MainNews(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
+            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
+
+            var showMainNews = new NewsItemMainPageViewModel()
             {
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                var showMainNews = new NewsItemMainPageViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content
-                };
-                return View(showMainNews);
-            }
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName
+            };
+
+            ViewBag.NewsItemCommentaries = CommentaryManager.ReturnCommentaries(newsItemId);
+
+            NHibernateManager.Session.Dispose();
+            return View(showMainNews);
         }
+        //?
         public string MainNews(string newsTitle, int newsItemId)
         {
             return newsTitle + " " + newsItemId.ToString();
@@ -113,7 +122,7 @@ namespace NewsPortal.Controllers
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
                 transaction.Commit();
-            }        
+            }
             return RedirectToAction("Index", "Home");
         }
 

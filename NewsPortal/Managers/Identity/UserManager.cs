@@ -1,10 +1,9 @@
 ﻿using NewsPortal.Models.DataBaseModels;
 using Microsoft.AspNet.Identity;
-using NewsPortal.Models.ManageViewModels;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 
-namespace NewsPortal.Account
+namespace NewsPortal.Managers.Identity
 {
     public class UserManager : UserManager<User, int>
     {

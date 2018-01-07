@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace NewsPortal.Models.ManageViewModels
+namespace NewsPortal.Managers.Identity
 {
     public class EmailService : IIdentityMessageService
     {

@@ -62,6 +62,12 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -224,7 +230,8 @@
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet_BasicFormatting.css" />
-    <Content Include="Content\StyleSheet_MainPage.css" />
+    <Content Include="Content\StyleSheet_HomePage.css" />
+    <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -233,15 +240,21 @@
     </EmbeddedResource>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <EmbeddedResource Include="Models\DataBaseModels\NewsItem.hbm.xml" />
+    <EmbeddedResource Include="Models\DataBaseModels\CommentItem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -256,11 +269,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\Commentary\CommentaryManager.cs" />
+    <Compile Include="Managers\News\NewsManager.cs" />
+    <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
+    <Compile Include="Models\Commentaries\CommentItemViewModel.cs" />
+    <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
     <Compile Include="Identity\IdentityStore.cs" />
-    <Compile Include="Identity\Manage\EmailService.cs" />
-    <Compile Include="Identity\Manage\SignInManager.cs" />
-    <Compile Include="Identity\Manage\UserManager.cs" />
+    <Compile Include="Managers\Identity\EmailManager.cs" />
+    <Compile Include="Managers\Identity\SignInManager.cs" />
+    <Compile Include="Managers\Identity\UserManager.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\News\NewsItemAddViewModel.cs" />
     <!-- <Compile Include="Models\ViewModels\NewsItemViewModel.cs" /> -->
@@ -272,6 +290,7 @@
     <Compile Include="Models\DataBaseModels\User.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\Hubs\CommentHub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

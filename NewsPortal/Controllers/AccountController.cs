@@ -4,7 +4,7 @@ using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using NewsPortal.Account;
+using NewsPortal.Managers.Identity;
 
 namespace NewsPortal.Controllers
 {
@@ -113,12 +113,10 @@ namespace NewsPortal.Controllers
             if (result.Succeeded)
             {
                 using (var session = NHibernateHelper.GetCurrentSession())
-                //using (var transaction = session.BeginTransaction())
                 {
                     var user = session.Get<User>(userId);
                     user.EmailConfirmed = true;
                     session.Update(user);
-                    //transaction.Commit();
                 }
                 //Окей брат, все ок, ты зареган
                 return View("Login");
