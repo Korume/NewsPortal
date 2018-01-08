@@ -47,7 +47,6 @@
     <!-- NewsItem -->
     @foreach (var item in Model)
     {
-
         <article>
             @if (item.UserId == User.Identity.GetUserId().AsInt())
             {
@@ -103,7 +102,8 @@
 
             <div class="Title">
                 <span>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
+                   new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">

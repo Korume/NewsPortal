@@ -10,11 +10,6 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        public ActionResult MainNews()
-        {
-            return View();
-        }
-
         [HttpPost]
         [Authorize]
         public ActionResult Edit(int newsItemId)
@@ -56,12 +51,15 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
         public ActionResult MainNews(int newsItemId)
         {
             using (var session = NHibernateHelper.GetCurrentSession())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
+                if (newsItem == null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
                 var showMainNews = new NewsItemMainPageViewModel()
                 {
                     Id = newsItem.Id,
