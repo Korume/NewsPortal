@@ -14,7 +14,11 @@ namespace NewsPortal.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
         [Authorize]
         [ValidateInput(false)]
@@ -47,5 +51,6 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        
     }
 }
