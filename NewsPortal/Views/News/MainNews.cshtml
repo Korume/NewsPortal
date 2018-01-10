@@ -47,6 +47,7 @@
                                 <time>
                                     @elem.Timestamp
                                 </time>
+                                <input id="deletecomment" type="button" />
                             </div>
                             <div class="comment-message">
                                 @elem.Content
@@ -55,6 +56,7 @@
 
                             </div>
                         </div>
+                        <input id="commentId" type="hidden" value="@elem.Id" />
                     </li>
                 }
             </ul>

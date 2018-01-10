@@ -20,8 +20,18 @@ namespace NewsPortal.SignalR.Hubs
                 NewsId = newsId
             };
             session.Save(commentItem);
-            Clients.All.addNewMessageToPage(commentItem.Id, userName, comment, DateTime.Now.ToString());
+            Clients.All.addNewCommentToPage(commentItem.Id, userName, comment, DateTime.Now.ToString());
         }
+        public void Delete(int commentId)
+        {
+            var session = NHibernateManager.GetCurrentSession();
+            var transaction = session.BeginTransaction();
 
+            var MyNewsItem = session.Get<CommentItem>(commentId);
+            Clients.All.deleteCommentToPage(commentId);
+            session.Delete(MyNewsItem);
+            transaction.Commit();
+
+        }
     }
 }

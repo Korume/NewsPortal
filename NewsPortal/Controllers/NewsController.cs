@@ -74,6 +74,7 @@ namespace NewsPortal.Controllers
 
             return View(showMainNews);
         }
+
         //Временный метод
         public string MainNews(string newsTitle, int newsItemId)
         {
