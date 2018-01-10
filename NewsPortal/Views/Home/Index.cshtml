@@ -31,13 +31,14 @@
             {
                 if (Model.First().CreationDate < Model.Last().CreationDate)
                 {
-                    @Html.ActionLink(" ", "Sort", "Home")
+                    @Html.ActionLink(" ", "Index", "Home", new { sorted = true }, 
+                   new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home")
+                    @Html.ActionLink(" ", "Index", "Home", new { sorted = false },
+                   new { @class = "reverse-sort" })
                 }
-
             }
         </div>
     </div>

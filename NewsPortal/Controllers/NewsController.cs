@@ -46,8 +46,6 @@ namespace NewsPortal.Controllers
 
                 session.Update(newsItemToUpdate);
             }
-
-            //?
             return RedirectToAction("Index", "Home");
         }
 
@@ -58,7 +56,7 @@ namespace NewsPortal.Controllers
                 var newsItem = session.Get<NewsItem>(newsItemId);
                 if (newsItem == null)
                 {
-                    return RedirectToAction("NotFound", "Error");
+                    return View("NotFound");
                 }
                 var showMainNews = new NewsItemMainPageViewModel()
                 {
@@ -103,7 +101,7 @@ namespace NewsPortal.Controllers
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
-            }        
+            }
             return RedirectToAction("Index", "Home");
         }
 

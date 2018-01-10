@@ -18,8 +18,8 @@ namespace NewsPortal.Models.ManageViewModels
                 message.Body = identityMessage.Body;
                 message.IsBodyHtml = true;
 
-                smtpServer.Host = "smtp.gmail.com";
-                smtpServer.Port = 587;
+                smtpServer.Host = ConfigurationManager.AppSettings["mailHost"];
+                smtpServer.Port = int.Parse(ConfigurationManager.AppSettings["mailPort"]);
                 smtpServer.EnableSsl = true;
                 smtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpServer.UseDefaultCredentials = false;

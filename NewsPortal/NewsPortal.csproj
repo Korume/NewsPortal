@@ -294,6 +294,7 @@
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\Add.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\News\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

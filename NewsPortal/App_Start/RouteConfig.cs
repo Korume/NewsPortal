@@ -22,7 +22,7 @@ namespace NewsPortal
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}",
+                url: "{controller}/{action}/{*other}",
                 defaults: new { controller = "Home", action = "Index" }
                 );
         }
