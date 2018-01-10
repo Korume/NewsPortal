@@ -34,11 +34,10 @@ namespace NewsPortal.Controllers
                 }
                 else
                 {
-                    //ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    return RedirectToAction("Login", "Account");
+                    ViewBag.Message = "Incorrect login or password";
                 }
             }
-            //NHibernateHelper.CloseSession();
+            
             return View(model);
         }
 

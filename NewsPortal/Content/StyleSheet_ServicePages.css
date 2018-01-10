@@ -226,6 +226,7 @@ main {
 }
 .text-danger {
     color: red;
+    text-weight: bold;
 }
 .clean {
     margin: 10px;

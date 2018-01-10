@@ -8,14 +8,14 @@ namespace NewsPortal.Models.ViewModels
 {
     public class LoginInputVM
     {
-        [Required(ErrorMessage = "Введите логин.")]
-        [Display(Name = "Логин: ")]
+        [Display(Name = "Login: ")]
         [DataType(DataType.Text)]
+        [Required(ErrorMessage = "The field must be set!")]
         public string Login { set; get; }
 
-        [Required(ErrorMessage = "Введите пароль.")]
-        [Display(Name = "Пароль: ")]
+        [Display(Name = "Password: ")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "The field must be set!")]
         public string Password { set; get; }        
     }
 }

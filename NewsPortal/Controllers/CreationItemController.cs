@@ -29,8 +29,8 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
-            var session = NHibernateHelper.GetCurrentSession();
-            using (var transaction = session.BeginTransaction())
+           
+            using (var session = NHibernateHelper.GetCurrentSession())
             {
                 NewsItem newsItem = new NewsItem()
                 {
@@ -47,7 +47,6 @@ namespace NewsPortal.Controllers
                     newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
                 }
                 session.Save(newsItem);
-                transaction.Commit();
             }
             return RedirectToAction("Index", "Home");
         }
