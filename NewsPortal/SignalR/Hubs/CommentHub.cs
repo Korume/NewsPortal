@@ -2,6 +2,7 @@
 using NewsPortal.Models.DataBaseModels;
 using System;
 using NewsPortal.Managers.Commentary;
+using NewsPortal.Managers.NHibernate;
 
 namespace NewsPortal.SignalR.Hubs
 {
@@ -9,22 +10,17 @@ namespace NewsPortal.SignalR.Hubs
     {
         public void Send(int newsId, int userId, string comment, string userName)
         {
-            CommentaryManager.ReturnCommentaries(18);
-
-            using (var session = NHibernateHelper.GetCurrentSession())
+            var session = NHibernateManager.GetCurrentSession();
+            var commentItem = new CommentItem()
             {
-                var commentItem = new CommentItem()
-                {
-                    Content = comment,
-                    Timestamp = DateTime.Now,
-                    UserId = userId,
-                    UserName = userName,
-                    NewsId = newsId
-                };
-                session.Save(commentItem);
-                Clients.All.addNewMessageToPage(commentItem.Id, userName, comment, DateTime.Now.ToString());
-                session.Close();
-            }
+                Content = comment,
+                Timestamp = DateTime.Now,
+                UserId = userId,
+                UserName = userName,
+                NewsId = newsId
+            };
+            session.Save(commentItem);
+            Clients.All.addNewMessageToPage(commentItem.Id, userName, comment, DateTime.Now.ToString());
         }
 
     }

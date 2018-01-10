@@ -7,6 +7,9 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header {
@@ -28,7 +31,6 @@ main {
     /*Проблема: при маленьком окне, footer прилягает к main, при этом создавая пустое место снизу*/
     width: 100%;
     height: 100%;
-    background-color: #252525;
     margin: 0 auto;
     margin-top: 60px;
     padding: 5px 0;

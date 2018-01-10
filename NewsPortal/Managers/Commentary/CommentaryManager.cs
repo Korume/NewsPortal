@@ -11,11 +11,17 @@ namespace NewsPortal.Managers.Commentary
     {
         public static CommentItem ReturnComment(int newsID)
         {
-            return NHibernateManager.Session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).SingleOrDefault();
+            using (var session = NHibernateManager.GetCurrentSession())
+            {
+                return session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).SingleOrDefault();
+            }
         }
         public static IList<CommentItem> ReturnCommentaries(int newsID)
         {
-            return NHibernateManager.Session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).List();
+            using (var session = NHibernateManager.GetCurrentSession())
+            {
+                return session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).List();
+            }
         }
     }
 }

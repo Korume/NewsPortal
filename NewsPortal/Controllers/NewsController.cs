@@ -16,7 +16,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult Edit(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
 
@@ -39,7 +39,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {
                 var newsItemToUpdate = session.Get<NewsItem>(model.Id);
@@ -50,7 +50,7 @@ namespace NewsPortal.Controllers
                 session.Update(newsItemToUpdate);
                 transaction.Commit();
             }
-            //?
+            //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
 
@@ -69,13 +69,12 @@ namespace NewsPortal.Controllers
                 UserId = newsItem.UserId,
                 UserName = newsUser.UserName
             };
-
+            //Возвращаем список комментариев находятся на странице новостей
             ViewBag.NewsItemCommentaries = CommentaryManager.ReturnCommentaries(newsItemId);
 
-            NHibernateManager.Session.Dispose();
             return View(showMainNews);
         }
-        //?
+        //Временный метод
         public string MainNews(string newsTitle, int newsItemId)
         {
             return newsTitle + " " + newsItemId.ToString();
@@ -97,7 +96,7 @@ namespace NewsPortal.Controllers
                 return View(NewNewsItem);
             }
 
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 NewsItem newItem = new NewsItem()
                 {
@@ -109,6 +108,7 @@ namespace NewsPortal.Controllers
                 };
                 session.Save(newItem);
             }
+            //Создать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
 
@@ -116,13 +116,14 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
                 transaction.Commit();
             }
+            //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
 

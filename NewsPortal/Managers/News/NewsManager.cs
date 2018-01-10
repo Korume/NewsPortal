@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NewsPortal.Managers.News
 {
-    public class NewsManager : NHibernateHelper
+    public class NewsManager
     {
          
     }

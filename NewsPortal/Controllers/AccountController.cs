@@ -5,6 +5,7 @@ using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
+using NewsPortal.Managers.NHibernate;
 
 namespace NewsPortal.Controllers
 {
@@ -60,7 +61,7 @@ namespace NewsPortal.Controllers
                 return View(registerModel);
             }
 
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
 
@@ -112,7 +113,7 @@ namespace NewsPortal.Controllers
 
             if (result.Succeeded)
             {
-                using (var session = NHibernateHelper.GetCurrentSession())
+                using (var session = NHibernateManager.GetCurrentSession())
                 {
                     var user = session.Get<User>(userId);
                     user.EmailConfirmed = true;

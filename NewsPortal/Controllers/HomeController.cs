@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
+using NewsPortal.Managers.NHibernate;
 
 namespace NewsPortal.Controllers
 {
@@ -22,7 +23,7 @@ namespace NewsPortal.Controllers
 
         private List<NewsItemThumbnailViewModel> GetThumbnails()
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {
                 var newsItemList = session.QueryOver<NewsItem>().List();

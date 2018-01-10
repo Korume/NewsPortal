@@ -16,5 +16,7 @@ namespace NewsPortal.Managers.Identity
             var provider = new DpapiDataProtectionProvider("NewsPortal");
             UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("ASP.NET Identity"));
         }
+
+        //public bool CheckedEmailUser(stri)
     }
 }
