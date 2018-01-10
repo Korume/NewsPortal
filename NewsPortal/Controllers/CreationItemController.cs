@@ -17,6 +17,7 @@ namespace NewsPortal.Controllers
             return View();
         }
         [Authorize]
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Index(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
@@ -25,31 +26,24 @@ namespace NewsPortal.Controllers
                 return View(newsModel);
             }
             var session = NHibernateHelper.GetCurrentSession();
-            try
+            using (var transaction = session.BeginTransaction())
             {
-                using (var transaction = session.BeginTransaction())
+                NewsItem newsItem = new NewsItem()
                 {
-                    NewsItem newsItem = new NewsItem()
-                    {
-                        Id = newsModel.Id,
-                        UserId = Convert.ToInt32(User.Identity.GetUserId()),
-                        Title = newsModel.Title,
-                        Content = newsModel.Content,
-                        CreationDate = DateTime.Now
-                    };
-                    if (uploadedImage != null)
-                    {
-                        string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                        uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
-                        newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
-                    }
-                    session.Save(newsItem);
-                    transaction.Commit();
+                    Id = newsModel.Id,
+                    UserId = Convert.ToInt32(User.Identity.GetUserId()),
+                    Title = newsModel.Title,
+                    Content = newsModel.Content,
+                    CreationDate = DateTime.Now
+                };
+                if (uploadedImage != null)
+                {
+                    string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
+                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
+                    newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
                 }
-            }
-            finally
-            {
-                NHibernateHelper.CloseSession();
+                session.Save(newsItem);
+                transaction.Commit();
             }
             return RedirectToAction("Index", "Home");
         }

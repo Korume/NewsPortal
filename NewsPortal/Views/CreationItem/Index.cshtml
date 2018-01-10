@@ -1,6 +1,7 @@
 ﻿@model NewsPortal.Models.ViewModels.NewsItemViewModel
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
 }
 <body>
     @using (Html.BeginForm("Index", "CreationItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -41,4 +42,7 @@
     <div class="clean">
         @Html.ActionLink("Clean", "Index")
     </div>
+    <script>
+        CKEDITOR.replace("Content", { height: 300 });
+    </script>
 </body>

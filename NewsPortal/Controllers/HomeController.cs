@@ -24,7 +24,6 @@ namespace NewsPortal.Controllers
             {
                 var newsItemList = session.QueryOver<NewsItem>().List();
                 thumbnails = new List<NewsItemViewModel>(newsItemList.Count);
-                var nm = session.Get<User>(Convert.ToInt32(User.Identity.GetUserId()));
                 foreach (var item in newsItemList)
                 {
                     var user = session.Get<User>(item.UserId);
