@@ -14,31 +14,33 @@
     </div>
 </section>
 <section>
-    <span>SectionTwo<a href="/CreationItem/Index">
-    @if (User.Identity.IsAuthenticated)
-    {
-        <img class="createImg" src="http://иксмюзик.рф/uploads/images/p/l/u/plus.jpg" alt="">
-    }
-</a></span>
+    <span>
+        SectionTwo<a href="/CreationItem/Index">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <img class="createImg" src="http://иксмюзик.рф/uploads/images/p/l/u/plus.jpg" alt="">
+            }
+        </a>
+    </span>
 
 </section>
 <section>
     @foreach (var item in Model)
     {
-        <article>
-            <div class="Title">
-                <span>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </span>
+    <article>
+        <div class="Title">
+            <span>
+                @Html.DisplayFor(modelItem => item.Title)
+            </span>
+        </div>
+        <div class="NewsInformation">
+            <div class="NameUser">
+                @Html.DisplayFor(modelItem => item.UserName)
             </div>
-            <div class="NewsInformation">
-                <div class="NameUser">
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </div>
-                <div class="CreationDate">
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </div>
+            <div class="CreationDate">
+                @Html.DisplayFor(modelItem => item.CreationDate)
             </div>
-        </article>
+        </div>
+    </article>
     }
 </section>
