@@ -295,6 +295,9 @@
     <Content Include="Views\News\Add.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\News\NotFound.cshtml" />
+    <Content Include="Views\Account\SuccesfulRegistration.cshtml" />
+    <Content Include="Views\Account\SuccesfulConfirmation.cshtml" />
+    <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

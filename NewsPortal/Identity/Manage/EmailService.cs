@@ -8,7 +8,7 @@ namespace NewsPortal.Models.ManageViewModels
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage identityMessage)
+        public async Task SendAsync(IdentityMessage identityMessage)
         {
             using (MailMessage message = new MailMessage(ConfigurationManager.AppSettings["mailAccount"],
                 identityMessage.Destination))
@@ -25,9 +25,8 @@ namespace NewsPortal.Models.ManageViewModels
                 smtpServer.UseDefaultCredentials = false;
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"],
                     ConfigurationManager.AppSettings["mailPassword"]);
-                smtpServer.Send(message);
+                await smtpServer.SendMailAsync(message);
             }
-            return Task.FromResult(0);
         }
     }
 }
