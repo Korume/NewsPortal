@@ -13,6 +13,10 @@ namespace NewsPortal.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+<<<<<<< HEAD
+=======
+            //NHibernateHelper
+>>>>>>> Nata
             app.CreatePerOwinContext(() => new UserManager(new NHibernateHelper().Users));
             app.CreatePerOwinContext<SignInManager>((options, context) => 
             new SignInManager(context.GetUserManager<UserManager>(), context.Authentication));

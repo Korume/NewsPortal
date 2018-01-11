@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 ﻿@model NewsPortal.Models.ViewModels.LoginViewModel
+=======
+﻿@model NewsPortal.Models.ViewModels.LoginInputVM
+>>>>>>> Nata
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
 }
 
+<<<<<<< HEAD
 <section class="Section-Authorization">
     <div class="title-head">
         <span>Авторизация</span>
@@ -20,11 +25,39 @@
             </div>
             <div>
                 @Html.EditorFor(LoginViewModel => LoginViewModel.Password)
+=======
+    <section class="Section-Authorization">
+        <div class="title-head">
+            <span>Авторизация</span>
+        </div>
+        <!-- Fields for filling-->
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
+    {
+        <div class="login-FFF">
+            <div>
+                @Html.EditorFor(LoginInputVM => LoginInputVM.Login)
+                <div class="Image1">
+                    <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
+                </div>
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.EditorFor(LoginInputVM => LoginInputVM.Password)
+>>>>>>> Nata
                 <div class="Image2">
                     <!--<img src="../AdditionalFiles/pass-lock.png">-->
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+             if (ViewBag.Message != null)
+             {
+                 <span class = "text-danger">@ViewBag.Message</span>
+             }
+>>>>>>> Nata
         <div class="login-confirm">
             <div class="FirstButton">
                 <label>
@@ -50,7 +83,13 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
     }
 
 </section>
+=======
+}
+
+    </section>
+>>>>>>> Nata
 

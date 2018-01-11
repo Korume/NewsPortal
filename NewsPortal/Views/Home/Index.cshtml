@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
 @model List<NewsItemThumbnailViewModel>
@@ -9,10 +10,20 @@
 }
 
 <section class="back-image">
+=======
+﻿@using NewsPortal.Models.ViewModels
+@model IEnumerable<NewsItemViewModel>
+@section StyleSheet
+{
+    <link rel="stylesheet" href="~/Content/StyleSheet_MainPage.css" />
+}
+<section>
+>>>>>>> Nata
     <div class="background-image">
         <!--Тут находится картиночка-->
     </div>
     <div class="background-text">
+<<<<<<< HEAD
         <span>Новость дня</span> <br />
         <span>"Программисты захватили мир"</span>
     </div>
@@ -101,6 +112,25 @@
                 </div>
             </dialog>
 
+=======
+        <span>Новость дня</span> <br>
+        <span>Программисты захватили мир</span>
+    </div>
+</section>
+<section>
+    <span>SectionTwo<a href="/CreationItem/Index">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <img class="createImg" src="http://иксмюзик.рф/uploads/images/p/l/u/plus.jpg" alt="">
+    }
+</a></span>
+
+</section>
+<section>
+    @foreach (var item in Model)
+    {
+        <article>
+>>>>>>> Nata
             <div class="Title">
                 <span>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -108,7 +138,11 @@
             </div>
             <div class="NewsInformation">
                 <div class="NameUser">
+<<<<<<< HEAD
                     @Html.DisplayFor(modelItem => item.UserLogin)
+=======
+                    @Html.DisplayFor(modelItem => item.UserName)
+>>>>>>> Nata
                 </div>
                 <div class="CreationDate">
                     @Html.DisplayFor(modelItem => item.CreationDate)
@@ -116,4 +150,8 @@
             </div>
         </article>
     }
+<<<<<<< HEAD
 </section>
+=======
+</section>
+>>>>>>> Nata

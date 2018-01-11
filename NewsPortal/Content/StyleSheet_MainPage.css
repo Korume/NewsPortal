@@ -1,12 +1,19 @@
 ﻿/*-----------------------MainContent---------------------------*/
+<<<<<<< HEAD
 main .back-image {
+=======
+main section:first-child {
+>>>>>>> Nata
     height: 450px;
     position: relative;
     border: 1px solid white;
     border-left: none;
     border-right: none;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Nata
 .background-image {
     position: absolute;
     z-index: 1;
@@ -15,7 +22,10 @@ main .back-image {
     background: url("AdditionalFiles/Image/NewYork.jpg") no-repeat fixed;
     filter: blur(5px);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Nata
 .background-text {
     position: inherit;
     height: inherit;
@@ -25,6 +35,7 @@ main .back-image {
     align-items: center;
     flex-direction: column;
 }
+<<<<<<< HEAD
 
     .background-text span {
         color: white;
@@ -43,11 +54,32 @@ main .news-head {
     position: relative;
     width: 100%;
     height: 60px;
+=======
+main section span {
+    display: block;
+    color: white;
+    text-align: center;
+}
+
+.background-text span:first-child {
+    font-size: 100px;
+}
+.background-text span:last-child {
+    font-size: 80px;
+}
+
+main section:nth-child(2) {
+    /*border: 1px solid aqua;*/
+    width: 100%;
+    height: 60px;
+    /*padding: 5px;*/
+>>>>>>> Nata
     text-align: center;
     font-size: 50px;
     background-color: white;
     box-sizing: border-box;
 }
+<<<<<<< HEAD
 
     main .news-head span {
         margin: 0;
@@ -97,6 +129,18 @@ main .news-head {
 /*-------------------Основа новости----------------------*/
 main .news-item {
     width: 100%;
+=======
+main section:nth-child(2) span {
+    margin: 0;
+    color: black;
+}
+
+/*-------------------Основа новости----------------------*/
+main section:last-child {
+    /*border: 1px solid red;*/
+    width: 100%;
+    /*height: 500px;*/
+>>>>>>> Nata
     height: auto;
     padding: 10px;
     box-sizing: border-box;
@@ -105,6 +149,7 @@ main .news-item {
     align-content: flex-start;
     flex-wrap: wrap;
 }
+<<<<<<< HEAD
 
     main .news-item article {
         width: 430px;
@@ -185,15 +230,33 @@ main .news-item {
 }
 
 /*Header*/
+=======
+main section:last-child article {
+    width: 430px;
+    height: 100px;
+    background-color: white;
+    /*border: 1px solid white;*/
+    margin: 5px;
+}
+
+/*-------------------Органы----------------------*/
+>>>>>>> Nata
 .Title {
     width: 100%;
     height: 70px;
     padding: 5px;
+<<<<<<< HEAD
     box-sizing: border-box;
+=======
+    /*border: 1px solid #252525;*/
+    box-sizing: border-box;
+    /*background-color: #252525;*/
+>>>>>>> Nata
     display: flex;
     align-items: center;
     justify-content: center;
 }
+<<<<<<< HEAD
 
     .Title span {
         display: block;
@@ -216,6 +279,15 @@ main .news-item {
             }
 
 /*Bottom*/
+=======
+.Title span {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    /*text-align: center;*/
+}
+>>>>>>> Nata
 .NewsInformation {
     width: 100%;
     height: 30px;
@@ -225,6 +297,7 @@ main .news-item {
     background-color: #252525;
     color: white;
 }
+<<<<<<< HEAD
 
 .NameUser {
     float: left;
@@ -317,3 +390,18 @@ main .news-item {
         border-left: solid 1px #aaa;
         background-color: #eee;
     }
+=======
+.NameUser {
+    float: left;
+}
+.CreationDate {
+    float: right;
+}
+/*-------------------Creation----------------------*/
+.createImg {
+    width: 40px;
+    height: 40px;
+    margin: 10px 15px 0px 0px;
+    float: right;
+}
+>>>>>>> Nata
