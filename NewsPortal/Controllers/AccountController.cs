@@ -91,7 +91,7 @@ namespace NewsPortal.Controllers
                             Subject = "Account confirmation",
                             Destination = newUser.Email
                         };
-                        UserManager.EmailService.SendAsync(message);
+                        UserManager.EmailService.Send(message);
 
                         return View("SuccesfulRegistration");
                     }
