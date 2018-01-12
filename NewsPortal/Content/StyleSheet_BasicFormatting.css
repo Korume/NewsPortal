@@ -1,32 +1,27 @@
 ﻿html, body {
     margin: 0;
     padding: 0;
-<<<<<<< HEAD
     width: 100%;
+    min-width: 625px;
     height: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-=======
->>>>>>> Nata
+    background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header {
     position: fixed;
     top: 0;
     z-index: 100;
-<<<<<<< HEAD
-=======
-    background-color: #252525;
->>>>>>> Nata
     height: 60px;
     width: 100%;
+    min-width: inherit;
     padding: 0 10%;
     box-sizing: border-box;
-<<<<<<< HEAD
     border-bottom: 1px solid white;
-    display: inherit;
-    justify-content: space-around;
     background-color: #252525;
     font-family: 'Roboto', sans-serif;
 }
@@ -36,27 +31,12 @@ main {
     /*Проблема: при маленьком окне, footer прилягает к main, при этом создавая пустое место снизу*/
     width: 100%;
     height: 100%;
-=======
-    display: flex;
-    justify-content: space-around;
-    font-family: 'Roboto', sans-serif;
-}
-main {
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
-    /*max-height: 100%;*/
-    /*Проблема: при маленьком окне, footer прилягает к main, при этом создавая пустое место снизу*/
-    min-height: 46.45vw;
-    width: 100%;
->>>>>>> Nata
-    background-color: #252525;
     margin: 0 auto;
     margin-top: 60px;
     padding: 5px 0;
     box-sizing: border-box;
     font-family: 'Georgia', sans-serif;
 }
-<<<<<<< HEAD
 
 footer {
     width: 100%;
@@ -64,14 +44,6 @@ footer {
     background-color: #252525;
     bottom: 0;
     border-top: 1px solid white;
-=======
-footer {
-    /*position: fixed;*/
-    bottom: 0;
-    background-color: #252525;
-    height: 60px;
-    width: 100%;
->>>>>>> Nata
     padding: 0 80px;
     box-sizing: border-box;
 }
@@ -81,19 +53,23 @@ header div {
     width: 50%;
 }
 
-<<<<<<< HEAD
-    header div:first-child a {
-        font-size: 50px;
-        text-decoration: none;
-        color: white;
+    header div:first-child {
+        float: left;
     }
+
+        header div:first-child a {
+            font-size: 50px;
+            text-decoration: none;
+            color: white;
+        }
 
     header div:last-child {
         padding: 20px 0;
+        float: right;
     }
 
         header div:last-child span {
-            float: right;
+            float: inherit;
         }
 
         header div:last-child a {
@@ -105,27 +81,41 @@ header div {
             header div:last-child a:last-child {
                 margin-left: 10px;
             }
-=======
-header div:first-child a {
-    font-size: 50px;
-    text-decoration: none;
-    color: white;
+
+/*ScrollBar*/
+html body::-webkit-scrollbar {
+    width: 6px;
 }
 
-header div:last-child {
-    padding: 20px 0;
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
 }
 
-header div:last-child span {
-    float: right;
+    html body::-webkit-scrollbar-thumb:hover {
+        border-width: 1px 1px 1px 2px;
+        border-color: #555;
+        background-color: #777;
+    }
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
 }
 
-header div:last-child a {
-    font-size: 15px;
-    color: white;
-    text-decoration: none;
+    html body::-webkit-scrollbar-track:hover {
+        border-left: solid 1px #aaa;
+        background-color: #eee;
+    }
+/*html body::-webkit-scrollbar {
+    width: 6px;
+    background-color: #252525;
 }
-header div:last-child a:last-child {
-    margin-left: 10px;
+
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
 }
->>>>>>> Nata
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
+}*/

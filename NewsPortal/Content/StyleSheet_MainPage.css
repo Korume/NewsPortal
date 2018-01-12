@@ -1,19 +1,15 @@
-﻿/*-----------------------MainContent---------------------------*/
-<<<<<<< HEAD
-main .back-image {
-=======
-main section:first-child {
->>>>>>> Nata
-    height: 450px;
-    position: relative;
-    border: 1px solid white;
-    border-left: none;
-    border-right: none;
+﻿﻿main {
+    height: auto;
 }
-<<<<<<< HEAD
+    /*-----------------------MainContent---------------------------*/
+    main .back-image {
+        height: 450px;
+        position: relative;
+        border: 1px solid white;
+        border-left: none;
+        border-right: none;
+    }
 
-=======
->>>>>>> Nata
 .background-image {
     position: absolute;
     z-index: 1;
@@ -22,10 +18,7 @@ main section:first-child {
     background: url("AdditionalFiles/Image/NewYork.jpg") no-repeat fixed;
     filter: blur(5px);
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> Nata
 .background-text {
     position: inherit;
     height: inherit;
@@ -35,7 +28,6 @@ main section:first-child {
     align-items: center;
     flex-direction: column;
 }
-<<<<<<< HEAD
 
     .background-text span {
         color: white;
@@ -54,32 +46,11 @@ main .news-head {
     position: relative;
     width: 100%;
     height: 60px;
-=======
-main section span {
-    display: block;
-    color: white;
-    text-align: center;
-}
-
-.background-text span:first-child {
-    font-size: 100px;
-}
-.background-text span:last-child {
-    font-size: 80px;
-}
-
-main section:nth-child(2) {
-    /*border: 1px solid aqua;*/
-    width: 100%;
-    height: 60px;
-    /*padding: 5px;*/
->>>>>>> Nata
     text-align: center;
     font-size: 50px;
     background-color: white;
     box-sizing: border-box;
 }
-<<<<<<< HEAD
 
     main .news-head span {
         margin: 0;
@@ -129,64 +100,80 @@ main section:nth-child(2) {
 /*-------------------Основа новости----------------------*/
 main .news-item {
     width: 100%;
-=======
-main section:nth-child(2) span {
-    margin: 0;
-    color: black;
-}
-
-/*-------------------Основа новости----------------------*/
-main section:last-child {
-    /*border: 1px solid red;*/
-    width: 100%;
-    /*height: 500px;*/
->>>>>>> Nata
     height: auto;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
     display: flex;
-    justify-content: center; /*!!!!!!!!!!!!!*/
+    justify-content: center;
     align-content: flex-start;
     flex-wrap: wrap;
 }
-<<<<<<< HEAD
 
     main .news-item article {
         width: 430px;
-        height: 100px;
+        height: 110px;
         background-color: white;
         margin: 5px;
     }
 
-/*-------------------Органы----------------------*/
-.menu-news-item {
-    position: relative;
+/*--------------------------------05.01.2018-------------------------------*/
+/*-------------------Временное решение с DialogWindow----------------------*/
+.popup-window-close a,
+.menu-news-item a {
+    display: block;
+    height: 25px;
+    width: 25px;
+    border: 1px solid white;
+    background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+    background-color: #252525;
+    box-sizing: border-box;
 }
-    /*Buttons*/
-    .menu-news-item input[type=button],
-    .pop-up-window-close input[type=button] {
-        height: 25px;
-        width: 25px;
-        border: 1px solid white;
-        background: url("AdditionalFiles/BSprite.png") no-repeat;
-        background-color: #252525;
-    }
 
-    .menu-news-item #show-pop-up-window {
-        background-position: -452px 4px;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
+.menu-news-item a {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
-.pop-up-window-close #close-pop-up-window {
+.menu-news-item a {
+    background-position: -452px 4px;
+}
+
+.popup-window-close a {
     background-position: -306px 4px;
     border: none;
     outline: none;
 }
 
+/*-------------------Органы----------------------*/
+.menu-news-item {
+    position: relative;
+}
+
+    /*Buttons*/
+    .menu-news-item input[type=submit] {
+        display: block;
+        height: 25px;
+        width: 25px;
+        border: 1px solid white;
+        background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+        background-color: #252525;
+        box-sizing: border-box;
+    }
+
+    .menu-news-item input[type=submit] {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .menu-news-item input[type=submit] {
+        background-position: 5px -68px;
+        right: 25px;
+    }
+
 /*Pop-up Window*/
-.pop-up-window {
+.popup-window {
     width: 500px;
     height: 200px;
     border: 2px solid white;
@@ -196,12 +183,12 @@ main section:last-child {
     box-sizing: border-box;
 }
 
-.pop-up-window-head, .pop-up-window-main {
+.popup-window-head, .popup-window-main {
     margin: 5px;
     padding: 5px;
 }
 
-    .pop-up-window-head p {
+    .popup-window-head p {
         color: white;
         padding: 0;
         margin: 0;
@@ -210,7 +197,12 @@ main section:last-child {
         font-family: 'PT Sans', sans-serif;
     }
 
-    .pop-up-window-main input[type=button] {
+    .popup-window-main form {
+        display: inline-block;
+        float: left;
+    }
+
+    .popup-window-main input[type=submit] {
         width: 210px;
         height: 45px;
         color: white;
@@ -220,49 +212,65 @@ main section:last-child {
         background-color: #252525;
     }
 
-.pop-up-window::backdrop {
-    background-color: rgba(37, 37, 37, 0.67);
-}
-
-.pop-up-window-close {
+    /*-------------------Временное решенеи с DialogWindow----------------------*/
+    .popup-window-main a {
+        display: block;
+        width: 210px;
+        height: 45px;
+        color: white;
+        font-size: 20px;
+        font-family: 'PT Sans', sans-serif;
+        /*05.01.2018*/
+        text-decoration: none;
+        text-align: center;
+        line-height: 42px;
+        /*----------*/
+        border: 1px solid white;
+        background-color: #252525;
+        box-sizing: border-box;
+        float: right;
+    }
+/*-------------------------------------------------------------------------*/
+.popup-window-close {
     margin: -20px -20px 0 0;
     float: right;
 }
 
-/*Header*/
-=======
-main section:last-child article {
-    width: 430px;
-    height: 100px;
-    background-color: white;
-    /*border: 1px solid white;*/
-    margin: 5px;
+.popup-backdrop {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
-/*-------------------Органы----------------------*/
->>>>>>> Nata
+    .popup-backdrop:target {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+/*--------------------------------05.01.2018-------------------------------*/
+
+/*Header*/
 .Title {
     width: 100%;
-    height: 70px;
-    padding: 5px;
-<<<<<<< HEAD
+    height: 80px;
+    padding: 15px 5px 5px 5px;
     box-sizing: border-box;
-=======
-    /*border: 1px solid #252525;*/
-    box-sizing: border-box;
-    /*background-color: #252525;*/
->>>>>>> Nata
     display: flex;
     align-items: center;
     justify-content: center;
 }
-<<<<<<< HEAD
-
     .Title span {
         display: block;
         font-size: 25px;
         font-weight: bold;
+        font-family: "Lora", "sans-serif";
         color: black;
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -279,15 +287,6 @@ main section:last-child article {
             }
 
 /*Bottom*/
-=======
-.Title span {
-    display: block;
-    font-size: 25px;
-    font-weight: bold;
-    color: black;
-    /*text-align: center;*/
-}
->>>>>>> Nata
 .NewsInformation {
     width: 100%;
     height: 30px;
@@ -296,8 +295,8 @@ main section:last-child article {
     border: 1px solid white;
     background-color: #252525;
     color: white;
+    font-family: 'PT Sans', sans-serif;
 }
-<<<<<<< HEAD
 
 .NameUser {
     float: left;
@@ -307,43 +306,38 @@ main section:last-child article {
     float: right;
 }
 
-.NewsItemPage {
+main {
     background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
     background-repeat: no-repeat;
     background-attachment: fixed;
     /*Разберись с большой белой линией*/
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    /*display: flex;
+    flex-direction: column;
+    justify-content: center;*/
 }
 
-    .NewsItemPage .nip-news-items {
-        max-width: 35%;
-        min-width: 460px;
-        margin: 5px;
-        border: 1px solid white;
-        background-color: transparent;
-        overflow: scroll;
-        overflow-x: hidden;
-    }
+.nip-news-items {
+    max-width: 35%;
+    min-width: 460px;
+    margin: 5px;
+    border: 1px solid white;
+    background-color: transparent;
+    overflow: scroll;
+    overflow-x: hidden;
+}
 
-    .NewsItemPage .main-news-items {
-        width: 65%;
-        margin: 5px;
-        border: 1px solid #252525;
-        background-color: white;
-    }
+.main-news-items {
+    width: 65%;
+    margin: 5px;
+    margin: 0 auto;
+    border: 1px solid #252525;
+    background-color: white;
+}
 
-        /*.NewsItemPage .main-news-items > div {
-<<<<<<< HEAD
-            min-width: 850px;
-=======
-            min-w 
->>>>>>> Rostyslav
-            margin: 5px 5px 10px 5px;
-            padding: 5px;
-        }*/
-    
+    .main-news-items > div {
+        margin: 5px 5px 10px 5px;
+        padding: 5px;
+    }
 
 .main-news-items-head {
     text-align: center;
@@ -366,37 +360,7 @@ main section:last-child article {
     text-align: justify;
 }
 
-/*ScrollBar*/
-.NewsItemPage .nip-news-items::-webkit-scrollbar {
-    width: 6px;
-}
 
-.NewsItemPage .nip-news-items::-webkit-scrollbar-thumb {
-    background-color: white;
-    border-radius: 2px 0 0 2px;
-}
-
-    .NewsItemPage .nip-news-items::-webkit-scrollbar-thumb:hover {
-        border-width: 1px 1px 1px 2px;
-        border-color: #555;
-        background-color: #777;
-    }
-
-.NewsItemPage .nip-news-items::-webkit-scrollbar-track {
-    border-width: 0;
-}
-
-    .NewsItemPage .nip-news-items::-webkit-scrollbar-track:hover {
-        border-left: solid 1px #aaa;
-        background-color: #eee;
-    }
-=======
-.NameUser {
-    float: left;
-}
-.CreationDate {
-    float: right;
-}
 /*-------------------Creation----------------------*/
 .createImg {
     width: 40px;
@@ -404,4 +368,3 @@ main section:last-child article {
     margin: 10px 15px 0px 0px;
     float: right;
 }
->>>>>>> Nata

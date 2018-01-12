@@ -1,13 +1,4 @@
 ﻿/*---------------------------------------------Основные настройки---------------------------------------------*/
-html, body {
-    background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-<<<<<<< HEAD
-
-=======
->>>>>>> Nata
 main {
     display: flex;
     background-color: transparent;
@@ -15,10 +6,6 @@ main {
     align-items: center;
 }
 /*---------------------------------------------Авторизация/Регистрация---------------------------------------------*/
-<<<<<<< HEAD
-=======
-/*-----------------------------------------------------------*/
->>>>>>> Nata
 
 .Section-Authorization {
     width: 400px;
@@ -27,24 +14,17 @@ main {
     /*border: 1px solid white;*/
     /*border-radius: 5px;*/
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> Nata
 .title-head, .login-FFF, .login-confirm, .login-footer {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> Nata
 .title-head {
     height: 50px;
     border-bottom: 2px solid white;
 }
-<<<<<<< HEAD
 
     .title-head span {
         font-size: 35px;
@@ -54,16 +34,6 @@ main {
         line-height: 25px;
         font-family: 'Roboto', sans-serif;
     }
-=======
-.title-head span {
-    font-size: 35px;
-    color: white;
-    text-align: right;
-    float: right;
-    line-height: 25px;
-    font-family: 'Roboto', sans-serif;
-}
->>>>>>> Nata
 
 /*-----------------------------------------------------------*/
 .login-FFF {
@@ -73,7 +43,6 @@ main {
     justify-content: center;
     flex-direction: column;
 }
-<<<<<<< HEAD
 
     .login-FFF > label {
         display: block;
@@ -114,44 +83,6 @@ main {
         margin-bottom: 5px;
         box-sizing: border-box;
     }
-=======
-.login-FFF > label {
-    display: block;
-    float: left;
-}
-.login-FFF .Image1, .Image2 {
-    display: inline-block;
-    float: right;
-    height: 40px;
-    width: 10%;
-    border: 1px solid #767775;
-    box-sizing: border-box;
-}
-.login-FFF .Image1 {
-    background: url(AdditionalFiles/Icon/user.png) no-repeat center;
-}
-.login-FFF .Image2 {
-    background: url(AdditionalFiles/Icon/pass-lock.png) no-repeat center;
-}
-
-.login-FFF input[type=text],
-.login-FFF input[type=password],
-.editor-field input[type=text],
-.editor-field input[type=password],
-.editor-field input[type=email] {
-    padding: 2px 5px;
-    background-color: transparent;
-    width: 90%;
-    height: 40px;
-    border: 1px solid #767775;
-    border-right: none;
-    font-size: 15px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    margin-bottom: 5px;
-    box-sizing: border-box;
-}
->>>>>>> Nata
 
 /*-----------------------------------------------------------*/
 .login-confirm {
@@ -160,7 +91,6 @@ main {
     justify-content: center;
     border-bottom: 2px solid white;
 }
-<<<<<<< HEAD
 
     .login-confirm .FirstButton, .login-confirm .SecondButton {
         width: 50%;
@@ -192,41 +122,12 @@ main {
             line-height: 40px;
             text-decoration: none;
         }
-=======
-.login-confirm .FirstButton, .login-confirm .SecondButton {
-    width: 50%;
-    height: 50px;
-}
-
-.login-confirm .FirstButton label > input[type="submit"],
-.registration-form input[type=submit] {
-    width: 80%;
-    height: 40px;
-    background-color: transparent;
-    font-size: 20px;
-    font-family: 'PT Sans', sans-serif;
-    color: white;
-    border: 1px solid white;
-}
-.login-confirm .SecondButton {
-    text-align: right;
-}
-.login-confirm .SecondButton span a {
-    padding: 8px;
-    font-size: 20px;
-    font-family: 'PT Sans', sans-serif;
-    color: #767775;
-    line-height: 40px;
-    text-decoration: none;
-}
->>>>>>> Nata
 
 /*-----------------------------------------------------------*/
 .login-footer {
     width: 100%;
     border-bottom: 2px solid white;
 }
-<<<<<<< HEAD
 
     .login-footer div:first-child {
         color: white;
@@ -284,57 +185,6 @@ main {
                 background-color: #3f5d80;
             }
 
-=======
-.login-footer div:first-child {
-    color: white;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 20px;
-}
-.login-footer div:last-child {
-    display: block;
-    width: 280px;
-    padding: 10px;
-    box-sizing: border-box;
-    margin: 0 auto;
-}
-.login-footer ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-}
-.login-footer ul li {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid white;
-    margin: 5px;
-}
-.login-footer ul li a {
-    display: block;
-    width: 50px;
-    height: 50px;
-}
-.login-footer ul li {
-    background: url("AdditionalFiles/Sprite/white_sprait.png") no-repeat;
-    background-size: 250px 100px;
-}
-.login-footer ul li:nth-child(1) {
-    background-position: 0 0;
-    background-color: #d84835;
-}
-.login-footer ul li:nth-child(2) {
-    background-position: 25% 0;
-    background-color: #1da0f1;
-}
-.login-footer ul li:nth-child(3) {
-    background-position: 75% 0;
-    background-color: #4867a9;
-}
-.login-footer ul li:nth-child(4) {
-    background-position: 0 100%;
-    background-color: #3f5d80;
-}
->>>>>>> Nata
 /*---------------------------------------------Регистрация---------------------------------------------*/
 .Section-Registration {
     width: 500px;
@@ -357,15 +207,11 @@ main {
     padding: 5px;
     box-sizing: border-box;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> Nata
 .registration-form input[type=submit] {
     width: 100%;
     margin: 15px 0;
 }
-<<<<<<< HEAD
 
 .form-reg {
     border-bottom: 2px solid white;
@@ -382,10 +228,8 @@ main {
     height: 130px;
     font-family: "Lora", "sans-serif";
     font-size: 18px;
-=======
-.form-reg {
-    border-bottom: 2px solid white;
 }
+
 /*-----------------------Creation------------------------------------*/
 .creation-control {
     font-family: 'PT Sans', sans-serif;
@@ -412,12 +256,11 @@ main {
 }
 .text-danger {
     color: red;
-    text-weight: bold;
+    font-weight: bold;
 }
 .clean {
     margin: 10px;
     text-decoration: none;
     font-size: 25px;
     color: white;
->>>>>>> Nata
 }

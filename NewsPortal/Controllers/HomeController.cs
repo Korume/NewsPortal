@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-=======
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
->>>>>>> Nata
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 
@@ -16,75 +7,45 @@ namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int page = 0, int quantity = 20, bool sorted = true)
         {
-<<<<<<< HEAD
-            List<NewsItemThumbnailViewModel> thumbnails = GetThumbnails();
-            return View(thumbnails);
-        }
-
-        public ActionResult Sort()
-        {
-            var thumbnails = GetThumbnails();
-            thumbnails.Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
-            return View("Index", thumbnails);
-        }
-
-        private List<NewsItemThumbnailViewModel> GetThumbnails()
-        {
-=======
-            var thumbnails = GetThumbnails();
-            return View(thumbnails);
-        }
-        private IList<NewsItemViewModel> GetThumbnails()
-        {
-            List<NewsItemViewModel> thumbnails;
->>>>>>> Nata
             using (var session = NHibernateHelper.GetCurrentSession())
             using (var transaction = session.BeginTransaction())
             {
                 var newsItemList = session.QueryOver<NewsItem>().List();
-<<<<<<< HEAD
-                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemList.Count);
 
-                foreach (var item in newsItemList)
+                if (sorted)
                 {
-                    var user = session.Get<User>(item.UserId);
+                    (newsItemList as List<NewsItem>).Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
+                }
+                else
+                {
+                    (newsItemList as List<NewsItem>).Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
+                }
+
+                var thumbnails = new List<NewsItemThumbnailViewModel>(quantity);
+
+                for (int i = page * quantity; i < (page + 1) * quantity; i++)
+                {
+                    if (i >= newsItemList.Count)
+                    {
+                        break;
+                    }
+
+                    var userName = session.Get<User>(newsItemList[i].UserId).UserName;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
-                        Id = item.Id,
-                        Title = item.Title,
-                        UserId = item.UserId,
-                        CreationDate = item.CreationDate,
-                        UserLogin = user.Login
+                        Id = newsItemList[i].Id,
+                        Title = newsItemList[i].Title,
+                        UserId = newsItemList[i].UserId,
+                        CreationDate = newsItemList[i].CreationDate,
+                        UserLogin = userName
                     });
                 }
-
-                transaction.Commit();
-
-                return thumbnails;
+                
+                return View(thumbnails);
             }
         }
     }
 }
-=======
-                thumbnails = new List<NewsItemViewModel>(newsItemList.Count);
-                foreach (var item in newsItemList)
-                {
-                    var user = session.Get<User>(item.UserId);
-                    thumbnails.Add(new NewsItemViewModel()
-                    {
-                        Id = item.Id,
-                        Title = item.Title,
-                        CreationDate = item.CreationDate,
-                        UserName = session.Get<User>(item.UserId).UserName
-                    });
-                }
-                transaction.Commit();
-            }
-            return thumbnails;
-        }
-    }
-}
->>>>>>> Nata

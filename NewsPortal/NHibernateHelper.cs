@@ -4,21 +4,14 @@ using NHibernate;
 using NHibernate.Cfg;
 using Microsoft.AspNet.Identity;
 using NewsPortal.Models.DataBaseModels;
-<<<<<<< HEAD
-=======
 using NHibernate.AspNet.Identity.Helpers;
 using NHibernate.AspNet.Identity;
 using NewsPortal.Models;
->>>>>>> Nata
 using NewsPortal.Models.Identity;
 
 namespace NewsPortal
 {
-<<<<<<< HEAD
-    public sealed class NHibernateHelper : IDisposable 
-=======
     public sealed class NHibernateHelper
->>>>>>> Nata
     {
         private const string CurrentSessionKey = "nhibernate.current_session";
         private static readonly ISessionFactory _sessionFactory;
@@ -40,11 +33,7 @@ namespace NewsPortal
             }
 
             return currentSession;
-<<<<<<< HEAD
         }   
-=======
-        }
->>>>>>> Nata
 
         public static void CloseSession()
         {
@@ -53,10 +42,7 @@ namespace NewsPortal
 
             if (currentSession == null)
             {
-<<<<<<< HEAD
-=======
                 // No current session
->>>>>>> Nata
                 return;
             }
 
@@ -72,23 +58,9 @@ namespace NewsPortal
             }
         }
 
-<<<<<<< HEAD
-=======
-        //GetCurrentSession
->>>>>>> Nata
         public IUserStore<User, int> Users
         {
             get { return new IdentityStore(GetCurrentSession()); }
         }
-<<<<<<< HEAD
-
-        public void Dispose()
-        {
-            //нужно реализовать
-        }
-
-
-=======
->>>>>>> Nata
     }
 }
