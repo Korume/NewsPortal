@@ -29,14 +29,15 @@
         <div class="sort-icon">
             @if (Model.Any())
             {
+                var a = Request.QueryString;
                 if (Model.First().CreationDate < Model.Last().CreationDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sorted = true }, 
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
                    new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sorted = false },
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
                    new { @class = "reverse-sort" })
                 }
             }

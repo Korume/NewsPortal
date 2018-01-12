@@ -54,10 +54,12 @@ namespace NewsPortal.Controllers
             using (var session = NHibernateHelper.GetCurrentSession())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
+
                 if (newsItem == null)
                 {
                     return View("NotFound");
                 }
+
                 var showMainNews = new NewsItemMainPageViewModel()
                 {
                     Id = newsItem.Id,

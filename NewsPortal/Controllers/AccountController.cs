@@ -15,7 +15,7 @@ namespace NewsPortal.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
