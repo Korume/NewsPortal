@@ -16,12 +16,22 @@ namespace NewsPortal.Managers.Commentary
                 return session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).SingleOrDefault();
             }
         }
+
         public static IList<CommentItem> ReturnCommentaries(int newsID)
         {
             using (var session = NHibernateManager.GetCurrentSession())
             {
                 return session.QueryOver<CommentItem>().Where(u => u.NewsId == newsID).List();
             }
+        }
+
+        public static void SaveComment()
+        {
+
+        }
+        public static void DeleteComment()
+        {
+
         }
     }
 }
