@@ -37,8 +37,7 @@ namespace NewsPortal.Managers.NHibernate
         {
             var context = HttpContext.Current;
             var currentSession = context.Items[CurrentSessionKey] as ISession;
-
-
+            
             if (currentSession == null)
             {
                 return;
