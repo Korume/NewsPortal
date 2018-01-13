@@ -1,23 +1,22 @@
-using System.Web;
 using System.Web.Mvc;
-using System.Linq;
+using System.Web;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using NewsPortal.Account;
-using System.Net.Mail;
+using NewsPortal.Managers.Identity;
+using NewsPortal.Managers.NHibernate;
 
 namespace NewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
@@ -30,10 +29,10 @@ namespace NewsPortal.Controllers
                 }
                 else
                 {
+                    //---------------------------------------------
                     ViewBag.Message = "Incorrect login or password";
-                }
-            }
-            
+                }   
+            }       
             return View(model);
         }
 
@@ -44,7 +43,7 @@ namespace NewsPortal.Controllers
         }
 
         public SignInManager SignInManager
-        {
+        {        
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
         }
 
@@ -65,8 +64,7 @@ namespace NewsPortal.Controllers
             {
                 return View(registerModel);
             }
-
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
 
@@ -81,7 +79,7 @@ namespace NewsPortal.Controllers
                     Email = registerModel.Email,
                     Login = registerModel.Login,
                     Password = registerModel.Password,
-                    UserName = registerModel.UserName,
+                    UserName = registerModel.UserName,    
                     EmailConfirmed = false
                 }; 
                 //?
@@ -118,13 +116,11 @@ namespace NewsPortal.Controllers
 
             if (result.Succeeded)
             {
-                using (var session = NHibernateHelper.GetCurrentSession())
-                //using (var transaction = session.BeginTransaction())
+                using (var session = NHibernateManager.GetCurrentSession())
                 {
                     var user = session.Get<User>(userId);
                     user.EmailConfirmed = true;
                     session.Update(user);
-                    //transaction.Commit();
                 }
                 //Окей брат, все ок, ты зареган
                 return View("Login");

@@ -1,22 +1,20 @@
-﻿using System;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
+using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Models.Identity;
 using NHibernate;
 using NHibernate.Cfg;
-using Microsoft.AspNet.Identity;
-using NewsPortal.Models.DataBaseModels;
-using NHibernate.AspNet.Identity.Helpers;
-using NHibernate.AspNet.Identity;
-using NewsPortal.Models;
-using NewsPortal.Models.Identity;
+using System;
+using System.Web;
 
-namespace NewsPortal
+namespace NewsPortal.Managers.NHibernate
 {
-    public sealed class NHibernateHelper
+    public class NHibernateManager : IDisposable
     {
+        //WebConfig
         private const string CurrentSessionKey = "nhibernate.current_session";
         private static readonly ISessionFactory _sessionFactory;
 
-        static NHibernateHelper()
+        static NHibernateManager()
         {
             _sessionFactory = new Configuration().Configure().BuildSessionFactory();
         }
@@ -39,10 +37,9 @@ namespace NewsPortal
         {
             var context = HttpContext.Current;
             var currentSession = context.Items[CurrentSessionKey] as ISession;
-
+            
             if (currentSession == null)
             {
-                // No current session
                 return;
             }
 
@@ -61,6 +58,24 @@ namespace NewsPortal
         public IUserStore<User, int> Users
         {
             get { return new IdentityStore(GetCurrentSession()); }
+        }
+
+        public static User ReturnDB_User(int userID)
+        {
+            return GetCurrentSession().Get<User>(userID);
+        }
+        public static NewsItem ReturnDB_News(int newsID)
+        {
+            return GetCurrentSession().Get<NewsItem>(newsID);
+        }
+        public static CommentItem ReturnDB_Comment(int commentID)
+        {
+            return GetCurrentSession().Get<CommentItem>(commentID);
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

@@ -5,21 +5,19 @@ using Microsoft.AspNet.Identity;
 using System.Web.WebPages;
 using System;
 using NewsPortal.Models.ViewModels.News;
+using NewsPortal.Managers.Commentary;
+using NewsPortal.Managers.NHibernate;
+using System.Web;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        public ActionResult MainNews()
-        {
-            return View();
-        }
-
         [HttpPost]
         [Authorize]
         public ActionResult Edit(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
 
@@ -42,7 +40,8 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
             {
                 var newsItemToUpdate = session.Get<NewsItem>(model.Id);
 
@@ -50,49 +49,77 @@ namespace NewsPortal.Controllers
                 newsItemToUpdate.Content = model.Content;
 
                 session.Update(newsItemToUpdate);
+                transaction.Commit();
             }
-
-            //?
+            //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult MainNews(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
+            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
+
+            var showMainNews = new NewsItemMainPageViewModel()
             {
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                var showMainNews = new NewsItemMainPageViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content
-                };
-                return View(showMainNews);
-            }
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName
+            };
+            //Возвращаем список комментариев находятся на странице новостей
+            ViewBag.NewsItemCommentaries = CommentaryManager.ReturnCommentaries(newsItemId);
+
+            return View(showMainNews);
         }
 
+        //Временный метод
+        public string MainNews(string newsTitle, int newsItemId)
+        {
+            return newsTitle + " " + newsItemId.ToString();
+        }
+
+        [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
-        [HttpPost]
         [Authorize]
-        public ActionResult Add(NewsItemAddViewModel NewNewsItem)
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            if (!ModelState.IsValid)
             {
-                NewsItem newItem = new NewsItem()
+                return View(newsModel);
+            }
+
+            using (var session = NHibernateManager.GetCurrentSession())
+            {
+                NewsItem newsItem = new NewsItem()
                 {
-                    Id = NewNewsItem.Id,
-                    Title = NewNewsItem.Title,
-                    Content = NewNewsItem.Content,
-                    CreationDate = DateTime.Now,
-                    UserId = Convert.ToInt32(User.Identity.GetUserId())
+                    Id = newsModel.Id,
+                    UserId = Convert.ToInt32(User.Identity.GetUserId()),
+                    Title = newsModel.Title,
+                    Content = newsModel.Content,
+                    CreationDate = DateTime.Now
                 };
-                session.Save(newItem);
+                if (uploadedImage != null)
+                {
+                    string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
+                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
+                    newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
+                }
+                session.Save(newsItem);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -101,11 +128,19 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            using (var session = NHibernateHelper.GetCurrentSession())
+            using (var session = NHibernateManager.GetCurrentSession())
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
             }        
+            using (var session = NHibernateManager.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var MyNewsItem = session.Get<NewsItem>(newsItemId);
+                session.Delete(MyNewsItem);
+                transaction.Commit();
+            }
+            //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
 

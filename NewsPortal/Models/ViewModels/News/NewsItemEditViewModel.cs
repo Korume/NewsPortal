@@ -16,5 +16,6 @@ namespace NewsPortal.Models.ViewModels
         [Display(Name = "Содержание: ")]
         [DataType(DataType.MultilineText)]
         public string Content { set; get; }
+
     }
 }

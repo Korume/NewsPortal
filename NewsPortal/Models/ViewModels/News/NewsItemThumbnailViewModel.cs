@@ -11,8 +11,9 @@ namespace NewsPortal.Models.ViewModels
     {
         public int Id { set; get; }
         public string Title { set; get; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime CreationDate { set; get; }
-        public int? UserId { set; get; }
+        public int UserId { set; get; }
         public string UserLogin { set; get; }
     }
 }

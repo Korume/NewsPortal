@@ -1,67 +1,94 @@
+@using NewsPortal.Models.ViewModels;
+@using Microsoft.AspNet.Identity;
+@model NewsPortal.Models.ViewModels.News.NewsItemMainPageViewModel
+
+
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+    <link rel="stylesheet" href="~/Content/StyleSheet_NewsPage.css" />
 }
-    <section class="nip-news-items news-item">
-        <!-- NewsItem -->
-        <form>
-            <article>
-                <!-- DeleteNews -->
-                <div class="menu-news-item">
-                    <input type="button" id="show-pop-up-window">
-                    <!--Возможность добавления новые елементов-->
-                </div>
-                <!-- DialogShow -->
-                <dialog class="pop-up-window">
-                    <div class="pop-up-window-close">
-                        <input type="button" id="close-pop-up-window">
-                    </div>
-                    <div class="pop-up-window-head">
-                        <p>
-                            Вы подтверждаете удаление новости <br>
-                            <span>"Девушки захватили мир!"</span>
-                        </p>
-                    </div>
-                    <div class="pop-up-window-main">
-                        <form>
-                            <input type="button" id="yes" value="Да">
-                            <input type="button" id="no" value="Нет">
-                        </form>
-                    </div>
-                </dialog>
-                <!-- News -->
-                <div class="Title">
-                    <span>
-                        <a href="#">"Почему быть программистом — круто"</a>
-                    </span>
-                </div>
-                <div class="NewsInformation">
-                    <div class="NameUser">Сергей Филипович</div>
-                    <div class="CreationDate">12.12.2017</div>
-                </div>
-            </article>
-        </form>
 
-    </section>
-    <section class="main-news-items">
-        <div class="main-news-items-head">
-            <span>
-                Почему быть программистом — круто
-            </span>
-        </div>
-        <div class="main-news-items-content">
-            <div class="image">
-
+<section class="main-news-items">
+    <div class="main-news-items-info">
+        <time class="main-news-items-time">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.CreationDate)
+        </time>
+        <section class="main-news-items-nameUser">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)
+        </section>
+    </div>
+    <div class="main-news-items-head">
+        <h1>
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Title)
+        </h1>
+    </div>
+    <div class="main-news-items-content">
+        <section class="image"></section>
+        <section class="text">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Content)
+        </section>
+    </div>
+    <div class="main-news-items-footer">
+        <section class="content-left">
+            <div class="content-head">
+                <span>Commentaries</span>
             </div>
-            <div class="text">
-                Образ гика — неловкого интроверта в вытянутой толстовке, который читает комиксы и хорошо разбирается в науке —
-                активно популяризируется в обществе. «Smart is the new sexy», — так говорил Говард из сериала «Теория Большого Взрыва»
-                почти 8 лет назад. С тех пор масло в топку только подливалось — Марк Цукерберг, который надевает сандалии на носки,
-                и Сергей Брин, щеголяющий в кроксах, стали символами поколения. На них равняются, им завидуют. Больше не стыдно быть
-                ботаником, даже наоборот — стыдно быть тупым. Апогей этого образа — те, кого называют кодерами, разработчиками или
-                Software Engineers — программисты.
-            </div>
-        </div>
-        <div class="main-news-items-footer">
+            <ul class="content-list" id="comment-list">
+                @foreach (var elem in ViewBag.NewsItemCommentaries)
+                {
+                    <li class="content-list-item" id="@elem.Id">
+                        <div class="comment">
+                            <div class="comment-head">
+                                <a href="" class="user-info">
+                                    <img src="">
+                                    <span>
+                                        @elem.UserName
+                                    </span>
+                                </a>
+                                <time>
+                                    @elem.Timestamp
+                                </time>
+                                <input id="deletecomment" type="button" />
+                            </div>
+                            <div class="comment-message">
+                                @elem.Content
+                            </div>
+                            <div class="comment-footer">
 
-        </div>
-    </section>
+                            </div>
+                        </div>
+                        <input id="commentId" type="hidden" value="@elem.Id" />
+                    </li>
+                }
+            </ul>
+            <div class="comment-form">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form>
+                        <label for="comment">Comment</label>
+                        <!--Html.Label("Comment","Comment")-->
+                        <textarea name="comment" id="comment"></textarea>
+                        <!--<input type="text" id="comment" />-->
+                        <!--Html.TextArea("Comment")-->
+                        <input type="button" id="sendcomment" value="���������" />
+                    </form>
+                    <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
+                    <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
+                    <input id="userName" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)" />
+                }
+                else
+                {
+                    <p>���������� ���������������</p>
+                }
+            </div>
+        </section>
+        <section class="content-right"></section>
+    </div>
+</section>
+
+@section script{
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/util.js"></script>
+}
+
