@@ -16,7 +16,7 @@ namespace NewsPortal.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
@@ -60,75 +60,71 @@ namespace NewsPortal.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel registerModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(registerModel);
-            }
-            using (var session = NHibernateManager.GetCurrentSession())
-            {
-                var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
-
-                if (user != null)
-                {
-                    ModelState.AddModelError("Email", "This E-mail address is not available.");
-                    return View(registerModel);
-                }
-
-                var newUser = new User()
-                {
-                    Email = registerModel.Email,
-                    Login = registerModel.Login,
-                    Password = registerModel.Password,
-                    UserName = registerModel.UserName,    
-                    EmailConfirmed = false
-                }; 
-                //?
-                var creationResult = UserManager.Create(newUser, registerModel.Password);
-
-                if (creationResult.Succeeded)
-                {
-                    session.Save(newUser);
-
-                    string code = UserManager.GenerateEmailConfirmationToken(newUser.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code },
-                        protocol: Request.Url.Scheme);
-                    var message = new IdentityMessage()
-                    {
-                        Body = "Confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
-                        Subject = "Account confirmation",
-                        Destination = newUser.Email
-                    };
-                    UserManager.EmailService.Send(message);
-                }
-            }
-            return RedirectToAction("Login", "Account");
-        }
-
-        [AllowAnonymous]
-        public ActionResult ConfirmEmail(int userId, string code)
-        {
-            if (code == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            var result = UserManager.ConfirmEmail(userId, code);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
                 using (var session = NHibernateManager.GetCurrentSession())
                 {
-                    var user = session.Get<User>(userId);
-                    user.EmailConfirmed = true;
-                    session.Update(user);
+                    var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
+
+                    if (user != null)
+                    {
+                        ModelState.AddModelError("Email", "This E-mail address is not available.");
+                        return View(registerModel);
+                    }
+
+                    var newUser = new User()
+                    {
+                        Email = registerModel.Email,
+                        Login = registerModel.Login,
+                        Password = registerModel.Password,
+                        UserName = registerModel.UserName,
+                        EmailConfirmed = false
+                    };
+
+                    var creationResult = UserManager.Create(newUser, registerModel.Password);
+
+                    if (creationResult.Succeeded)
+                    {
+                        session.Save(newUser);
+
+                        string code = UserManager.GenerateEmailConfirmationToken(newUser.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code },
+                            protocol: Request.Url.Scheme);
+                        var message = new IdentityMessage()
+                        {
+                            Body = "Confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                            Subject = "Account confirmation",
+                            Destination = newUser.Email
+                        };
+                        UserManager.EmailService.Send(message);
+
+                        return View("SuccesfulRegistration");
+                    }
+                    ModelState.AddModelError("", "Unsuccessful registration. Please try again");
                 }
-                //Окей брат, все ок, ты зареган
-                return View("Login");
             }
-            else
+
+            return View(registerModel);
+        }
+
+        public ActionResult ConfirmEmail(int? userId, string code)
+        {
+            if (userId != null && code != null)
             {
-                return View("Register");
+                var result = UserManager.ConfirmEmail(userId.Value, code);
+
+                if (result.Succeeded)
+                {
+                    using (var session = NHibernateManager.GetCurrentSession())
+                    {
+                        var user = session.Get<User>(userId);
+                        user.EmailConfirmed = true;
+                        session.Update(user);
+                    }
+                    return View("SuccesfulConfirmation");
+                }
             }
+            return View("UnsuccesfulConfirmation");
         }
     }
 }

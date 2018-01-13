@@ -1,71 +1,31 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.Managers.NHibernate;
+using NHibernate;
+using NHibernate.Criterion;
 
 namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(int page = 0, int quantity = 20, bool sorted = true)
+        public ActionResult Index(int page = 0, int newsItemsQuantity = 20, bool sortedByDate = true)
         {
             using (var session = NHibernateManager.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
             {
-                var newsItemList = session.QueryOver<NewsItem>().List();
+                var propertyForOrder = "CreationDate";
+                var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
+                var newsItemList = session.CreateCriteria<NewsItem>().
+                    AddOrder(orderType).
+                    SetFirstResult(page * newsItemsQuantity).
+                    SetMaxResults(newsItemsQuantity).
+                    List<NewsItem>();
 
-                if (sorted)
-                {
-                    (newsItemList as List<NewsItem>).Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
-                }
-                else
-                {
-                    (newsItemList as List<NewsItem>).Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
-                }
-
-                var thumbnails = new List<NewsItemThumbnailViewModel>(quantity);
-
-                for (int i = page * quantity; i < (page + 1) * quantity; i++)
-                {
-                    if (i >= newsItemList.Count)
-                    {
-                        break;
-                    }
-
-                    var userName = session.Get<User>(newsItemList[i].UserId).UserName;
-
-                    thumbnails.Add(new NewsItemThumbnailViewModel()
-                    {
-                        Id = newsItemList[i].Id,
-                        Title = newsItemList[i].Title,
-                        UserId = newsItemList[i].UserId,
-                        CreationDate = newsItemList[i].CreationDate,
-                        UserLogin = userName
-                    });
-                }
-                return View(thumbnails);
-            }
-        }
-
-        public ActionResult Sort()
-        {
-            var thumbnails = GetThumbnails();
-            thumbnails.Sort((x, y) => y.CreationDate.CompareTo(x.CreationDate));
-            return View("Index", thumbnails);
-        }
-
-        private List<NewsItemThumbnailViewModel> GetThumbnails()
-        {
-            using (var session = NHibernateManager.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
-            {
-                var newsItemList = session.QueryOver<NewsItem>().List();
-                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemList.Count);
-
+                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var user = session.Get<User>(item.UserId);
+                    var userLogin = session.Get<User>(item.UserId).Login;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
@@ -73,13 +33,11 @@ namespace NewsPortal.Controllers
                         Title = item.Title,
                         UserId = item.UserId,
                         CreationDate = item.CreationDate,
-                        UserLogin = user.Login
+                        UserLogin = userLogin
                     });
                 }
 
-                transaction.Commit();
-
-                return thumbnails;
+                return View(thumbnails);
             }
         }
     }

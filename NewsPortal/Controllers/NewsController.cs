@@ -55,7 +55,6 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
         public ActionResult MainNews(int newsItemId)
         {
             var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
@@ -74,12 +73,6 @@ namespace NewsPortal.Controllers
             ViewBag.NewsItemCommentaries = CommentaryManager.ReturnCommentaries(newsItemId);
 
             return View(showMainNews);
-        }
-
-        //Временный метод
-        public string MainNews(string newsTitle, int newsItemId)
-        {
-            return newsTitle + " " + newsItemId.ToString();
         }
 
         [HttpGet]
@@ -143,6 +136,5 @@ namespace NewsPortal.Controllers
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

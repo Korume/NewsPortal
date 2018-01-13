@@ -8,7 +8,7 @@ using System.Web;
 
 namespace NewsPortal.Managers.NHibernate
 {
-    public class NHibernateManager : IDisposable
+    public class NHibernateManager
     {
         //WebConfig
         private const string CurrentSessionKey = "nhibernate.current_session";
@@ -31,7 +31,7 @@ namespace NewsPortal.Managers.NHibernate
             }
 
             return currentSession;
-        }   
+        }
 
         public static void CloseSession()
         {
@@ -64,18 +64,15 @@ namespace NewsPortal.Managers.NHibernate
         {
             return GetCurrentSession().Get<User>(userID);
         }
+
         public static NewsItem ReturnDB_News(int newsID)
         {
             return GetCurrentSession().Get<NewsItem>(newsID);
         }
+
         public static CommentItem ReturnDB_Comment(int commentID)
         {
             return GetCurrentSession().Get<CommentItem>(commentID);
-        }
-
-        public void Dispose()
-        {
-            
         }
     }
 }

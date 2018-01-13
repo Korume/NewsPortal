@@ -8,7 +8,7 @@ namespace NewsPortal.Models.ManageViewModels
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage identityMessage)
+        public async Task SendAsync(IdentityMessage identityMessage)
         {
             using (MailMessage message = new MailMessage(ConfigurationManager.AppSettings["mailAccount"],
                 identityMessage.Destination))
@@ -18,16 +18,15 @@ namespace NewsPortal.Models.ManageViewModels
                 message.Body = identityMessage.Body;
                 message.IsBodyHtml = true;
 
-                smtpServer.Host = "smtp.gmail.com";
-                smtpServer.Port = 587;
+                smtpServer.Host = ConfigurationManager.AppSettings["mailHost"];
+                smtpServer.Port = int.Parse(ConfigurationManager.AppSettings["mailPort"]);
                 smtpServer.EnableSsl = true;
                 smtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpServer.UseDefaultCredentials = false;
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"],
                     ConfigurationManager.AppSettings["mailPassword"]);
-                smtpServer.Send(message);
+                await smtpServer.SendMailAsync(message);
             }
-            return Task.FromResult(0);
         }
     }
 }

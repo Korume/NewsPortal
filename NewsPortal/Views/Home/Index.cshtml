@@ -28,13 +28,14 @@
             {
                 if (Model.First().CreationDate < Model.Last().CreationDate)
                 {
-                    @Html.ActionLink(" ", "Sort", "Home")
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
+                   new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home")
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
+                   new { @class = "reverse-sort" })
                 }
-
             }
         </div>
     </div>
@@ -51,7 +52,7 @@
                         @Html.Hidden("newsItemId", item.Id)
                         <input type="submit" id="edit-submit" value="" />
                     }
-                    <a href=" @item.Id" name="show-popup-window"></a>
+                    <a href="@item.Id" name="show-popup-window"></a>
                 </div>
                 <div id="@item.Id" class="popup-backdrop">
                     <div class="popup-window">
@@ -77,7 +78,8 @@
             }
             <div class="Title">
                 <span>
-                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id }, new { @class = "show-MainNews" })
+                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
+                   new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
