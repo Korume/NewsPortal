@@ -1,4 +1,3 @@
-@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
 @model NewsPortal.Models.ViewModels.News.NewsItemMainPageViewModel
 
@@ -33,9 +32,9 @@
                 <span>Commentaries</span>
             </div>
             <ul class="content-list" id="comment-list">
-                @foreach (var elem in ViewBag.NewsItemCommentaries)
+                @foreach (var elem in Model.CommentItems)
                 {
-                    <li class="content-list-item" id="@elem.Id">
+                    <li class="content-list-item" id="item-@elem.Id">
                         <div class="comment">
                             <div class="comment-head">
                                 <a href="" class="user-info">
@@ -47,7 +46,13 @@
                                 <time>
                                     @elem.Timestamp
                                 </time>
-                                <input id="deletecomment" type="button" />
+                                @if (User.Identity.GetUserId().AsInt() == elem.UserId)
+                                {
+                                    <div class="comment-menu" id="@elem.Id">
+                                        <input class="deleteComment"  type="button" />
+
+                                    </div>
+                                }
                             </div>
                             <div class="comment-message">
                                 @elem.Content
@@ -56,7 +61,6 @@
 
                             </div>
                         </div>
-                        <input id="commentId" type="hidden" value="@elem.Id" />
                     </li>
                 }
             </ul>
@@ -65,10 +69,7 @@
                 {
                     <form>
                         <label for="comment">Comment</label>
-                        <!--Html.Label("Comment","Comment")-->
                         <textarea name="comment" id="comment"></textarea>
-                        <!--<input type="text" id="comment" />-->
-                        <!--Html.TextArea("Comment")-->
                         <input type="button" id="sendcomment" value="Отправить" />
                     </form>
                     <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
@@ -81,7 +82,9 @@
                 }
             </div>
         </section>
-        <section class="content-right"></section>
+        <section class="content-right">
+
+        </section>
     </div>
 </section>
 

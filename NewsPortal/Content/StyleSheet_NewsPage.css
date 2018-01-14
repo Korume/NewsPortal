@@ -135,6 +135,31 @@ main {
         color: rgb(94, 94, 94);
         margin-left: 5px;
     }
+    .comment .comment-head .comment-menu {
+        display: inline-block;
+        float: right;
+    }
+        .comment .comment-head .comment-menu input[type=button] {
+            display: none;
+            background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+            background-color: #252525;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #252525;
+            border-radius: 2px;
+            margin: 0;
+            float: left;
+            transition-duration: 1s;
+        }
+
+        .comment .comment-head .comment-menu input[type=button] {
+            background-position: -310px 2px;
+        }
+
+    .comment .comment-head:hover .comment-menu input[type=button] {
+        display: block;
+    }
 
 .comment .comment-message {
     padding: 5px;

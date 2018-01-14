@@ -1,8 +1,8 @@
 ﻿$(function () {
 	var chat = $.connection.commentHub;
-	chat.client.addNewCommentToPage = function (idComment, name, message, dateTime) { 
+	chat.client.addNewCommentToPage = function (idComment, name, message, dateTime) {
 		$('#comment-list').append(
-			'<li class="content-list-item" id="' + htmlEncode(idComment) + '" >' +
+			'<li class="content-list-item" id="item-' + htmlEncode(idComment) + '" >' +
 			'<div class="comment">' +
 			'<div class="comment-head">' +
 			'<a href="" class="user-info">' +
@@ -14,37 +14,38 @@
 			'<time>' +
 			htmlEncode(dateTime) +
 			'</time >' +
-			'</div >' +
+			'<div class="comment-menu" id="' + htmlEncode(idComment) + '">' + 
+			'<input class="deleteComment" type="button" />' +
+			'</div>' +
+			'</div>' +
 			'<div class="comment-message">' +
 			htmlEncode(message) +
 			'</div>' +
 			'<div class="comment-footer">' +
 			'</div>' +
-			'</div >' +
+			'</div>' +
 			'</li>'
 		);
 	};
-
 	chat.client.deleteCommentToPage = function (idComment) {
-		var deleteComment = document.getElementById(idComment);
+		//$('#comment-list').removeClass("comment-" + idComment);
+		//document.getElementById('#comment-list').parentNode.removeChild(idComment);
+		var deleteComment = document.getElementById('item-' + idComment);
 		deleteComment.parentNode.removeChild(deleteComment);
 	}
-
-	// Открываем соединение
 	$.connection.hub.start().done(function () {
 
 		$('#sendcomment').click(function () {
-			// Вызываем у хаба метод Send
 			chat.server.send($('#newsId').val(), $('#userId').val(), $('#comment').val(), $('#userName').val());
 			$('#comment').val('').focus();
 		});
-		$('#deletecomment').click(function () {
-			// Вызываем у хаба метод Delete
-			chat.server.delete($('#commentId').val());
+		$('.deleteComment').click(function () {
+			var id = $(this).parent().attr("id");
+			chat.server.delete(id);
 		});
 	});
 });
-// Кодирование тегов
+
 function htmlEncode(value) {
 	var encodedValue = $('<div />').text(value).html();
 	return encodedValue;

@@ -12,8 +12,9 @@ namespace NewsPortal.Controllers
     {
         public ActionResult Index(int page = 0, int newsItemsQuantity = 20, bool sortedByDate = true)
         {
-            using (var session = NHibernateManager.GetCurrentSession())
+            using (var manager = new NHibernateManager())
             {
+                var session = manager.GetSession();
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().

@@ -37,12 +37,10 @@ namespace NewsPortal.Models.Identity
                 return session.QueryOver<User>().Where(u => u.Login == Login).SingleOrDefault();
             });
         }
-
         public Task UpdateAsync(User user)
         {
             return Task.Run(() => session.SaveOrUpdate(user));
         }
-
         #endregion
         #region IUserPasswordStore<User, int>
         public Task SetPasswordHashAsync(User user, string password)
@@ -127,7 +125,6 @@ namespace NewsPortal.Models.Identity
             });
         }
         #endregion
-
 
         public void Dispose()
         {

@@ -5,74 +5,115 @@ using NHibernate;
 using NHibernate.Cfg;
 using System;
 using System.Web;
+using System.Data.Common;
 
 namespace NewsPortal.Managers.NHibernate
 {
-    public class NHibernateManager
+    public class NHibernateManager : IDisposable
     {
         //WebConfig
-        private const string CurrentSessionKey = "nhibernate.current_session";
-        private static readonly ISessionFactory _sessionFactory;
+        //private const string CurrentSessionKey = "nhibernate.current_session";
 
-        static NHibernateManager()
+        private static ISessionFactory _sessionFactory;
+        private static ISession _currentSession;
+
+        public ISession GetSession()
         {
-            _sessionFactory = new Configuration().Configure().BuildSessionFactory();
+            ISessionFactory factory = getSessionFactory();
+            ISession session = getExistingOrNewSession(factory);
+            return session;
         }
 
-        public static ISession GetCurrentSession()
+        private ISessionFactory getSessionFactory()
         {
-            var context = HttpContext.Current;
-            var currentSession = context.Items[CurrentSessionKey] as ISession;
-
-            if (currentSession == null)
+            if (_sessionFactory == null)
             {
-                currentSession = _sessionFactory.OpenSession();
-                context.Items[CurrentSessionKey] = currentSession;
+                Configuration configuration = GetConfiguration();
+                _sessionFactory = configuration.BuildSessionFactory();
             }
 
-            return currentSession;
+            return _sessionFactory;
         }
 
-        public static void CloseSession()
+        private Configuration GetConfiguration()
         {
-            var context = HttpContext.Current;
-            var currentSession = context.Items[CurrentSessionKey] as ISession;
-            
-            if (currentSession == null)
-            {
-                return;
-            }
-
-            currentSession.Close();
-            context.Items.Remove(CurrentSessionKey);
+            var configuration = new Configuration();
+            configuration.Configure();
+            return configuration;
         }
 
-        public static void CloseSessionFactory()
+        private ISession getExistingOrNewSession(ISessionFactory factory)
         {
-            if (_sessionFactory != null)
+            if (HttpContext.Current != null)
             {
-                _sessionFactory.Close();
+                ISession session = GetExistingWebSession();
+                if (session == null)
+                {
+                    session = openSessionAndAddToContext(factory);
+                }
+                else if (!session.IsOpen)
+                {
+                    session = openSessionAndAddToContext(factory);
+                }
+
+                return session;
             }
+
+            if (_currentSession == null)
+            {
+                _currentSession = factory.OpenSession();
+            }
+            else if (!_currentSession.IsOpen)
+            {
+                _currentSession = factory.OpenSession();
+            }
+
+            return _currentSession;
+        }
+
+        public ISession GetExistingWebSession()
+        {
+            return HttpContext.Current.Items[GetType().FullName] as ISession;
+        }
+
+        private ISession openSessionAndAddToContext(ISessionFactory factory)
+        {
+            ISession session = factory.OpenSession();
+            HttpContext.Current.Items.Remove(GetType().FullName);
+            HttpContext.Current.Items.Add(GetType().FullName, session);
+            return session;
         }
 
         public IUserStore<User, int> Users
         {
-            get { return new IdentityStore(GetCurrentSession()); }
+            get { return new IdentityStore(GetSession()); }
         }
 
         public static User ReturnDB_User(int userID)
         {
-            return GetCurrentSession().Get<User>(userID);
+            using (var manager = new NHibernateManager())
+            {
+                return manager.GetSession().Get<User>(userID);
+            }
         }
-
         public static NewsItem ReturnDB_News(int newsID)
         {
-            return GetCurrentSession().Get<NewsItem>(newsID);
+            using (var manager = new NHibernateManager())
+            {
+                return manager.GetSession().Get<NewsItem>(newsID);
+            }
         }
-
         public static CommentItem ReturnDB_Comment(int commentID)
         {
-            return GetCurrentSession().Get<CommentItem>(commentID);
+            using (var manager = new NHibernateManager())
+            {
+                return manager.GetSession().Get<CommentItem>(commentID);
+            }
+        }
+
+        public void Dispose()
+        {
+            //реализовать
         }
     }
 }

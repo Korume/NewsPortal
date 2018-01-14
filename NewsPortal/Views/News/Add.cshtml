@@ -2,7 +2,6 @@
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <script src="~/CKEditor/ckeditor.js"></script>
 }
 <body>
     @using (Html.BeginForm("Add", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -42,6 +41,7 @@
 </body>
 
 @section script{
+    <script src="~/CKEditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace("Content", { height: 300 });
     </script>

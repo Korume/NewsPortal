@@ -62,8 +62,9 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var session = NHibernateManager.GetCurrentSession())
+                using (var manager = new NHibernateManager())
                 {
+                    var session = manager.GetSession();
                     var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
 
                     if (user != null)
@@ -115,8 +116,10 @@ namespace NewsPortal.Controllers
 
                 if (result.Succeeded)
                 {
-                    using (var session = NHibernateManager.GetCurrentSession())
+                    using (var manager = new NHibernateManager())
                     {
+                        var session = manager.GetSession();
+
                         var user = session.Get<User>(userId);
                         user.EmailConfirmed = true;
                         session.Update(user);

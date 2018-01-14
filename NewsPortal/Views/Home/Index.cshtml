@@ -1,4 +1,4 @@
-﻿﻿@using NewsPortal.Models.ViewModels;
+﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
 @model List<NewsItemThumbnailViewModel>
 
@@ -28,13 +28,11 @@
             {
                 if (Model.First().CreationDate < Model.Last().CreationDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
-                   new { @class = "sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
-                   new { @class = "reverse-sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "reverse-sort" })
                 }
             }
         </div>
@@ -52,29 +50,11 @@
                         @Html.Hidden("newsItemId", item.Id)
                         <input type="submit" id="edit-submit" value="" />
                     }
-                    <a href="@item.Id" name="show-popup-window"></a>
-                </div>
-                <div id="@item.Id" class="popup-backdrop">
-                    <div class="popup-window">
-                        <div class="popup-window-close">
-                            <a href="#" name="close-popup-window"></a>
-                        </div>
-                        <div class="popup-window-head">
-                            <p>
-                                You confirm the deletion of the news<br>
-                                <span>"@Html.DisplayFor(modelItem => item.Title)"</span>
-                            </p>
-                        </div>
-                        <div class="popup-window-main">
-                            @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
-                            {
-                                @Html.Hidden("newsItemId", item.Id)
-                                <input type="submit" value="Yes" />
-                            }
-                            <a href="#" name="close-popup-window">No</a>
-                        </div>
-                    </div>
-                </div>
+                    <a href="#@item.Id" name="show-popup-window"></a>
+                </div> 
+
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel {Id = item.Id, Title = item.Title})
+
             }
             <div class="Title">
                 <span>
@@ -93,7 +73,3 @@
         </article>
     }
 </section>
-
-@section script {
-
-}

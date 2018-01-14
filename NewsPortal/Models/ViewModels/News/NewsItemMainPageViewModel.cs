@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Models.ViewModels.News
 {
@@ -10,5 +12,6 @@ namespace NewsPortal.Models.ViewModels.News
         public DateTime CreationDate { set; get; }
         public int UserId { set; get; }
         public string UserName { set; get; }
+        public IList<CommentItem> CommentItems { set; get; }
     }
 }
