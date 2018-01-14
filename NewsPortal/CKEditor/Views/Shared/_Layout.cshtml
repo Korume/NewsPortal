@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
+
+    @RenderSection("StyleSheet")
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,700i&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+</head>
+<body>
+    <header>
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <span>
+                        @Html.ActionLink("NewsPortal", "Index", "Home")
+                    </span>
+                </div>
+                <div>
+                    <span class="item_menu">
+                        @Html.ActionLink(User.Identity.Name, "Index", "Account/Login")
+                        @Html.ActionLink("Выйти", "LogOff", "Account")
+                    </span>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <span>
+                        @Html.ActionLink("NewsPortal", "Index", "Home")
+                    </span>
+                </div>
+                <div>
+                    <span class="item_menu">
+                        @Html.ActionLink("Войти", "Login", "Account")
+                        @Html.ActionLink("Регистрация", "Register", "Account")
+                    </span>
+                </div>
+            }
+        }
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer></footer>
+    @RenderSection("Script")
+</body>
+</html>

@@ -1,6 +1,6 @@
 ﻿﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
-@model HomePageModel
+@model List<NewsItemThumbnailViewModel>
 
 @section StyleSheet {
     <link rel="stylesheet" href="~/Content/StyleSheet_HomePage.css" />
@@ -24,16 +24,16 @@
             </div>
         }
         <div class="sort-icon">
-            @if (Model.Thumbnails.Any())
+            @if (Model.Any())
             {
-                if (Model.SortedByDate)
+                if (Model.First().CreationDate < Model.Last().CreationDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
                    new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true },
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
                    new { @class = "reverse-sort" })
                 }
             }
@@ -41,7 +41,7 @@
     </div>
 </section>
 <section class="news-item">
-    @foreach (var item in Model.Thumbnails)
+    @foreach (var item in Model)
     {
         <article>
             @if (item.UserId == User.Identity.GetUserId().AsInt())
@@ -62,7 +62,7 @@
                         <div class="popup-window-head">
                             <p>
                                 You confirm the deletion of the news<br>
-                                <span>"@Html.DisplayFor(thumbnail => item.Title)"</span>
+                                <span>"@Html.DisplayFor(modelItem => item.Title)"</span>
                             </p>
                         </div>
                         <div class="popup-window-main">
@@ -84,10 +84,10 @@
             </div>
             <div class="NewsInformation">
                 <div class="NameUser">
-                    @Html.DisplayFor(thumbnail => item.UserLogin)
+                    @Html.DisplayFor(modelItem => item.UserLogin)
                 </div>
                 <div class="CreationDate">
-                    @Html.DisplayFor(thumbnail => item.CreationDate)
+                    @Html.DisplayFor(modelItem => item.CreationDate)
                 </div>
             </div>
         </article>
