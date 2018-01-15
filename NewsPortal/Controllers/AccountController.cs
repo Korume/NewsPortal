@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
 using NewsPortal.Managers.NHibernate;
+using NHibernate.Criterion;
 
 namespace NewsPortal.Controllers
 {
@@ -65,11 +66,21 @@ namespace NewsPortal.Controllers
             {
                 using (var session = NHibernateManager.GetCurrentSession())
                 {
-                    var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
-
-                    if (user != null)
+                    var userByEmail = session.QueryOver<User>().
+                        Where(u => u.Email == registerModel.Email).
+                        SingleOrDefault();
+                    if (userByEmail != null)
                     {
                         ModelState.AddModelError("Email", "This E-mail address is not available.");
+                        return View(registerModel);
+                    }
+
+                    var userByUserName = session.QueryOver<User>().
+                        Where(u => u.UserName == registerModel.UserName).
+                        SingleOrDefault();
+                    if (userByUserName != null)
+                    {
+                        ModelState.AddModelError("UserName", "This UserName is not available.");
                         return View(registerModel);
                     }
 
