@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
 }
 
-    <section class="Section-Authorization">
-        <div class="title-head">
-            <span>Авторизация</span>
-        </div>
-        <!-- Fields for filling-->
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
+<section class="Section-Authorization">
+    <div class="title-head">
+        <span>Авторизация</span>
+    </div>
+    <!-- Fields for filling-->
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
     {
         <div class="login-FFF">
             <div>
@@ -27,10 +27,10 @@
             </div>
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
-             if (ViewBag.Message != null)
-             {
-                 <span class = "text-danger">@ViewBag.Message</span>
-             }
+        if (ViewBag.Message != null)
+        {
+            <span class="text-danger">@ViewBag.Message</span>
+        }
         <div class="login-confirm">
             <div class="FirstButton">
                 <label>
@@ -60,5 +60,5 @@
 </section>
 
 @section script{
-    
+
 }

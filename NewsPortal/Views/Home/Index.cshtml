@@ -47,7 +47,7 @@
             @if (item.UserId == User.Identity.GetUserId().AsInt())
             {
                 <div class="menu-news-item">
-                    @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+                    @using (Html.BeginForm("Edit", "News", FormMethod.Get))
                     {
                         @Html.Hidden("newsItemId", item.Id)
                         <input type="submit" id="edit-submit" value="" />

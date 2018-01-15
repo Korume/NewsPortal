@@ -25,7 +25,7 @@ namespace NewsPortal.Controllers
                 var result = SignInManager.PasswordSignIn(model.Login, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
-                    return RedirectToAction("Index", "Home");             
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -58,6 +58,7 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel registerModel)
         {
             if (ModelState.IsValid)
@@ -82,7 +83,6 @@ namespace NewsPortal.Controllers
                     };
 
                     var creationResult = UserManager.Create(newUser, registerModel.Password);
-
                     if (creationResult.Succeeded)
                     {
                         session.Save(newUser);

@@ -602,6 +602,7 @@
     <Content Include="Views\Account\SuccesfulRegistration.cshtml" />
     <Content Include="Views\Account\SuccesfulConfirmation.cshtml" />
     <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
+    <Content Include="Views\News\NewsOwnerError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

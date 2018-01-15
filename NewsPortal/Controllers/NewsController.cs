@@ -13,19 +13,27 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpPost]
         [Authorize]
-        public ActionResult Edit(int newsItemId)
+        public ActionResult Edit(int? newsItemId)
         {
+            if (newsItemId == null)
+            {
+                return View("NotFound");
+            }
             using (var session = NHibernateManager.GetCurrentSession())
             {
                 var newsItem = session.Get<NewsItem>(newsItemId);
+                if (newsItem == null)
+                {
+                    return View("NotFound");
+                }
 
                 bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
                 if (!isUserNewsItemOwner)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return View("NewsOwnerError");
                 }
+
                 var editedNewsItem = new NewsItemEditViewModel()
                 {
                     Id = newsItem.Id,
@@ -38,18 +46,22 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
+        [ValidateInput(false)]
+        public ActionResult Edit(NewsItemEditViewModel editModel)
         {
-            using (var session = NHibernateManager.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
+            if(!ModelState.IsValid)
             {
-                var newsItemToUpdate = session.Get<NewsItem>(model.Id);
+                return View(editModel);
+            }
 
-                newsItemToUpdate.Title = model.Title;
-                newsItemToUpdate.Content = model.Content;
+            using (var session = NHibernateManager.GetCurrentSession())
+            {
+                var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
+
+                newsItemToUpdate.Title = editModel.Title;
+                newsItemToUpdate.Content = editModel.Content;
 
                 session.Update(newsItemToUpdate);
-                transaction.Commit();
             }
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
@@ -120,18 +132,11 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
-        {
+        {    
             using (var session = NHibernateManager.GetCurrentSession())
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
-            }        
-            using (var session = NHibernateManager.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
-            {
-                var MyNewsItem = session.Get<NewsItem>(newsItemId);
-                session.Delete(MyNewsItem);
-                transaction.Commit();
             }
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
