@@ -14,9 +14,10 @@ namespace NewsPortal.Controllers
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
             var newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityOnHomePage"]);
-
-            using (var session = NHibernateManager.GetCurrentSession())
+            using (var manager = new NHibernateManager())
             {
+                var session = manager.GetSession();
+
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().
@@ -28,7 +29,7 @@ namespace NewsPortal.Controllers
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var userLogin = session.Get<User>(item.UserId).Login;
+                    var userName = session.Get<User>(item.UserId).UserName;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
@@ -36,7 +37,7 @@ namespace NewsPortal.Controllers
                         Title = item.Title,
                         UserId = item.UserId,
                         CreationDate = item.CreationDate,
-                        UserLogin = userLogin
+                        UserName = userName
                     });
                 }
                 var homePageModel = new HomePageModel()

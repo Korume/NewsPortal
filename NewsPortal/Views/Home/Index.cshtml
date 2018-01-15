@@ -1,4 +1,4 @@
-﻿﻿@using NewsPortal.Models.ViewModels;
+﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
 @model HomePageModel
 
@@ -21,7 +21,7 @@
         {
             <div class="add-icon">
                 @Html.ActionLink(" ", "Add", "News")
-            </div>
+            </div>  
         }
         <div class="sort-icon">
             @if (Model.Thumbnails.Any())
@@ -29,11 +29,11 @@
                 if (Model.SortedByDate)
                 {
                     @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
-                   new { @class = "sort" })
+                        new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true },
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
                    new { @class = "reverse-sort" })
                 }
             }
@@ -47,41 +47,20 @@
             @if (item.UserId == User.Identity.GetUserId().AsInt())
             {
                 <div class="menu-news-item">
-                    @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id },
-                   new { @class = "edit" })
-                    <a href="@item.Id" name="show-popup-window"></a>
-                </div>
-                <div id="@item.Id" class="popup-backdrop">
-                    <div class="popup-window">
-                        <div class="popup-window-close">
-                            <a href="#" name="close-popup-window"></a>
-                        </div>
-                        <div class="popup-window-head">
-                            <p>
-                                You confirm the deletion of the news<br>
-                                <span>"@Html.DisplayFor(thumbnail => item.Title)"</span>
-                            </p>
-                        </div>
-                        <div class="popup-window-main">
-                            @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
-                            {
-                                @Html.Hidden("newsItemId", item.Id)
-                                <input type="submit" value="Yes" />
-                            }
-                            <a href="#" name="close-popup-window">No</a>
-                        </div>
-                    </div>
-                </div>
+                    @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
+                    <a href="#@item.Id" name="show-popup-window"></a>
+                </div> 
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel {Id = item.Id, Title = item.Title})
             }
             <div class="Title">
                 <span>
                     @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
-                   new { @class = "show-MainNews" })
+                        new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
                 <div class="NameUser">
-                    @Html.DisplayFor(thumbnail => item.UserLogin)
+                    @Html.DisplayFor(thumbnail => item.UserName)
                 </div>
                 <div class="CreationDate">
                     @Html.DisplayFor(thumbnail => item.CreationDate)
@@ -90,7 +69,3 @@
         </article>
     }
 </section>
-
-@section script {
-
-}

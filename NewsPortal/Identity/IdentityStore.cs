@@ -30,19 +30,17 @@ namespace NewsPortal.Models.Identity
         {
             return Task.Run(() => session.Get<User>(userId));
         }
-        public Task<User> FindByNameAsync(string Login)
+        public Task<User> FindByNameAsync(string UserName)
         {
             return Task.Run(() =>
             {     
-                return session.QueryOver<User>().Where(u => u.Login == Login).SingleOrDefault();
+                return session.QueryOver<User>().Where(u => u.UserName == UserName).SingleOrDefault();
             });
         }
-
         public Task UpdateAsync(User user)
         {
             return Task.Run(() => session.SaveOrUpdate(user));
         }
-
         #endregion
         #region IUserPasswordStore<User, int>
         public Task SetPasswordHashAsync(User user, string password)
@@ -127,7 +125,6 @@ namespace NewsPortal.Models.Identity
             });
         }
         #endregion
-
 
         public void Dispose()
         {

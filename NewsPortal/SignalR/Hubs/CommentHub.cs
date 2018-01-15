@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNet.SignalR;
-using NewsPortal.Models.DataBaseModels;
-using System;
+﻿using System;
 using NewsPortal.Managers.Commentary;
-using NewsPortal.Managers.NHibernate;
+using Microsoft.AspNet.SignalR;
+using System.Web.Mvc;
 
 namespace NewsPortal.SignalR.Hubs
 {
@@ -10,28 +9,14 @@ namespace NewsPortal.SignalR.Hubs
     {
         public void Send(int newsId, int userId, string comment, string userName)
         {
-            var session = NHibernateManager.GetCurrentSession();
-            var commentItem = new CommentItem()
-            {
-                Content = comment,
-                Timestamp = DateTime.Now,
-                UserId = userId,
-                UserName = userName,
-                NewsId = newsId
-            };
-            session.Save(commentItem);
-            Clients.All.addNewCommentToPage(commentItem.Id, userName, comment, DateTime.Now.ToString());
+            var commentId = 0;
+            CommentaryManager.SaveComment(comment, newsId, userId, userName, ref commentId);
+            Clients.All.addNewCommentToPage(commentId, userName, comment, DateTime.Now.ToString());
         }
         public void Delete(int commentId)
         {
-            var session = NHibernateManager.GetCurrentSession();
-            var transaction = session.BeginTransaction();
-
-            var MyNewsItem = session.Get<CommentItem>(commentId);
+            CommentaryManager.DeleteComment(commentId);
             Clients.All.deleteCommentToPage(commentId);
-            session.Delete(MyNewsItem);
-            transaction.Commit();
-
         }
     }
 }

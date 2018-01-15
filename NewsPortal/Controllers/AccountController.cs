@@ -12,7 +12,6 @@ namespace NewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -23,7 +22,7 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = SignInManager.PasswordSignIn(model.Login, model.Password, false, false);
+                var result = SignInManager.PasswordSignIn(model.UserName, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
                     return RedirectToAction("Index", "Home");
@@ -31,8 +30,8 @@ namespace NewsPortal.Controllers
                 else
                 {
                     //---------------------------------------------
-                    ViewBag.Message = "Incorrect login or password";
-                }   
+                    ViewBag.Message = "Incorrect username or password";
+                }
             }       
             return View(model);
         }
@@ -64,8 +63,9 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var session = NHibernateManager.GetCurrentSession())
+                using (var manager = new NHibernateManager())
                 {
+                    var session = manager.GetSession();
                     var userByEmail = session.QueryOver<User>().
                         Where(u => u.Email == registerModel.Email).
                         SingleOrDefault();
@@ -87,13 +87,12 @@ namespace NewsPortal.Controllers
                     var newUser = new User()
                     {
                         Email = registerModel.Email,
-                        Login = registerModel.Login,
-                        Password = registerModel.Password,
                         UserName = registerModel.UserName,
+                        Password = registerModel.Password,
                         EmailConfirmed = false
                     };
 
-                    var creationResult = UserManager.Create(newUser, registerModel.Password);
+                    var creationResult = UserManager.Create(newUser, newUser.Password);
                     if (creationResult.Succeeded)
                     {
                         session.Save(newUser);
@@ -126,8 +125,10 @@ namespace NewsPortal.Controllers
 
                 if (result.Succeeded)
                 {
-                    using (var session = NHibernateManager.GetCurrentSession())
+                    using (var manager = new NHibernateManager())
                     {
+                        var session = manager.GetSession();
+
                         var user = session.Get<User>(userId);
                         user.EmailConfirmed = true;
                         session.Update(user);

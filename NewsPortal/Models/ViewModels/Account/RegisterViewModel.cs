@@ -12,31 +12,26 @@ namespace NewsPortal.Models.ViewModels
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
-        [Required(ErrorMessage = "Введите Имя пользователя.")]
-        [Display(Name = "Имя пользователя: ")]
+        [Required(ErrorMessage = "Enter username:")]
+        [Display(Name = "Username:")]
         [DataType(DataType.Text)]
         public string UserName { set; get; }
 
-        [Required(ErrorMessage = "Введите E-mail адрес.")]
-        [Display(Name = "E-mail адрес: ")]
+        [Required(ErrorMessage = "Enter E-mail address")]
+        [Display(Name = "E-mail address:")]
         [DataType(DataType.EmailAddress)]
         public string Email { set; get; }
 
-        [Required(ErrorMessage = "Введите логин.")]
-        [Display(Name = "Логин: ")]
-        [DataType(DataType.Text)]
-        public string Login { set; get; }
-
-        [Required(ErrorMessage = "Введите пароль.")]
-        [Display(Name = "Пароль: ")]
+        [Required(ErrorMessage = "Enter password")]
+        [Display(Name = "Password:")]
         [DataType(DataType.Password)]
         public string Password { set; get; }
 
-        [Required(ErrorMessage = "Подтвердите пароль.")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        [Display(Name = "Пароль (подтверждение): ")]
+        [Required(ErrorMessage = "Confirm the password")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        [Display(Name = "Confirm the password:")]
         [DataType(DataType.Password)]
-        [MinLength(6, ErrorMessage = "Пароль должен иметь минимум 6 символов")]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long")]
         public string ConfirmPassword { set; get; }
     }
 }

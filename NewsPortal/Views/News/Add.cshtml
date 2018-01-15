@@ -1,8 +1,7 @@
-﻿@model NewsPortal.Models.ViewModels.NewsItemViewModel
+﻿@model NewsPortal.Models.ViewModels.NewsItemThumbnailViewModel
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <script src="~/CKEditor/ckeditor.js"></script>
 }
 <body>
     @using (Html.BeginForm("Add", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -15,7 +14,7 @@
             <div>
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "creation-control" })
                 <div>
-                    @Html.TextAreaFor(model => model.Title, 2, 120, new { htmlAttributes = new { @class = "" } })
+                    @Html.TextAreaFor(model => model.Title, 1, 120, new { htmlAttributes = new { @class = "" } })
                 </div>
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
@@ -37,12 +36,13 @@
         </div>
     }
     <div class="clean">
-        @Html.ActionLink("Clean", "Index")
+        @Html.ActionLink("Clean", "Add")
     </div>
 </body>
 
 @section script{
+    <script src="~/CKEditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("Content", { height: 300 });
+        CKEDITOR.replace("Content", { height: 250 });
     </script>
 }
