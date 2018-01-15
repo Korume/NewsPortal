@@ -21,7 +21,7 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = SignInManager.PasswordSignIn(model.Login, model.Password, false, false);
+                var result = SignInManager.PasswordSignIn(model.UserName, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
                     return RedirectToAction("Index", "Home");
@@ -29,7 +29,7 @@ namespace NewsPortal.Controllers
                 else
                 {
                     //---------------------------------------------
-                    ViewBag.Message = "Incorrect login or password";
+                    ViewBag.Message = "Incorrect username or password";
                 }
             }       
             return View(model);
@@ -75,9 +75,8 @@ namespace NewsPortal.Controllers
                     var newUser = new User()
                     {
                         Email = registerModel.Email,
-                        Login = registerModel.Login,
-                        Password = registerModel.Password,
                         UserName = registerModel.UserName,
+                        Password = registerModel.Password,
                         EmailConfirmed = false
                     };
 

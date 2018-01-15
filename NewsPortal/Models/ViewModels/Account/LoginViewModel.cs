@@ -8,13 +8,13 @@ namespace NewsPortal.Models.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Введите логин.")]
-        [Display(Name = "Логин: ")]
+        [Required(ErrorMessage = "Enter username")]
+        [Display(Name = "Username: ")]
         [DataType(DataType.Text)]
-        public string Login { set; get; }
+        public string UserName { set; get; }
 
-        [Required(ErrorMessage = "Введите пароль.")]
-        [Display(Name = "Пароль: ")]
+        [Required(ErrorMessage = "Enter password")]
+        [Display(Name = "Password: ")]
         [DataType(DataType.Password)]
         public string Password { set; get; }
     }

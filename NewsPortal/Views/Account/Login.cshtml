@@ -6,24 +6,19 @@
 
     <section class="Section-Authorization">
         <div class="title-head">
-            <span>Авторизация</span>
+            <span>Authorization</span>
         </div>
-        <!-- Fields for filling-->
         @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
-    {
+         {
         <div class="login-FFF">
             <div>
-                @Html.EditorFor(LoginViewModel => LoginViewModel.Login)
-                <div class="Image1">
-                    <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
-                </div>
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                @Html.EditorFor(LoginInputVM => LoginInputVM.UserName)
+                <div class="Image1"></div>
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
             <div>
-                @Html.EditorFor(LoginViewModel => LoginViewModel.Password)
-                <div class="Image2">
-                    <!--<img src="../AdditionalFiles/pass-lock.png">-->
-                </div>
+                @Html.EditorFor(LoginInputVM => LoginInputVM.Password)
+                <div class="Image2"></div>
             </div>
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
@@ -39,13 +34,13 @@
             </div>
             <div class="SecondButton">
                 <span>
-                    <a href="#">Забыли пароль?</a>
+                    <a href="#">Have you forgotten password?</a>
                 </span>
             </div>
         </div>
         <div class="login-footer">
             <div>
-                <span>Авторизоваться через:</span>
+                <span>Login with:</span>
             </div>
             <div>
                 <ul>

@@ -10,7 +10,6 @@ namespace NewsPortal.Models.DataBaseModels
     {
         public virtual int Id { get; protected set; }
         public virtual string UserName { get; set; }
-        public virtual string Login { get; set; }
         public virtual string Email { set; get; }
         public virtual bool EmailConfirmed { set; get; }
         public virtual string Password { get; set; }

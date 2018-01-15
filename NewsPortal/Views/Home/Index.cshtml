@@ -29,12 +29,12 @@
                 if (Model.SortedByDate)
                 {
                     @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
-                   new { @class = "sort" })
+                        new { @class = "sort" })
                 }
                 else
                 {
                     @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true },
-                   new { @class = "reverse-sort" })
+                        new { @class = "reverse-sort" })
                 }
             }
         </div>
@@ -59,12 +59,12 @@
             <div class="Title">
                 <span>
                     @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
-                   new { @class = "show-MainNews" })
+                        new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
                 <div class="NameUser">
-                    @Html.DisplayFor(thumbnail => item.UserLogin)
+                    @Html.DisplayFor(thumbnail => item.UserName)
                 </div>
                 <div class="CreationDate">
                     @Html.DisplayFor(thumbnail => item.CreationDate)

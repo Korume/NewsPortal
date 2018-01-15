@@ -29,7 +29,7 @@ namespace NewsPortal.Controllers
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var userLogin = session.Get<User>(item.UserId).Login;
+                    var userName = session.Get<User>(item.UserId).UserName;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
@@ -37,7 +37,7 @@ namespace NewsPortal.Controllers
                         Title = item.Title,
                         UserId = item.UserId,
                         CreationDate = item.CreationDate,
-                        UserLogin = userLogin
+                        UserName = userName
                     });
                 }
                 var homePageModel = new HomePageModel()
