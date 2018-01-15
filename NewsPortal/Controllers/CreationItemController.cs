@@ -12,14 +12,12 @@ namespace NewsPortal.Controllers
     public class CreationItemController : Controller
     {
         [HttpGet]
+        [Authorize]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            return RedirectToAction("Login", "Account");
+            return View();
         }
+
         [Authorize]
         [ValidateInput(false)]
         [HttpPost]
@@ -34,7 +32,6 @@ namespace NewsPortal.Controllers
             {
                 NewsItem newsItem = new NewsItem()
                 {
-                    Id = newsModel.Id,
                     UserId = Convert.ToInt32(User.Identity.GetUserId()),
                     Title = newsModel.Title,
                     Content = newsModel.Content,
@@ -43,8 +40,8 @@ namespace NewsPortal.Controllers
                 if (uploadedImage != null)
                 {
                     string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
-                    newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
+                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + newsItem.UserId + fileName));
+                    newsItem.SourceImage = "/Content/UploadedImages/" + newsItem.UserId + fileName;
                 }
                 session.Save(newsItem);
             }
