@@ -1,0 +1,99 @@
+﻿﻿@using NewsPortal.Models.ViewModels;
+@using Microsoft.AspNet.Identity;
+@model List<NewsItemThumbnailViewModel>
+
+@section StyleSheet {
+    <link rel="stylesheet" href="~/Content/StyleSheet_HomePage.css" />
+}
+<section class="back-image">
+    <div class="background-image">
+        <!--Here is the picture-->
+    </div>
+    <div class="background-text">
+        <span>News of the day</span><br />
+        <span>"Random Title"</span>
+    </div>
+</section>
+<section class="news-head">
+    <span>News</span>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="add-icon">
+                @Html.ActionLink(" ", "Add", "News")
+            </div>
+        }
+        <div class="sort-icon">
+            @if (Model.Any())
+            {
+                if (Model.First().CreationDate < Model.Last().CreationDate)
+                {
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
+                   new { @class = "sort" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
+                   new { @class = "reverse-sort" })
+                }
+            }
+        </div>
+    </div>
+</section>
+<section class="news-item">
+    @foreach (var item in Model)
+    {
+        <article>
+            @if (item.UserId == User.Identity.GetUserId().AsInt())
+            {
+                <div class="menu-news-item">
+                    @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+                    {
+                        @Html.Hidden("newsItemId", item.Id)
+                        <input type="submit" id="edit-submit" value="" />
+                    }
+                    <a href="@item.Id" name="show-popup-window"></a>
+                </div>
+                <div id="@item.Id" class="popup-backdrop">
+                    <div class="popup-window">
+                        <div class="popup-window-close">
+                            <a href="#" name="close-popup-window"></a>
+                        </div>
+                        <div class="popup-window-head">
+                            <p>
+                                You confirm the deletion of the news<br>
+                                <span>"@Html.DisplayFor(modelItem => item.Title)"</span>
+                            </p>
+                        </div>
+                        <div class="popup-window-main">
+                            @using (Html.BeginForm("DeleteNewsItem", "News", FormMethod.Post))
+                            {
+                                @Html.Hidden("newsItemId", item.Id)
+                                <input type="submit" value="Yes" />
+                            }
+                            <a href="#" name="close-popup-window">No</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="Title">
+                <span>
+                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
+                   new { @class = "show-MainNews" })
+                </span>
+            </div>
+            <div class="NewsInformation">
+                <div class="NameUser">
+                    @Html.DisplayFor(modelItem => item.UserLogin)
+                </div>
+                <div class="CreationDate">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+            </div>
+        </article>
+    }
+</section>
+
+@section script {
+
+}

@@ -6,16 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class LoginInputVM
+    public class LoginViewModel
     {
-        [Display(Name = "Login: ")]
+        [Required(ErrorMessage = "Введите логин.")]
+        [Display(Name = "Логин: ")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "The field must be set!")]
         public string Login { set; get; }
 
-        [Display(Name = "Password: ")]
+        [Required(ErrorMessage = "Введите пароль.")]
+        [Display(Name = "Пароль: ")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "The field must be set!")]
-        public string Password { set; get; }        
+        public string Password { set; get; }
     }
 }

@@ -8,9 +8,10 @@ using NewsPortal;
 namespace NewsPortal.Models.Identity
 {
     public class IdentityStore : IUserStore<User, int>, IUserPasswordStore<User, int>, 
-        IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>
+        IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>, IUserEmailStore<User, int>
     {
         private readonly ISession session;
+
         public IdentityStore(ISession session)
         {
             this.session = session;
@@ -19,30 +20,29 @@ namespace NewsPortal.Models.Identity
         #region IUserStore<User, int>
         public Task CreateAsync(User user)
         {
-            string result = user.Password;
             return Task.Run(() => session.SaveOrUpdate(user));
         }
         public Task DeleteAsync(User user)
         {
             return Task.Run(() => session.Delete(user));
         }
-
         public Task<User> FindByIdAsync(int userId)
         {
             return Task.Run(() => session.Get<User>(userId));
         }
-        //Проверка по логину
-        public Task<User> FindByNameAsync(string Login)
+        public Task<User> FindByNameAsync(string UserName)
         {
             return Task.Run(() =>
             {     
-                return session.QueryOver<User>().Where(u => u.Login == Login).SingleOrDefault();
+                return session.QueryOver<User>().Where(u => u.UserName == UserName).SingleOrDefault();
             });
         }
+
         public Task UpdateAsync(User user)
         {
             return Task.Run(() => session.SaveOrUpdate(user));
-        }   
+        }
+
         #endregion
         #region IUserPasswordStore<User, int>
         public Task SetPasswordHashAsync(User user, string password)
@@ -79,10 +79,8 @@ namespace NewsPortal.Models.Identity
         {
             return Task.FromResult(0);
         }
-        //Blocked -- (Value)LockedOut
         public Task<bool> GetLockoutEnabledAsync(User user)
         {
-            //-
             return Task.FromResult(false);
         }
         public Task SetLockoutEnabledAsync(User user, bool enabled)
@@ -100,6 +98,36 @@ namespace NewsPortal.Models.Identity
             return Task.FromResult(false);
         }
         #endregion
+        #region IUserEmailStore<User, int>
+        public Task SetEmailAsync(User user, string email)
+        {
+            return Task.Run(() => user.Email = email);
+        }
+
+        public Task<string> GetEmailAsync(User user)
+        {
+            return Task.FromResult(user.Email); ;
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user)
+        {
+            return Task.FromResult(user.EmailConfirmed);
+        }
+
+        public Task SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+            return Task.Run(() => user.EmailConfirmed = confirmed);
+        }
+
+        public Task<User> FindByEmailAsync(string email)
+        {
+            return Task.Run(() =>
+            {
+                return session.QueryOver<User>().Where(u => u.Email == email).SingleOrDefault();
+            });
+        }
+        #endregion
+
 
         public void Dispose()
         {

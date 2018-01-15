@@ -1,43 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
+using NewsPortal.Managers.NHibernate;
+using NHibernate;
+using NHibernate.Criterion;
+using System.Configuration;
 
 namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-            var thumbnails = GetThumbnails();
-            return View(thumbnails);
-        }
-        private IList<NewsItemViewModel> GetThumbnails()
-        {
-            List<NewsItemViewModel> thumbnails;
-            using (var session = NHibernateHelper.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
+            var newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityOnHomePage"]);
+
+            using (var session = NHibernateManager.GetCurrentSession())
             {
-                var newsItemList = session.QueryOver<NewsItem>().List();
-                thumbnails = new List<NewsItemViewModel>(newsItemList.Count);
+                var propertyForOrder = "CreationDate";
+                var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
+                var newsItemList = session.CreateCriteria<NewsItem>().
+                    AddOrder(orderType).
+                    SetFirstResult(page * newsItemsQuantity).
+                    SetMaxResults(newsItemsQuantity).
+                    List<NewsItem>();
+
+                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var user = session.Get<User>(item.UserId);
-                    thumbnails.Add(new NewsItemViewModel()
+                    var userName = session.Get<User>(item.UserId).UserName;
+
+                    thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
                         Id = item.Id,
                         Title = item.Title,
+                        UserId = item.UserId,
                         CreationDate = item.CreationDate,
-                        UserName = session.Get<User>(item.UserId).UserName
+                        UserName = userName
                     });
                 }
-                transaction.Commit();
+                var homePageModel = new HomePageModel()
+                {
+                    Thumbnails = thumbnails,
+                    Page = page,
+                    SortedByDate = sortedByDate
+                };
+                return View(homePageModel);
             }
-            return thumbnails;
         }
     }
 }

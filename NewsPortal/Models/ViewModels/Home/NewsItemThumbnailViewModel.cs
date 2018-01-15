@@ -7,7 +7,7 @@ using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class NewsItemViewModel
+    public class NewsItemThumbnailViewModel
     {
         [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
@@ -22,7 +22,7 @@ namespace NewsPortal.Models.ViewModels
         [DataType(DataType.Text)]
         public string Title { set; get; }
 
-        [StringLength(4000, ErrorMessage ="Max length = 4000")]
+        [StringLength(4000, ErrorMessage = "Max length = 4000")]
         [Required(ErrorMessage = "The field must be set!")]
         [Display(Name = "Content")]
         [DataType(DataType.MultilineText)]

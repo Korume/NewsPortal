@@ -1,41 +1,49 @@
 ﻿html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    min-width: 625px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header {
     position: fixed;
     top: 0;
     z-index: 100;
-    background-color: #252525;
     height: 60px;
     width: 100%;
+    min-width: inherit;
     padding: 0 10%;
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-around;
+    border-bottom: 1px solid white;
+    background-color: #252525;
     font-family: 'Roboto', sans-serif;
 }
+
 main {
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
     /*max-height: 100%;*/
     /*Проблема: при маленьком окне, footer прилягает к main, при этом создавая пустое место снизу*/
-    min-height: 46.45vw;
     width: 100%;
-    background-color: #252525;
+    height: 100%;
     margin: 0 auto;
     margin-top: 60px;
     padding: 5px 0;
     box-sizing: border-box;
     font-family: 'Georgia', sans-serif;
 }
+
 footer {
-    /*position: fixed;*/
-    bottom: 0;
-    background-color: #252525;
-    height: 60px;
     width: 100%;
+    min-height: 60px;
+    background-color: #252525;
+    bottom: 0;
+    border-top: 1px solid white;
     padding: 0 80px;
     box-sizing: border-box;
 }
@@ -45,25 +53,69 @@ header div {
     width: 50%;
 }
 
-header div:first-child a {
-    font-size: 50px;
-    text-decoration: none;
-    color: white;
+    header div:first-child {
+        float: left;
+    }
+
+        header div:first-child a {
+            font-size: 50px;
+            text-decoration: none;
+            color: white;
+        }
+
+    header div:last-child {
+        padding: 20px 0;
+        float: right;
+    }
+
+        header div:last-child span {
+            float: inherit;
+        }
+
+        header div:last-child a {
+            font-size: 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+            header div:last-child a:last-child {
+                margin-left: 10px;
+            }
+
+/*ScrollBar*/
+html body::-webkit-scrollbar {
+    width: 6px;
 }
 
-header div:last-child {
-    padding: 20px 0;
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
 }
 
-header div:last-child span {
-    float: right;
+    html body::-webkit-scrollbar-thumb:hover {
+        border-width: 1px 1px 1px 2px;
+        border-color: #555;
+        background-color: #777;
+    }
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
 }
 
-header div:last-child a {
-    font-size: 15px;
-    color: white;
-    text-decoration: none;
+    html body::-webkit-scrollbar-track:hover {
+        border-left: solid 1px #aaa;
+        background-color: #eee;
+    }
+/*html body::-webkit-scrollbar {
+    width: 6px;
+    background-color: #252525;
 }
-header div:last-child a:last-child {
-    margin-left: 10px;
+
+html body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px 0 0 2px;
 }
+
+html body::-webkit-scrollbar-track {
+    border-width: 0;
+}*/

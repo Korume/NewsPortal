@@ -24,9 +24,9 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +47,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -77,31 +84,120 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.1.1.3\lib\net451\Microsoft.AspNetCore.Authentication.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Cookies, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Cookies.1.1.3\lib\net451\Microsoft.AspNetCore.Authentication.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.1.1.3\lib\net451\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.1.1.3\lib\net451\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.1.1.3\lib\net451\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.1.1.3\lib\net451\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.1.1.3\lib\net451\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.1.1.2\lib\net451\Microsoft.AspNetCore.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.1.1.2\lib\net451\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.1.1.1\lib\net451\Microsoft.Extensions.ObjectPool.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.1.1.2\lib\netstandard1.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.1.1.2\lib\netstandard1.1\Microsoft.Net.Http.Headers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
@@ -111,16 +207,16 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=5.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.5.0.0\lib\net461\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NHibernate.AspNet.Identity, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.AspNet.Identity.5.0.1\lib\net461\NHibernate.AspNet.Identity.dll</HintPath>
+    <Reference Include="NHibernate.AspNet.Identity, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.AspNet.Identity.2.2.1.0\lib\net45\NHibernate.AspNet.Identity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -135,25 +231,72 @@
       <HintPath>..\packages\Remotion.Linq.EagerFetching.2.1.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.1.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.3.1\lib\netstandard1.0\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -173,6 +316,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
@@ -206,168 +353,176 @@
     <Content Include="App_Data\NewsPortal_log.ldf">
       <DependentUpon>NewsPortal.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
+    <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
     <Content Include="Content\AdditionalFiles\Icon\user.png" />
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
+    <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
     <Content Include="Content\AdditionalFiles\Sprite\Sprite.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
-    <Content Include="Content\ckeditor\adapters\jquery.js" />
-    <Content Include="Content\ckeditor\build-config.js" />
-    <Content Include="Content\ckeditor\ckeditor.js" />
-    <Content Include="Content\ckeditor\config.js" />
-    <Content Include="Content\ckeditor\contents.css" />
-    <Content Include="Content\ckeditor\lang\en.js" />
-    <Content Include="Content\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
-    <Content Include="Content\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
-    <Content Include="Content\ckeditor\plugins\dialog\dialogDefinition.js" />
-    <Content Include="Content\ckeditor\plugins\icons.png" />
-    <Content Include="Content\ckeditor\plugins\icons_hidpi.png" />
-    <Content Include="Content\ckeditor\plugins\link\dialogs\anchor.js" />
-    <Content Include="Content\ckeditor\plugins\link\dialogs\link.js" />
-    <Content Include="Content\ckeditor\plugins\link\images\anchor.png" />
-    <Content Include="Content\ckeditor\plugins\link\images\hidpi\anchor.png" />
-    <Content Include="Content\ckeditor\plugins\preview\preview.html" />
-    <Content Include="Content\ckeditor\plugins\smiley\dialogs\smiley.js" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\angel_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\angel_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\angry_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\angry_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\broken_heart.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\broken_heart.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\confused_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\confused_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\cry_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\cry_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\devil_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\devil_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\envelope.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\envelope.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\heart.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\heart.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\kiss.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\kiss.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\lightbulb.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\lightbulb.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\omg_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\omg_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\regular_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\regular_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\sad_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\sad_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\shades_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\shades_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\teeth_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\teeth_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\thumbs_down.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\thumbs_down.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\thumbs_up.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\thumbs_up.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\tongue_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\tongue_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\tounge_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\wink_smile.gif" />
-    <Content Include="Content\ckeditor\plugins\smiley\images\wink_smile.png" />
-    <Content Include="Content\ckeditor\samples\css\samples.css" />
-    <Content Include="Content\ckeditor\samples\img\github-top.png" />
-    <Content Include="Content\ckeditor\samples\img\header-bg.png" />
-    <Content Include="Content\ckeditor\samples\img\header-separator.png" />
-    <Content Include="Content\ckeditor\samples\img\logo.png" />
-    <Content Include="Content\ckeditor\samples\img\navigation-tip.png" />
-    <Content Include="Content\ckeditor\samples\index.html" />
-    <Content Include="Content\ckeditor\samples\js\sample.js" />
-    <Content Include="Content\ckeditor\samples\js\sf.js" />
-    <Content Include="Content\ckeditor\samples\old\ajax.html" />
-    <Content Include="Content\ckeditor\samples\old\api.html" />
-    <Content Include="Content\ckeditor\samples\old\appendto.html" />
-    <Content Include="Content\ckeditor\samples\old\assets\inlineall\logo.png" />
-    <Content Include="Content\ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
-    <Content Include="Content\ckeditor\samples\old\assets\posteddata.php" />
-    <Content Include="Content\ckeditor\samples\old\assets\sample.jpg" />
-    <Content Include="Content\ckeditor\samples\old\assets\uilanguages\languages.js" />
-    <Content Include="Content\ckeditor\samples\old\datafiltering.html" />
-    <Content Include="Content\ckeditor\samples\old\dialog\assets\my_dialog.js" />
-    <Content Include="Content\ckeditor\samples\old\dialog\dialog.html" />
-    <Content Include="Content\ckeditor\samples\old\divreplace.html" />
-    <Content Include="Content\ckeditor\samples\old\enterkey\enterkey.html" />
-    <Content Include="Content\ckeditor\samples\old\index.html" />
-    <Content Include="Content\ckeditor\samples\old\inlineall.html" />
-    <Content Include="Content\ckeditor\samples\old\inlinebycode.html" />
-    <Content Include="Content\ckeditor\samples\old\inlinetextarea.html" />
-    <Content Include="Content\ckeditor\samples\old\jquery.html" />
-    <Content Include="Content\ckeditor\samples\old\readonly.html" />
-    <Content Include="Content\ckeditor\samples\old\replacebyclass.html" />
-    <Content Include="Content\ckeditor\samples\old\replacebycode.html" />
-    <Content Include="Content\ckeditor\samples\old\sample.css" />
-    <Content Include="Content\ckeditor\samples\old\sample.js" />
-    <Content Include="Content\ckeditor\samples\old\sample_posteddata.php" />
-    <Content Include="Content\ckeditor\samples\old\tabindex.html" />
-    <Content Include="Content\ckeditor\samples\old\toolbar\toolbar.html" />
-    <Content Include="Content\ckeditor\samples\old\uicolor.html" />
-    <Content Include="Content\ckeditor\samples\old\uilanguages.html" />
-    <Content Include="Content\ckeditor\samples\old\wysiwygarea\fullpage.html" />
-    <Content Include="Content\ckeditor\samples\old\xhtmlstyle.html" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\index.html" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
-    <Content Include="Content\ckeditor\skins\moono-dark\dialog.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\dialog_ie.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\dialog_ie7.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\dialog_ie8.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\dialog_iequirks.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor_gecko.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor_ie.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor_ie7.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor_ie8.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\editor_iequirks.css" />
-    <Content Include="Content\ckeditor\skins\moono-dark\icons.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\icons_hidpi.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\arrow.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\close.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\hidpi\close.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\hidpi\lock-open.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\hidpi\lock.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\hidpi\refresh.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\lock-open.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\lock.png" />
-    <Content Include="Content\ckeditor\skins\moono-dark\images\refresh.png" />
-    <Content Include="Content\ckeditor\styles.js" />
+    <Content Include="CKEditor\adapters\jquery.js" />
+    <Content Include="CKEditor\build-config.js" />
+    <Content Include="CKEditor\ckeditor.js" />
+    <Content Include="CKEditor\config.js" />
+    <Content Include="CKEditor\contents.css" />
+    <Content Include="CKEditor\lang\en.js" />
+    <Content Include="CKEditor\plugins\colordialog\dialogs\colordialog.css" />
+    <Content Include="CKEditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="CKEditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="CKEditor\plugins\icons.png" />
+    <Content Include="CKEditor\plugins\icons_hidpi.png" />
+    <Content Include="CKEditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="CKEditor\plugins\link\dialogs\link.js" />
+    <Content Include="CKEditor\plugins\link\images\anchor.png" />
+    <Content Include="CKEditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="CKEditor\plugins\preview\preview.html" />
+    <Content Include="CKEditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="CKEditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="CKEditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\envelope.png" />
+    <Content Include="CKEditor\plugins\smiley\images\heart.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\heart.png" />
+    <Content Include="CKEditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\kiss.png" />
+    <Content Include="CKEditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="CKEditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="CKEditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="CKEditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="CKEditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="CKEditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="CKEditor\samples\css\samples.css" />
+    <Content Include="CKEditor\samples\img\github-top.png" />
+    <Content Include="CKEditor\samples\img\header-bg.png" />
+    <Content Include="CKEditor\samples\img\header-separator.png" />
+    <Content Include="CKEditor\samples\img\logo.png" />
+    <Content Include="CKEditor\samples\img\navigation-tip.png" />
+    <Content Include="CKEditor\samples\index.html" />
+    <Content Include="CKEditor\samples\js\sample.js" />
+    <Content Include="CKEditor\samples\js\sf.js" />
+    <Content Include="CKEditor\samples\old\ajax.html" />
+    <Content Include="CKEditor\samples\old\api.html" />
+    <Content Include="CKEditor\samples\old\appendto.html" />
+    <Content Include="CKEditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="CKEditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="CKEditor\samples\old\assets\posteddata.php" />
+    <Content Include="CKEditor\samples\old\assets\sample.jpg" />
+    <Content Include="CKEditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="CKEditor\samples\old\datafiltering.html" />
+    <Content Include="CKEditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="CKEditor\samples\old\dialog\dialog.html" />
+    <Content Include="CKEditor\samples\old\divreplace.html" />
+    <Content Include="CKEditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="CKEditor\samples\old\index.html" />
+    <Content Include="CKEditor\samples\old\inlineall.html" />
+    <Content Include="CKEditor\samples\old\inlinebycode.html" />
+    <Content Include="CKEditor\samples\old\inlinetextarea.html" />
+    <Content Include="CKEditor\samples\old\jquery.html" />
+    <Content Include="CKEditor\samples\old\readonly.html" />
+    <Content Include="CKEditor\samples\old\replacebyclass.html" />
+    <Content Include="CKEditor\samples\old\replacebycode.html" />
+    <Content Include="CKEditor\samples\old\sample.css" />
+    <Content Include="CKEditor\samples\old\sample.js" />
+    <Content Include="CKEditor\samples\old\sample_posteddata.php" />
+    <Content Include="CKEditor\samples\old\tabindex.html" />
+    <Content Include="CKEditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="CKEditor\samples\old\uicolor.html" />
+    <Content Include="CKEditor\samples\old\uilanguages.html" />
+    <Content Include="CKEditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="CKEditor\samples\old\xhtmlstyle.html" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="CKEditor\skins\moono-dark\dialog.css" />
+    <Content Include="CKEditor\skins\moono-dark\dialog_ie.css" />
+    <Content Include="CKEditor\skins\moono-dark\dialog_ie7.css" />
+    <Content Include="CKEditor\skins\moono-dark\dialog_ie8.css" />
+    <Content Include="CKEditor\skins\moono-dark\dialog_iequirks.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor_gecko.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor_ie.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor_ie7.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor_ie8.css" />
+    <Content Include="CKEditor\skins\moono-dark\editor_iequirks.css" />
+    <Content Include="CKEditor\skins\moono-dark\icons.png" />
+    <Content Include="CKEditor\skins\moono-dark\icons_hidpi.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\arrow.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\close.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\hidpi\close.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\hidpi\lock-open.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\hidpi\lock.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\hidpi\refresh.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\lock-open.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\lock.png" />
+    <Content Include="CKEditor\skins\moono-dark\images\refresh.png" />
+    <Content Include="CKEditor\styles.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet_BasicFormatting.css" />
-    <Content Include="Content\StyleSheet_MainPage.css" />
+    <Content Include="Content\StyleSheet_HomePage.css" />
+    <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Models\DataBaseModels\User.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Content\ckeditor\CHANGES.md" />
-    <Content Include="Content\ckeditor\LICENSE.md" />
-    <Content Include="Content\ckeditor\README.md" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\config.json" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
-    <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
-    <Content Include="Content\ckeditor\skins\moono-dark\readme.md" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="CKEditor\CHANGES.md" />
+    <Content Include="CKEditor\LICENSE.md" />
+    <Content Include="CKEditor\README.md" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="CKEditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="CKEditor\skins\moono-dark\readme.md" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <EmbeddedResource Include="Models\DataBaseModels\NewsItem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\DataBaseModels\CommentItem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -375,10 +530,13 @@
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -387,37 +545,61 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Controllers\CreationItemController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\Commentary\CommentaryManager.cs" />
+    <Compile Include="Managers\News\NewsManager.cs" />
+    <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
+    <Compile Include="Models\Commentaries\CommentItemViewModel.cs" />
+    <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
-    <Compile Include="Models\IdentityModels\IdentityStore.cs" />
-    <Compile Include="Models\ManageViewModels\SignInManager.cs" />
-    <Compile Include="Models\ManageViewModels\UserManager.cs" />
-    <Compile Include="Models\ViewModels\LoginInputVM.cs" />
-    <Compile Include="Models\ViewModels\NewsItemViewModel.cs" />
-    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Identity\IdentityStore.cs" />
+    <Compile Include="Managers\Identity\EmailManager.cs" />
+    <Compile Include="Managers\Identity\SignInManager.cs" />
+    <Compile Include="Managers\Identity\UserManager.cs" />
+    <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\Home\HomePageModel.cs" />
+    <!-- <Compile Include="Models\ViewModels\NewsItemViewModel.cs" /> -->
+    <Compile Include="Models\ViewModels\News\NewsItemEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\News\NewsItemMainPageViewModel.cs" />
+    <Compile Include="Models\ViewModels\Home\NewsItemThumbnailViewModel.cs" />
+    <!-- Slava -->
+    <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="Models\DataBaseModels\User.cs" />
-    <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\Hubs\CommentHub.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <Content Include="Views\CreationItem\Index.cshtml" />
+    <Content Include="Views\News\MainNews.cshtml" />
+    <!-- <Content Include="Views\Shared\Dialog\YesOrNo.cshtml" /> -->
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\News\Add.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\News\NotFound.cshtml" />
+    <Content Include="Views\Account\SuccesfulRegistration.cshtml" />
+    <Content Include="Views\Account\SuccesfulConfirmation.cshtml" />
+    <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -429,6 +611,7 @@
     <Folder Include="Connected Services\" />
     <Folder Include="Content\UploadedImages\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -460,7 +643,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets'))" />
   </Target>
+  <Import Project="..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
