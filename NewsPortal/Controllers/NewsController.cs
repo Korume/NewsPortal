@@ -8,18 +8,17 @@ using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
-
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
+        public static int number = 0;
         [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
             return View();
         }
-
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
@@ -41,8 +40,9 @@ namespace NewsPortal.Controllers
                 if (uploadedImage != null)
                 {
                     string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
-                    newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
+                    number++;
+                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/"+number+ fileName));
+                    newsItem.SourceImage = "/Content/UploadedImages/" + number + fileName;
                 }
                 session.Save(newsItem);
             }
@@ -120,13 +120,13 @@ namespace NewsPortal.Controllers
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
             }        
-            using (var session = NHibernateManager.GetCurrentSession())
-            using (var transaction = session.BeginTransaction())
-            {
-                var MyNewsItem = session.Get<NewsItem>(newsItemId);
-                session.Delete(MyNewsItem);
-                transaction.Commit();
-            }
+            //using (var session = NHibernateManager.GetCurrentSession())
+            //using (var transaction = session.BeginTransaction())
+            //{
+            //    var MyNewsItem = session.Get<NewsItem>(newsItemId);
+            //    session.Delete(MyNewsItem);
+            //    transaction.Commit();
+            //}
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
