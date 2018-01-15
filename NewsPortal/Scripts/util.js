@@ -14,7 +14,7 @@
 			'<time>' +
 			htmlEncode(dateTime) +
 			'</time >' +
-			'<div class="comment-menu" id="' + htmlEncode(idComment) + '">' + 
+			'<div class="comment-menu" id="' + htmlEncode(idComment) + '">' +
 			'<input class="deleteComment" type="button" />' +
 			'</div>' +
 			'</div>' +
@@ -31,6 +31,7 @@
 		//$('#comment-list').removeClass("comment-" + idComment);
 		//document.getElementById('#comment-list').parentNode.removeChild(idComment);
 		var deleteComment = document.getElementById('item-' + idComment);
+
 		deleteComment.parentNode.removeChild(deleteComment);
 	}
 	$.connection.hub.start().done(function () {
@@ -39,7 +40,7 @@
 			chat.server.send($('#newsId').val(), $('#userId').val(), $('#comment').val(), $('#userName').val());
 			$('#comment').val('').focus();
 		});
-		$('.deleteComment').click(function () {
+		$(document).on("click", ".deleteComment", function () {
 			var id = $(this).parent().attr("id");
 			chat.server.delete(id);
 		});

@@ -11,7 +11,6 @@ namespace NewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -25,13 +24,13 @@ namespace NewsPortal.Controllers
                 var result = SignInManager.PasswordSignIn(model.Login, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
-                    return RedirectToAction("Index", "Home");             
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     //---------------------------------------------
                     ViewBag.Message = "Incorrect login or password";
-                }   
+                }
             }       
             return View(model);
         }
@@ -82,7 +81,7 @@ namespace NewsPortal.Controllers
                         EmailConfirmed = false
                     };
 
-                    var creationResult = UserManager.Create(newUser, registerModel.Password);
+                    var creationResult = UserManager.Create(newUser, newUser.Password);
 
                     if (creationResult.Succeeded)
                     {

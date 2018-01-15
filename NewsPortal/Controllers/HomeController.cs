@@ -5,16 +5,19 @@ using NewsPortal.Models.ViewModels;
 using NewsPortal.Managers.NHibernate;
 using NHibernate;
 using NHibernate.Criterion;
+using System.Configuration;
 
 namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(int page = 0, int newsItemsQuantity = 20, bool sortedByDate = true)
+        public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
+            var newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityOnHomePage"]);
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
+
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().
@@ -37,8 +40,13 @@ namespace NewsPortal.Controllers
                         UserLogin = userLogin
                     });
                 }
-
-                return View(thumbnails);
+                var homePageModel = new HomePageModel()
+                {
+                    Thumbnails = thumbnails,
+                    Page = page,
+                    SortedByDate = sortedByDate
+                };
+                return View(homePageModel);
             }
         }
     }

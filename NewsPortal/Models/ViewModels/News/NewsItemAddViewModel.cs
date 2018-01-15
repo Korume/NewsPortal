@@ -32,6 +32,5 @@ namespace NewsPortal.Models.ViewModels
         [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int? UserId { set; get; }
-
     }
 }

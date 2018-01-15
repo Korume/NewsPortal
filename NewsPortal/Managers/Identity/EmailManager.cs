@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -8,7 +9,7 @@ namespace NewsPortal.Managers.Identity
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage identityMessage)
+        public async Task SendAsync(IdentityMessage identityMessage)
         {
             using (MailMessage message = new MailMessage(ConfigurationManager.AppSettings["mailAccount"],
                 identityMessage.Destination))
@@ -18,16 +19,16 @@ namespace NewsPortal.Managers.Identity
                 message.Body = identityMessage.Body;
                 message.IsBodyHtml = true;
 
-                smtpServer.Host = "smtp.gmail.com";
-                smtpServer.Port = 587;
-                smtpServer.EnableSsl = true;
-                smtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpServer.UseDefaultCredentials = false;
+                smtpServer.Host = ConfigurationManager.AppSettings["mailHost"];
+                smtpServer.Port = int.Parse(ConfigurationManager.AppSettings["mailPort"]);
+                smtpServer.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["mailEnableSsl"]);
+                smtpServer.DeliveryMethod = (SmtpDeliveryMethod)Enum.Parse(typeof(SmtpDeliveryMethod), 
+                    ConfigurationManager.AppSettings["mailDeliveryMethod"]);
+                smtpServer.UseDefaultCredentials = bool.Parse(ConfigurationManager.AppSettings["mailUseDefaultCredentials"]);
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"],
                     ConfigurationManager.AppSettings["mailPassword"]);
-                smtpServer.Send(message);
+                await smtpServer.SendMailAsync(message);
             }
-            return Task.FromResult(0);
         }
     }
 }

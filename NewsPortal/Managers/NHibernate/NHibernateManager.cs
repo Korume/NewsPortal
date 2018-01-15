@@ -11,9 +11,6 @@ namespace NewsPortal.Managers.NHibernate
 {
     public class NHibernateManager : IDisposable
     {
-        //WebConfig
-        //private const string CurrentSessionKey = "nhibernate.current_session";
-
         private static ISessionFactory _sessionFactory;
         private static ISession _currentSession;
 

@@ -1,0 +1,94 @@
+@using NewsPortal.Models.ViewModels;
+@using Microsoft.AspNet.Identity;
+@model NewsPortal.Models.ViewModels.News.NewsItemMainPageViewModel
+
+
+@section StyleSheet{
+    <link rel="stylesheet" href="~/Content/StyleSheet_NewsPage.css" />
+}
+
+<section class="main-news-items">
+    <div class="main-news-items-info">
+        <time class="main-news-items-time">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.CreationDate)
+        </time>
+        <section class="main-news-items-nameUser">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)
+        </section>
+    </div>
+    <div class="main-news-items-head">
+        <h1>
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Title)
+        </h1>
+    </div>
+    <div class="main-news-items-content">
+        <section class="image"></section>
+        <section class="text">
+            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Content)
+        </section>
+    </div>
+    <div class="main-news-items-footer">
+        <section class="content-left">
+            <div class="content-head">
+                <span>Commentaries</span>
+            </div>
+            <ul class="content-list" id="comment-list">
+                @foreach (var elem in ViewBag.NewsItemCommentaries)
+                {
+                    <li class="content-list-item" id="@elem.Id">
+                        <div class="comment">
+                            <div class="comment-head">
+                                <a href="" class="user-info">
+                                    <img src="">
+                                    <span>
+                                        @elem.UserName
+                                    </span>
+                                </a>
+                                <time>
+                                    @elem.Timestamp
+                                </time>
+                                <input id="deletecomment" type="button" />
+                            </div>
+                            <div class="comment-message">
+                                @elem.Content
+                            </div>
+                            <div class="comment-footer">
+
+                            </div>
+                        </div>
+                        <input id="commentId" type="hidden" value="@elem.Id" />
+                    </li>
+                }
+            </ul>
+            <div class="comment-form">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form>
+                        <label for="comment">Comment</label>
+                        <!--Html.Label("Comment","Comment")-->
+                        <textarea name="comment" id="comment"></textarea>
+                        <!--<input type="text" id="comment" />-->
+                        <!--Html.TextArea("Comment")-->
+                        <input type="button" id="sendcomment" value="Отправить" />
+                    </form>
+                    <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
+                    <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
+                    <input id="userName" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)" />
+                }
+                else
+                {
+                    <p>Пожалуйста авторизируйтесь</p>
+                }
+            </div>
+        </section>
+        <section class="content-right"></section>
+    </div>
+</section>
+
+@section script{
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/util.js"></script>
+}
+
