@@ -12,7 +12,6 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        public static int number = 0;
         [HttpGet]
         [Authorize]
         public ActionResult Add()
@@ -29,6 +28,7 @@ namespace NewsPortal.Controllers
                 return View(newsModel);
             }
             using (var session = NHibernateManager.GetCurrentSession())
+            using (var transaction = session.BeginTransaction())
             {
                 NewsItem newsItem = new NewsItem()
                 {
@@ -37,14 +37,16 @@ namespace NewsPortal.Controllers
                     Content = newsModel.Content,
                     CreationDate = DateTime.Now
                 };
+                session.Save(newsItem);
+
                 if (uploadedImage != null)
                 {
                     string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                    number++;
-                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/"+number+ fileName));
-                    newsItem.SourceImage = "/Content/UploadedImages/" + number + fileName;
+                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + newsItem.Id + fileName));
+                    newsItem.SourceImage = "/Content/UploadedImages/" + newsItem.Id + fileName;
                 }
-                session.Save(newsItem);
+                session.Update(newsItem);
+                transaction.Commit();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -110,7 +112,7 @@ namespace NewsPortal.Controllers
 
             return View(showMainNews);
         }
-        
+
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
@@ -119,7 +121,7 @@ namespace NewsPortal.Controllers
             {
                 var MyNewsItem = session.Get<NewsItem>(newsItemId);
                 session.Delete(MyNewsItem);
-            }        
+            }
             //using (var session = NHibernateManager.GetCurrentSession())
             //using (var transaction = session.BeginTransaction())
             //{
