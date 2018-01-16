@@ -1,4 +1,8 @@
 ﻿/*---------------------------------------------Основные настройки---------------------------------------------*/
+html, body {
+    height: 100%;
+}
+
 main {
     display: flex;
     background-color: transparent;
@@ -11,8 +15,6 @@ main {
     width: 400px;
     height: auto;
     padding: 10px;
-    /*border: 1px solid white;*/
-    /*border-radius: 5px;*/
 }
 
 .title-head, .login-FFF, .login-confirm, .login-footer {
@@ -221,8 +223,9 @@ main {
 .form-news-edit input[type=submit] {
     width: 100%;
 }
+
 .form-news-adding .editor-field > textarea,
-.form-news-edit .editor-field > textarea{
+.form-news-edit .editor-field > textarea {
     resize: none;
     width: 760px;
     height: 130px;
@@ -247,17 +250,19 @@ main {
     margin: 15px 0;
 }
 
-.btn-submit-creation:hover {
-    background: rgba(255,255,255,.2);
-}
+    .btn-submit-creation:hover {
+        background: rgba(255,255,255,.2);
+    }
 
-.btn-submit-creation:active {
-    background: white;
-}
+    .btn-submit-creation:active {
+        background: white;
+    }
+
 .text-danger {
     color: red;
     font-weight: bold;
 }
+
 .clean {
     margin: 10px;
     text-decoration: none;

@@ -353,6 +353,7 @@
     <Content Include="App_Data\NewsPortal_log.ldf">
       <DependentUpon>NewsPortal.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\AdditionalFiles\Icon\burger-menu.png" />
     <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />

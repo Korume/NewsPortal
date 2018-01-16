@@ -5,6 +5,21 @@
 @section StyleSheet {
     <link rel="stylesheet" href="~/Content/StyleSheet_HomePage.css" />
 }
+@section SortingNews {
+    @if (Model.Thumbnails.Any())
+    {
+        if (Model.SortedByDate)
+        {
+            <li>@Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false }, 
+               new { @class = "sort" })</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true }, 
+               new { @class = "reverse-sort" })</li>
+        }
+    }
+}
 <section class="back-image">
     <div class="background-image">
         <!--Here is the picture-->
@@ -21,7 +36,7 @@
         {
             <div class="add-icon">
                 @Html.ActionLink(" ", "Add", "News")
-            </div>  
+            </div>
         }
         <div class="sort-icon">
             @if (Model.Thumbnails.Any())
@@ -53,8 +68,8 @@
                         <input type="submit" id="edit-submit" value="" />
                     }
                     <a href="#@item.Id" name="show-popup-window"></a>
-                </div> 
-                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel {Id = item.Id, Title = item.Title})
+                </div>
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
             }
             <div class="Title">
                 <span>

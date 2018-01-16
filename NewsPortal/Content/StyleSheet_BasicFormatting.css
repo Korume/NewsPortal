@@ -1,9 +1,6 @@
 ﻿html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    min-width: 625px;
-    height: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -27,8 +24,6 @@ header {
 }
 
 main {
-    /*max-height: 100%;*/
-    /*Проблема: при маленьком окне, footer прилягает к main, при этом создавая пустое место снизу*/
     width: 100%;
     height: 100%;
     margin: 0 auto;
@@ -82,6 +77,14 @@ header div {
                 margin-left: 10px;
             }
 
+        header div:last-child .item-menu-min {
+            display: none;
+            width: 48px;
+            height: 48px;
+            background: transparent url("AdditionalFiles/Icon/burger-menu.png") no-repeat center;
+            float: right;
+        }
+
 /*ScrollBar*/
 html body::-webkit-scrollbar {
     width: 6px;
@@ -106,16 +109,119 @@ html body::-webkit-scrollbar-track {
         border-left: solid 1px #aaa;
         background-color: #eee;
     }
-/*html body::-webkit-scrollbar {
-    width: 6px;
-    background-color: #252525;
+
+@media screen and (min-width: 320px) and (max-width:767px) {
+    html, body {
+        max-width: 767px;
+        min-width: 100%;
+    }
+
+        html body::-webkit-scrollbar {
+            width: 0;
+        }
+
+    header {
+        position: inherit;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        box-sizing: border-box;
+    }
+
+        header > div {
+            width: auto;
+            box-sizing: border-box;
+        }
+
+        header div:first-child a {
+            font-size: 50px;
+        }
+
+    .background-text span:first-child {
+        font-size: 14vw;
+    }
+
+    .background-text span:last-child {
+        font-size: 12vw;
+    }
+
+    main {
+        margin-top: 0;
+    }
+
+        main .news-item {
+            width: 95%;
+        }
+
+            main .news-item article {
+                width: 100%;
+            }
+
+    header div:last-child span {
+        display: none;
+    }
+
+    header div:last-child {
+        padding: 5px 0;
+    }
+
+        header div:last-child .item-menu-min {
+            display: block;
+        }
+
+    .item-menu-min ul {
+        display: none;
+        padding: 15px 15px 15px 15px;
+        position: absolute;
+        left: 0;
+        top: 35px;
+        z-index: 2;
+        background-color: rgba(37, 37, 37, 1);
+        box-sizing: border-box;
+        border-radius: 0 0 8px 8px;
+        list-style-type: none;
+    }
+
+    header div:last-child:hover .item-menu-min ul {
+        display: block;
+        width: 100%;
+    }
+
+    .item-menu-min ul li a {
+        display: block;
+        text-decoration: none;
+        padding: 5px;
+        color: white;
+        font-family: "Roboto", "sans-serif";
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid white;
+    }
+
+        .item-menu-min ul li a:hover {
+            color: white;
+            background-color: #37ABFF;
+            display: block;
+        }
+
+    .news-head .add-icon, .news-head .sort-icon {
+        display: none;
+    }
+
+    .popup-window-head p {
+        font-size: 20px;
+    }
 }
 
-html body::-webkit-scrollbar-thumb {
-    background-color: white;
-    border-radius: 2px 0 0 2px;
+@media screen and (min-width: 768px)and (max-width:1023px) {
+    html, body {
+        width: 100%;
+    }
 }
 
-html body::-webkit-scrollbar-track {
-    border-width: 0;
-}*/
+@media screen and (min-width: 1024px)and (max-width:1280px) {
+    html, body {
+        width: 100%;
+    }
+}

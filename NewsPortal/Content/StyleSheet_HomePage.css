@@ -56,6 +56,7 @@ main .news-head {
         margin: 0;
         color: black;
     }
+
     main .news-head > div {
         position: absolute;
         top: 0;
@@ -175,7 +176,7 @@ main .news-item {
 /*Pop-up Window*/
 .popup-window {
     width: 500px;
-    height: 200px;
+    height: auto;
     border: 2px solid white;
     border-radius: 10px;
     background-color: #252525;
@@ -188,48 +189,52 @@ main .news-item {
     padding: 5px;
 }
 
-    .popup-window-head p {
-        color: white;
-        padding: 0;
-        margin: 0;
-        text-align: center;
-        font-size: 25px;
-        font-family: 'PT Sans', sans-serif;
-    }
+.popup-window-main {
+    overflow: hidden;
+}
 
-    .popup-window-main form {
-        display: inline-block;
-        float: left;
-    }
+.popup-window-head p {
+    color: white;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
+}
 
-    .popup-window-main input[type=submit] {
-        width: 210px;
-        height: 45px;
-        color: white;
-        font-size: 20px;
-        font-family: 'PT Sans', sans-serif;
-        border: 1px solid white;
-        background-color: #252525;
-    }
+.popup-window-main form {
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
 
-    /*-------------------Временное решенеи с DialogWindow----------------------*/
-    .popup-window-main a {
-        display: block;
-        width: 210px;
-        height: 45px;
-        color: white;
-        font-size: 20px;
-        font-family: 'PT Sans', sans-serif;
-        /*05.01.2018*/
-        text-decoration: none;
-        text-align: center;
-        line-height: 42px;
-        /*----------*/
-        border: 1px solid white;
-        background-color: #252525;
-        box-sizing: border-box;
-        float: right;
-    }
+.popup-window-main input[type=submit] {
+    width: 100%;
+    height: 45px;
+    color: white;
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif;
+    border: 1px solid white;
+    background-color: #252525;
+}
+
+.popup-window-main a {
+    display: block;
+    width: 50%;
+    height: 45px;
+    color: white;
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif;
+    /*05.01.2018*/
+    text-decoration: none;
+    text-align: center;
+    line-height: 42px;
+    /*----------*/
+    border: 1px solid white;
+    background-color: #252525;
+    box-sizing: border-box;
+    float: right;
+}
 /*-------------------------------------------------------------------------*/
 .popup-window-close {
     margin: -20px -20px 0 0;
@@ -264,13 +269,13 @@ main .news-item {
     align-items: center;
     justify-content: center;
 }
+
     .Title span {
         display: block;
         font-size: 25px;
         font-weight: bold;
         font-family: "Lora", "sans-serif";
         color: black;
-
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -306,16 +311,6 @@ main .news-item {
     float: right;
 }
 
-main {
-    background: linear-gradient(73deg, rgba(36,36,36,1) 0%, rgba(59,79,96,1) 40%, rgba(122,101,77,1) 97%, rgba(122,101,77,1) 100%); /* w3c */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    /*Разберись с большой белой линией*/
-    /*display: flex;
-    flex-direction: column;
-    justify-content: center;*/
-}
-
 .nip-news-items {
     max-width: 35%;
     min-width: 460px;
@@ -328,7 +323,6 @@ main {
 
 .main-news-items {
     width: 65%;
-    margin: 5px;
     margin: 0 auto;
     border: 1px solid #252525;
     background-color: white;
@@ -359,5 +353,3 @@ main {
     font-family: "Lora", "sans-serif";
     text-align: justify;
 }
-
-
