@@ -12,15 +12,15 @@ namespace NewsPortal.Models.ViewModels
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
-        [Required(ErrorMessage = "Enter username:")]
-        [Display(Name = "Username:")]
-        [DataType(DataType.Text)]
-        public string UserName { set; get; }
-
         [Required(ErrorMessage = "Enter E-mail address")]
         [Display(Name = "E-mail address:")]
         [DataType(DataType.EmailAddress)]
         public string Email { set; get; }
+
+        [Required(ErrorMessage = "Enter username:")]
+        [Display(Name = "Username:")]
+        [DataType(DataType.Text)]
+        public string UserName { set; get; }
 
         [Required(ErrorMessage = "Enter password")]
         [Display(Name = "Password:")]

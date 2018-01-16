@@ -6,14 +6,16 @@ using NewsPortal.Managers.NHibernate;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Configuration;
+using System;
 
 namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
+        const int newsItemsQuantity = 20;
+
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-            var newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityOnHomePage"]);
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
@@ -26,10 +28,12 @@ namespace NewsPortal.Controllers
                     SetMaxResults(newsItemsQuantity).
                     List<NewsItem>();
 
+                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
+
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var userName = session.Get<User>(item.UserId).UserName;
+                    var userName = session.Get<User>(item.UserId)?.UserName;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
@@ -44,7 +48,8 @@ namespace NewsPortal.Controllers
                 {
                     Thumbnails = thumbnails,
                     Page = page,
-                    SortedByDate = sortedByDate
+                    SortedByDate = sortedByDate,
+                    LastPage = lastPage
                 };
                 return View(homePageModel);
             }

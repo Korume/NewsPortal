@@ -21,20 +21,18 @@
         {
             <div class="add-icon">
                 @Html.ActionLink(" ", "Add", "News")
-            </div>  
+            </div>
         }
         <div class="sort-icon">
             @if (Model.Thumbnails.Any())
             {
                 if (Model.SortedByDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
-                        new { @class = "sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, 
-                   new { @class = "reverse-sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort" })
                 }
             }
         </div>
@@ -49,8 +47,8 @@
                 <div class="menu-news-item">
                     @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
                     <a href="#@item.Id" name="show-popup-window"></a>
-                </div> 
-                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel {Id = item.Id, Title = item.Title})
+                </div>
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
             }
             <div class="Title">
                 <span>
@@ -68,4 +66,19 @@
             </div>
         </article>
     }
+    <div>
+        @if (Model.Page > 0)
+        {
+            var previousPage = Model.Page - 1;
+            @Html.ActionLink(Model.Page.ToString(), "Index", "Home", new { page = previousPage, sortedByDate = Model.SortedByDate },
+           new { @class = "prev-page" })
+        }
+        <span>@(Model.Page + 1)</span>
+        @if (Model.Page < Model.LastPage)
+        {
+            var nextPage = Model.Page + 1;
+            @Html.ActionLink((Model.Page + 2).ToString(), "Index", "Home", new { page = nextPage, sortedByDate = Model.SortedByDate },
+           new { @class = "next-page" })
+        }
+    </div>
 </section>
