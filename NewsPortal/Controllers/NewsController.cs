@@ -21,7 +21,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(NewsItemThumbnailViewModel newsModel, HttpPostedFileBase uploadedImage)
+        public ActionResult Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
             if (!ModelState.IsValid)
             {
