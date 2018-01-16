@@ -1,4 +1,5 @@
 ﻿html, body {
+    /*height: 100%;*/
     margin: 0;
     padding: 0;
     display: flex;
@@ -110,15 +111,40 @@ html body::-webkit-scrollbar-track {
         background-color: #eee;
     }
 
+
+@media screen and (min-width: 1024px) and (max-width:1280px) {
+
+    .Section-NewsEdit {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width:1023px) {
+
+    .Section-NewsEdit {
+        width: 75%;
+    }
+}
+
 @media screen and (min-width: 320px) and (max-width:767px) {
-    html, body {
-        max-width: 767px;
-        min-width: 100%;
+    .background-text span:first-child {
+        font-size: 60px;
     }
 
-        html body::-webkit-scrollbar {
-            width: 0;
-        }
+    .background-text span:last-child {
+        font-size: 50px;
+    }
+
+    .Section-NewsEdit {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width:520px) {
+
+    html body::-webkit-scrollbar {
+        width: 0;
+    }
 
     header {
         position: inherit;
@@ -150,13 +176,13 @@ html body::-webkit-scrollbar-track {
         margin-top: 0;
     }
 
-        main .news-item {
-            width: 95%;
+        main .news-item article {
+            width: 400px;
         }
 
-            main .news-item article {
-                width: 100%;
-            }
+    .popup-window {
+        width: 400px;
+    }
 
     header div:last-child span {
         display: none;
@@ -212,16 +238,20 @@ html body::-webkit-scrollbar-track {
     .popup-window-head p {
         font-size: 20px;
     }
-}
 
-@media screen and (min-width: 768px)and (max-width:1023px) {
-    html, body {
-        width: 100%;
+    .Section-NewsEdit {
+        width: 95%;
     }
 }
 
-@media screen and (min-width: 1024px)and (max-width:1280px) {
-    html, body {
-        width: 100%;
+@media screen and (min-width: 320px) and (max-width: 400px) {
+    main .news-item article {
+        width: 320px;
+    }
+    .popup-window {
+        width: 320px;
+    }
+    .Section-NewsEdit {
+        width: 95%;
     }
 }

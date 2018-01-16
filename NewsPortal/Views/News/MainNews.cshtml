@@ -49,7 +49,7 @@
                                 @if (User.Identity.GetUserId().AsInt() == elem.UserId)
                                 {
                                     <div class="comment-menu" id="@elem.Id">
-                                        <input class="deleteComment"  type="button" />
+                                        <input class="deleteComment" type="button" />
 
                                     </div>
                                 }
@@ -73,8 +73,8 @@
                         <input type="button" id="sendcomment" value="Отправить" />
                     </form>
                     <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
-                    <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
-                    <input id="userName" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)" />
+                    <input id="userId" type="hidden" value="@User.Identity.GetUserId()" />
+                    <input id="userName" type="hidden" value="@User.Identity.Name" />
                 }
                 else
                 {
@@ -82,9 +82,7 @@
                 }
             </div>
         </section>
-        <section class="content-right">
-
-        </section>
+        <section class="content-right"></section>
     </div>
 </section>
 

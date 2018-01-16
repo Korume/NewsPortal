@@ -16,6 +16,11 @@ main {
     height: auto;
     padding: 10px;
 }
+.Section-NewsEdit,
+.Section-NewsAdd {
+    width: 85%;
+}
+
 
 .title-head, .login-FFF, .login-confirm, .login-footer {
     width: 100%;
@@ -101,7 +106,6 @@ main {
 
         .login-confirm .FirstButton label > input[type="submit"],
         .registration-form input[type=submit],
-        .form-news-adding input[type=submit],
         .form-news-edit input[type=submit] {
             width: 80%;
             height: 40px;
@@ -219,53 +223,17 @@ main {
     border-bottom: 2px solid white;
 }
 /*---------------------------------------------Добавление и редактирование новости---------------------------------------------*/
-.form-news-adding input[type=submit],
 .form-news-edit input[type=submit] {
     width: 100%;
 }
 
-.form-news-adding .editor-field > textarea,
-.form-news-edit .editor-field > textarea {
+.form-news-edit .editor-field > textarea,
+.form-news-add textarea{
+    width: 100%;
     resize: none;
-    width: 760px;
     height: 130px;
     font-family: "Lora", "sans-serif";
     font-size: 18px;
+    box-sizing: border-box
 }
 
-/*-----------------------Creation------------------------------------*/
-.creation-control {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 20px;
-    color: white;
-}
-
-.btn-submit-creation {
-    display: inline-block;
-    font-weight: 700;
-    padding: .5em 2em;
-    border: 2px solid;
-    border-radius: 1px;
-    transition: 0.2s;
-    margin: 15px 0;
-}
-
-    .btn-submit-creation:hover {
-        background: rgba(255,255,255,.2);
-    }
-
-    .btn-submit-creation:active {
-        background: white;
-    }
-
-.text-danger {
-    color: red;
-    font-weight: bold;
-}
-
-.clean {
-    margin: 10px;
-    text-decoration: none;
-    font-size: 25px;
-    color: white;
-}
