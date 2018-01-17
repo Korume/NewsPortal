@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
 using NewsPortal.Managers.NHibernate;
+using NHibernate.Criterion;
 
 namespace NewsPortal.Controllers
 {
@@ -21,7 +22,7 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = SignInManager.PasswordSignIn(model.Login, model.Password, false, false);
+                var result = SignInManager.PasswordSignIn(model.UserName, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
                     return RedirectToAction("Index", "Home");
@@ -29,7 +30,7 @@ namespace NewsPortal.Controllers
                 else
                 {
                     //---------------------------------------------
-                    ViewBag.Message = "Incorrect login or password";
+                    ViewBag.Message = "Incorrect username or password";
                 }
             }       
             return View(model);
@@ -57,6 +58,7 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel registerModel)
         {
             if (ModelState.IsValid)
@@ -64,25 +66,33 @@ namespace NewsPortal.Controllers
                 using (var manager = new NHibernateManager())
                 {
                     var session = manager.GetSession();
-                    var user = session.QueryOver<User>().Where(u => u.Email == registerModel.Email).SingleOrDefault();
-
-                    if (user != null)
+                    var userByEmail = session.QueryOver<User>().
+                        Where(u => u.Email == registerModel.Email).
+                        SingleOrDefault();
+                    if (userByEmail != null)
                     {
                         ModelState.AddModelError("Email", "This E-mail address is not available.");
+                        return View(registerModel);
+                    }
+
+                    var userByUserName = session.QueryOver<User>().
+                        Where(u => u.UserName == registerModel.UserName).
+                        SingleOrDefault();
+                    if (userByUserName != null)
+                    {
+                        ModelState.AddModelError("UserName", "This UserName is not available.");
                         return View(registerModel);
                     }
 
                     var newUser = new User()
                     {
                         Email = registerModel.Email,
-                        Login = registerModel.Login,
-                        Password = registerModel.Password,
                         UserName = registerModel.UserName,
+                        Password = registerModel.Password,
                         EmailConfirmed = false
                     };
 
                     var creationResult = UserManager.Create(newUser, newUser.Password);
-
                     if (creationResult.Succeeded)
                     {
                         session.Save(newUser);

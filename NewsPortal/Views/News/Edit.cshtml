@@ -6,15 +6,20 @@
 }
 <section class="Section-NewsEdit">
     <div class="title-head">
-        <span>
-            Editing news
-        </span>
+        <span>News editing</span>
     </div>
     <div class="form-news-edit">
-        @using (Html.BeginForm("SaveEditedNewsItem", "News", FormMethod.Post))
-            {
+        @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+        {
             @Html.EditorForModel()
             <input type="submit" value="Добавить" />
         }
     </div>
 </section>
+
+@section script{
+    <script src="~/CKEditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("Content", { height: 300 });
+    </script>
+}

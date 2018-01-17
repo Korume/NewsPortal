@@ -47,13 +47,11 @@
             {
                 if (Model.SortedByDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false },
-                   new { @class = "sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true },
-                   new { @class = "reverse-sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort" })
                 }
             }
         </div>
@@ -66,24 +64,20 @@
             @if (item.UserId == User.Identity.GetUserId().AsInt())
                 {
                 <div class="menu-news-item">
-                    @using (Html.BeginForm("Edit", "News", FormMethod.Post))
-                    {
-                        @Html.Hidden("newsItemId", item.Id)
-                        <input type="submit" id="edit-submit" value="" />
-                    }
+                    @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
                     <a href="#@item.Id" name="show-popup-window"></a>
                 </div>
-                    @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
             }
             <div class="Title">
                 <span>
                     @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
-                   new { @class = "show-MainNews" })
+                        new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
                 <div class="NameUser">
-                    @Html.DisplayFor(thumbnail => item.UserLogin)
+                    @Html.DisplayFor(thumbnail => item.UserName)
                 </div>
                 <div class="CreationDate">
                     @Html.DisplayFor(thumbnail => item.CreationDate)
@@ -91,4 +85,19 @@
             </div>
         </article>
     }
+    <div>
+        @if (Model.Page > 0)
+        {
+            var previousPage = Model.Page - 1;
+            @Html.ActionLink(Model.Page.ToString(), "Index", "Home", new { page = previousPage, sortedByDate = Model.SortedByDate },
+           new { @class = "prev-page" })
+        }
+        <span>@(Model.Page + 1)</span>
+        @if (Model.Page < Model.LastPage)
+        {
+            var nextPage = Model.Page + 1;
+            @Html.ActionLink((Model.Page + 2).ToString(), "Index", "Home", new { page = nextPage, sortedByDate = Model.SortedByDate },
+           new { @class = "next-page" })
+        }
+    </div>
 </section>

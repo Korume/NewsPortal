@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace NewsPortal.Controllers
 {
@@ -10,7 +12,7 @@ namespace NewsPortal.Controllers
     {
         public ActionResult NotFound()
         {
-            Response.StatusCode = 404;
+            Response.StatusCode = (int)HttpStatusCode.NotFound;
             return View();
         }
     }

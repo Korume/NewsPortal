@@ -8,26 +8,76 @@ using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
-using NewsPortal.Managers.News;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpPost]
+        [HttpGet]
         [Authorize]
-        public ActionResult Edit(int newsItemId)
+        public ActionResult Add()
         {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(newsModel);
+            }
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                using (var transaction = session.BeginTransaction())
+                {
+                    NewsItem newsItem = new NewsItem()
+                    {
+                        UserId = Convert.ToInt32(User.Identity.GetUserId()),
+                        Title = newsModel.Title,
+                        Content = newsModel.Content,
+                        CreationDate = DateTime.Now
+                    };
+                    session.Save(newsItem);
+
+                    if (uploadedImage != null)
+                    {
+                        string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
+                        uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + newsItem.Id + fileName));
+                        newsItem.SourceImage = "/Content/UploadedImages/" + newsItem.Id + fileName;
+                    }
+                    session.Update(newsItem);
+                    transaction.Commit();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int? newsItemId)
+        {
+            if (newsItemId == null)
+            {
+                return Redirect("/Error/NotFound");
+            }
+
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
                 var newsItem = session.Get<NewsItem>(newsItemId);
+                if (newsItem == null)
+                {
+                    return Redirect("/Error/NotFound");
+                }
 
                 bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
                 if (!isUserNewsItemOwner)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return View("NewsOwnerError");
                 }
+
                 var editedNewsItem = new NewsItemEditViewModel()
                 {
                     Id = newsItem.Id,
@@ -40,17 +90,23 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult SaveEditedNewsItem(NewsItemEditViewModel model)
+        [ValidateInput(false)]
+        public ActionResult Edit(NewsItemEditViewModel editModel)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(editModel);
+            }
+
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
                 using (var transaction = session.BeginTransaction())
                 {
-                    var newsItemToUpdate = session.Get<NewsItem>(model.Id);
+                    var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
 
-                    newsItemToUpdate.Title = model.Title;
-                    newsItemToUpdate.Content = model.Content;
+                    newsItemToUpdate.Title = editModel.Title;
+                    newsItemToUpdate.Content = editModel.Content;
 
                     session.Update(newsItemToUpdate);
                     transaction.Commit();
@@ -83,50 +139,7 @@ namespace NewsPortal.Controllers
             };
             return View(showMainNews);
         }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult Add()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            return RedirectToAction("Login", "Account");
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(newsModel);
-            }
-
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var newsItem = new NewsItem()
-                {
-                    Id = newsModel.Id,
-                    UserId = Convert.ToInt32(User.Identity.GetUserId()),
-                    Title = newsModel.Title,
-                    Content = newsModel.Content,
-                    CreationDate = DateTime.Now
-                };
-                if (uploadedImage != null)
-                {
-                    string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                    uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + fileName));
-                    newsItem.SourceImage = "/Content/UploadedImages/" + fileName;
-                }
-                session.Save(newsItem);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
+ 
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
@@ -136,8 +149,8 @@ namespace NewsPortal.Controllers
                 var session = manager.GetSession();
                 using (var transaction = session.BeginTransaction())
                 {
-                    var MyNewsItem = session.Get<NewsItem>(newsItemId);
-                    session.Delete(MyNewsItem);
+                    var newsItem = session.Get<NewsItem>(newsItemId);
+                    session.Delete(newsItem);
                     transaction.Commit();
                 }
             }

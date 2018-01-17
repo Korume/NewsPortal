@@ -6,16 +6,15 @@
 }
 <section class="Section-Registration">
     <div class="title-head">
-        <span>
-            Регистрация
-        </span>
+        <span>Registration</span>
     </div>
     <div class="form-reg">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "registration-form" }))
-            {
+        {
+            @Html.AntiForgeryToken()
             @Html.ValidationSummary("")
             @Html.EditorForModel()
-            <input type="submit" value="Регистрация" />
+            <input type="submit" value="Registration" />
         }
     </div>
 </section>

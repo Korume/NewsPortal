@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace NewsPortal.Models.ViewModels
 {
@@ -12,25 +12,28 @@ namespace NewsPortal.Models.ViewModels
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
-        [Required(ErrorMessage = "Введите заголовок.")]
-        [Display(Name = "Заголовок: ")]
-        [DataType(DataType.MultilineText)]
-        //[MaxLength(80, ErrorMessage = "MaxLength = 80")]
-        //[MinLength(5, ErrorMessage = "MinLength = 10")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Длина строки должна быть от 5 до 50 символов")]
+        [ScaffoldColumn(false)]
+        public int UserId { set; get; }
+
+        [StringLength(400, ErrorMessage = "Max length = 400")]
+        [Required(ErrorMessage = "The field must be set!")]
+        [Display(Name = "Title")]
+        [DataType(DataType.Text)]
         public string Title { set; get; }
 
-        [Required(ErrorMessage = "Введите содержимое.")]
-        [Display(Name = "Содержимое: ")]
+        [StringLength(4000, ErrorMessage = "Max length = 4000")]
+        [Required(ErrorMessage = "The field must be set!")]
+        [Display(Name = "Content")]
         [DataType(DataType.MultilineText)]
-        //[MinLength(5, ErrorMessage = "MinLength = 50")]
         public string Content { set; get; }
-
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public DateTime CreationDate { set; get; }
 
         [ScaffoldColumn(false)]
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public int? UserId { set; get; }
+        [DataType(DataType.ImageUrl)]
+        public string SourceImage { set; get; }
+
+        [ScaffoldColumn(false)]
+        public DateTime CreationDate { set; get; }
+        public object UserName { get; internal set; }
     }
 }

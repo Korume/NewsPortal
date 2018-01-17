@@ -9,9 +9,6 @@
     <property name="UserName">
       <column name="UserName" unique="true" sql-type="nvarchar(40)" not-null="false"/>
     </property>
-    <property name="Login">
-      <column name="Login" sql-type="nvarchar(40)" not-null="true"/>
-    </property>
     <property name="Password">
       <column name="Password" sql-type="nvarchar(40)" not-null="true"/>
     </property>

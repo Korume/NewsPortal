@@ -30,11 +30,11 @@ namespace NewsPortal.Models.Identity
         {
             return Task.Run(() => session.Get<User>(userId));
         }
-        public Task<User> FindByNameAsync(string Login)
+        public Task<User> FindByNameAsync(string UserName)
         {
             return Task.Run(() =>
             {     
-                return session.QueryOver<User>().Where(u => u.Login == Login).SingleOrDefault();
+                return session.QueryOver<User>().Where(u => u.UserName == UserName).SingleOrDefault();
             });
         }
         public Task UpdateAsync(User user)
