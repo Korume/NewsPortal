@@ -68,7 +68,7 @@ namespace NewsPortal.Controllers
                 var newsItem = session.Get<NewsItem>(newsItemId);
                 if (newsItem == null)
                 {
-                    return Redirect("/Error/NotFound");
+                    return View("NotFound");
                 }
 
                 bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
