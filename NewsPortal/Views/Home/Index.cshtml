@@ -10,13 +10,17 @@
     {
         if (Model.SortedByDate)
         {
-            <li>@Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false }, 
-               new { @class = "sort" })</li>
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false },
+               new { @class = "sort" })
+        </li>
         }
         else
         {
-            <li>@Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true }, 
-               new { @class = "reverse-sort" })</li>
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true },
+               new { @class = "reverse-sort" })
+        </li>
         }
     }
 }
@@ -33,7 +37,7 @@
     <span>News</span>
     <div>
         @if (User.Identity.IsAuthenticated)
-        {
+            {
             <div class="add-icon">
                 @Html.ActionLink(" ", "Add", "News")
             </div>
@@ -60,7 +64,7 @@
     {
         <article>
             @if (item.UserId == User.Identity.GetUserId().AsInt())
-            {
+                {
                 <div class="menu-news-item">
                     @using (Html.BeginForm("Edit", "News", FormMethod.Post))
                     {
@@ -69,7 +73,7 @@
                     }
                     <a href="#@item.Id" name="show-popup-window"></a>
                 </div>
-                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
+                    @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
             }
             <div class="Title">
                 <span>

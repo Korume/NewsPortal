@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
     <link rel="stylesheet" href="~/Content/Site.css" />
 }
-
 <section class="Section-Registration">
     <div class="title-head">
         <span>
@@ -13,7 +12,7 @@
     </div>
     <div class="form-reg">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "registration-form" }))
-        {
+            {
             @Html.ValidationSummary("")
             @Html.EditorForModel()
             <input type="submit" value="Регистрация" />
