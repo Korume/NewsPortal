@@ -17,5 +17,9 @@ namespace NewsPortal.Models.ViewModels
         [DataType(DataType.MultilineText)]
         public string Content { set; get; }
 
+        [ScaffoldColumn(false)]
+        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
+        [DataType(DataType.ImageUrl)]
+        public string SourceImage { set; get; }
     }
 }
