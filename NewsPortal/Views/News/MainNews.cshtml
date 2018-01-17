@@ -70,7 +70,7 @@
                     <form>
                         <label for="comment">Comment</label>
                         <textarea name="comment" id="comment"></textarea>
-                        <input type="button" id="sendcomment" value="Отправить" />
+                        <input type="button" id="sendcomment" value="Send" />
                     </form>
                     <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
                     <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
@@ -78,7 +78,7 @@
                 }
                 else
                 {
-                    <p>Пожалуйста авторизируйтесь</p>
+                    <p>Please log in to add your comments.</p>
                 }
             </div>
         </section>

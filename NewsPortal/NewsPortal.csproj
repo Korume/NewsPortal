@@ -349,10 +349,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NewsPortal.mdf" />
-    <Content Include="App_Data\NewsPortal_log.ldf">
-      <DependentUpon>NewsPortal.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
@@ -508,6 +504,7 @@
     <EmbeddedResource Include="Models\DataBaseModels\User.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Properties\PublishProfiles\ISMNewsPortal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="CKEditor\CHANGES.md" />
     <Content Include="CKEditor\LICENSE.md" />
@@ -611,6 +608,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\UploadedImages\" />
   </ItemGroup>
   <ItemGroup />
