@@ -50,17 +50,20 @@ main {
 .main-news-items-content {
     padding: 15px;
 }
-
-    .main-news-items-content .image {
-        display: none;
-    }
-
-    .main-news-items-content .text {
-        color: black;
-        font-size: 18px;
-        font-family: "Lora", "sans-serif";
-        text-align: justify;
-    }
+.image img{
+    width: 35%;
+    float: right;
+    margin: 10px;
+}
+.main-news-items-content {
+    overflow: auto;
+}
+.main-news-items-content .text {
+    color: black;
+    font-size: 18px;
+    font-family: "Lora", "sans-serif";
+    text-align: justify;
+}
 
 .main-news-items-footer {
     display: flex;

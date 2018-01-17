@@ -127,6 +127,7 @@ namespace NewsPortal.Controllers
                 Id = newsItem.Id,
                 Title = newsItem.Title,
                 Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
                 CreationDate = newsItem.CreationDate,
                 UserId = newsItem.UserId,
                 UserName = newsUser.UserName,
