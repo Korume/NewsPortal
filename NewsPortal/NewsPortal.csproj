@@ -349,10 +349,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NewsPortal.mdf" />
-    <Content Include="App_Data\NewsPortal_log.ldf">
-      <DependentUpon>NewsPortal.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
@@ -613,6 +609,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\UploadedImages\" />
   </ItemGroup>
   <ItemGroup />

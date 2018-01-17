@@ -2,6 +2,7 @@
 
 @section StyleSheet{
     <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+
 }
 <body>
     @using (Html.BeginForm("Add", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -44,5 +45,10 @@
     <script src="~/CKEditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace("Content", { height: 250 });
+        if (window.localStorage.getItem("localMemoryMode") == true)
+        {
+            var array = window.localStorage.getItem("articles");
+            array.push({ 'Id': window.localStorage.getItem("Id")});
+        }
     </script>
 }

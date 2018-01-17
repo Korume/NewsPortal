@@ -15,6 +15,7 @@
     </div>
 </section>
 <section class="news-head">
+    <input type="checkbox" checked="checked" id="memoryMode"/>
     <span>News</span>
     <div>
         @if (User.Identity.IsAuthenticated)
@@ -82,3 +83,19 @@
         }
     </div>
 </section>
+
+<script>
+    var sendBox = document.getElementById("memoryMode");
+    window.localStorage.setItem("localMemoryMode", true);
+    sendBox.addEventListener("change", function () {
+        if (document.getElementById("memoryMode").checked) {
+            window.localStorage.setItem("localMemoryMode", true);
+        }
+        else {
+            window.localStorage.setItem("localMemoryMode", false);
+        }
+    });
+    window.localStorage.setItem("articles", news=[]);
+    window.localStorage.setItem("Id", 0);
+   
+</script>
