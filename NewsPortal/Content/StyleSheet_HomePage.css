@@ -1,6 +1,7 @@
 ﻿main {
     height: auto;
 }
+
     main .back-image {
         height: 450px;
         position: relative;
@@ -350,3 +351,30 @@ main .news-item {
     font-family: "Lora", "sans-serif";
     text-align: justify;
 }
+
+.block-prev-page {
+    width: 100%;
+    text-align: center;
+}
+
+    .block-prev-page > span,
+    .block-prev-page > a {
+        display: inline-block;
+        background-color: #252525;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        border: 1px solid white;
+        font-size: 15px;
+        color: white;
+    }
+
+    .block-prev-page > a {
+        text-decoration: none;
+        transition-duration: 1s;
+    }
+        .block-prev-page > a:hover {
+            border: 1px solid rgba(0, 255, 0, 0.51);
+            background-color: rgba(0, 255, 0, 0.51);
+            color: black
+        }

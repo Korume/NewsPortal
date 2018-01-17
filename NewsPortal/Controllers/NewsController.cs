@@ -8,6 +8,7 @@ using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
+using NewsPortal.Managers.News;
 
 namespace NewsPortal.Controllers
 {

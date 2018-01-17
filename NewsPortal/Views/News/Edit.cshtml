@@ -1,8 +1,7 @@
 ﻿@model NewsPortal.Models.ViewModels.NewsItemEditViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
 }
 <section class="Section-NewsEdit">
     <div class="title-head">
@@ -12,7 +11,7 @@
         @using (Html.BeginForm("Edit", "News", FormMethod.Post))
         {
             @Html.EditorForModel()
-            <input type="submit" value="Добавить" />
+            <input type="submit" value="Save the change" />
         }
     </div>
 </section>

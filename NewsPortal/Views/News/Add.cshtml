@@ -1,8 +1,7 @@
 ﻿@model NewsPortal.Models.ViewModels.NewsItemAddViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
 }
 <section class="Section-NewsAdd">
     <div class="title-head">
@@ -17,14 +16,18 @@
             <div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div>
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "creation-control" })
+                    <div class="creation-control">
+                        @Html.LabelFor(model => model.Title)
+                    </div>
                     <div>
                         @Html.TextAreaFor(model => model.Title, 2, 120, new { htmlAttributes = new { @class = "" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "creation-control" })
+                    <div class="creation-control">
+                        @Html.LabelFor(model => model.Content)
+                    </div>
                     <div>
                         @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = "" } })
                     </div>
@@ -32,12 +35,18 @@
                 </div>
                 <div>
                     <div class="form-news-add-submits">
-                        <input type="submit" value="Create" class="btn-submit-creation" />
-                        <input type="file" name="uploadedImage" />
+                        <input type="submit" value="Save the news item" class="btn-submit-creation" />
+                        <div>
+                            <div class="file_upload">
+                                <button type="button"></button>
+                                <input type="file" name="uploadedImage" />
+                            </div>
+                            <div class="form-news-add-clean">
+                                @Html.ActionLink(" ", "Index")
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-news-add-clean">
-                        @Html.ActionLink("Clean", "Index")
-                    </div>
+
                 </div>
             </div>
         }

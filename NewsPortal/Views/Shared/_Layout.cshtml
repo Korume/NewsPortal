@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-
-    @RenderSection("StyleSheet")
-
-    <link rel="stylesheet" href="~/Content/StyleSheet_BasicFormatting.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="NewsPortal, News portal, Новостной портал">
+    <meta name="description" content="Free news portal">
+    <meta name="author" content="Dmitry Shmalyuk, Natalia Cheboksarova, Rostyslav Ruban, Vyacheslav Krivokhizha">
 
+    <title>@ViewBag.Title</title>
+    @RenderSection("StyleSheet")
+    @Styles.Render("~/bundles/stylesheet-Basic")
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,700i&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">

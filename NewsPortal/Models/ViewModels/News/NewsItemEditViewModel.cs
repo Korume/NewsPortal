@@ -7,13 +7,13 @@ namespace NewsPortal.Models.ViewModels
         [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
-        [Required(ErrorMessage = "Введите заголовок.")]
-        [Display(Name = "Заголовок: ")]
+        [Required(ErrorMessage = "The field must be set!")]
+        [Display(Name = "Title")]
         [DataType(DataType.MultilineText)]
         public string Title { set; get; }
 
-        [Required(ErrorMessage = "Введите содержание.")]
-        [Display(Name = "Содержание: ")]
+        [Required(ErrorMessage = "The field must be set!")]
+        [Display(Name = "Content")]
         [DataType(DataType.MultilineText)]
         public string Content { set; get; }
 

@@ -3,7 +3,7 @@
 @model HomePageModel
 
 @section StyleSheet {
-    <link rel="stylesheet" href="~/Content/StyleSheet_HomePage.css" />
+    @Styles.Render("~/bundles/stylesheet-Home")
 }
 @section SortingNews {
     @if (Model.Thumbnails.Any())
@@ -85,19 +85,19 @@
             </div>
         </article>
     }
-    <div>
-        @if (Model.Page > 0)
-        {
-            var previousPage = Model.Page - 1;
-            @Html.ActionLink(Model.Page.ToString(), "Index", "Home", new { page = previousPage, sortedByDate = Model.SortedByDate },
+</section> 
+<div class="block-prev-page">
+    @if (Model.Page > 0)
+    {
+        var previousPage = Model.Page - 1;
+        @Html.ActionLink(Model.Page.ToString(), "Index", "Home", new { page = previousPage, sortedByDate = Model.SortedByDate },
            new { @class = "prev-page" })
-        }
-        <span>@(Model.Page + 1)</span>
-        @if (Model.Page < Model.LastPage)
-        {
-            var nextPage = Model.Page + 1;
-            @Html.ActionLink((Model.Page + 2).ToString(), "Index", "Home", new { page = nextPage, sortedByDate = Model.SortedByDate },
+    }
+    <span>@(Model.Page + 1)</span>
+    @if (Model.Page < Model.LastPage)
+    {
+        var nextPage = Model.Page + 1;
+        @Html.ActionLink((Model.Page + 2).ToString(), "Index", "Home", new { page = nextPage, sortedByDate = Model.SortedByDate },
            new { @class = "next-page" })
-        }
-    </div>
-</section>
+    }
+</div>

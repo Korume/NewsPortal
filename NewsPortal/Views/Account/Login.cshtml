@@ -1,22 +1,22 @@
 ﻿@model NewsPortal.Models.ViewModels.LoginViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+    @Styles.Render("~/bundles/stylesheet-Service", "~/bundles/stylesheet-Site")
 }
 <section class="Section-Authorization">
     <div class="title-head">
-        <span>Авторизация</span>
+        <span>Authorization</span>
     </div>
     <!-- Fields for filling-->
     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
     {
         <div class="login-FFF">
             <div>
-                @Html.EditorFor(LoginViewModel => LoginViewModel.Login)
+                @Html.EditorFor(LoginViewModel => LoginViewModel.UserName)
                 <div class="Image1">
                     <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
                 </div>
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
             <div>
                 @Html.EditorFor(LoginViewModel => LoginViewModel.Password)

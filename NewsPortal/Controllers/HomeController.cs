@@ -12,14 +12,13 @@ namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        const int newsItemsQuantity = 20;
+        const int newsItemsQuantity = 15;
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
-
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().
