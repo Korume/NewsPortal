@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using NewsPortal.App_Start;
 
 namespace NewsPortal.Managers.Identity
 {
@@ -13,8 +14,8 @@ namespace NewsPortal.Managers.Identity
             UserValidator = new UserValidator<User, int>(this);
             PasswordValidator = new PasswordValidator() { RequiredLength = 6 };
             EmailService = new EmailService();
-            var provider = new DpapiDataProtectionProvider("NewsPortal");
-            UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("ASP.NET Identity"));
+            var dataProtectionProvider = Startup.DataProtectionProvider;
+            UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));
         }
 
         //public bool CheckedEmailUser(stri)
