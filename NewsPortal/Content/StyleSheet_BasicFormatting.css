@@ -83,12 +83,18 @@ header div {
             height: 48px;
             background: transparent url(/Content/AdditionalFiles/Icon/burger-menu.png) no-repeat center; float: right;
         }
-
+        footer > section{
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 .footer-authors {
     text-align: center;
     color: white;
-    font-size: 20px;
-    font-family: 'Lora', sans-serif;
+    font-size: 10px;
+    font-family: 'PT Sans', sans-serif;
 }
 /*ScrollBar*/
 html body::-webkit-scrollbar {
@@ -247,9 +253,12 @@ html body::-webkit-scrollbar-track {
     .Section-NewsEdit {
         width: 95%;
     }
+    .footer-authors {
+        font-size: 8px;
+    }
 }
 
-@media screen and (min-width: 320px) and (max-width: 400px) {
+@media screen and (min-width: 320px) and (max-width:400px) {
     main .news-item article {
         width: 320px;
     }
@@ -260,3 +269,4 @@ html body::-webkit-scrollbar-track {
         width: 95%;
     }
 }
+

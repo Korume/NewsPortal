@@ -75,8 +75,8 @@
                 {
                     <form>
                         <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment"></textarea>
-                        <input type="button" id="sendcomment" value="Send" />
+                        <textarea name="comment" id="comment" onkeyup="checkComment();"></textarea>
+                        <input type="button" id="sendcomment" value="Send" disabled="disabled"/>
                     </form>
                         <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
                         <input id="userId" type="hidden" value="@User.Identity.GetUserId()" />

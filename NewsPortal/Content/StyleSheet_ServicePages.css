@@ -124,11 +124,11 @@ main {
     }
 
         .login-confirm .SecondButton span a {
-            padding: 8px;
             font-size: 20px;
             font-family: 'PT Sans', sans-serif;
             color: #767775;
             text-decoration: none;
+            line-height: 40px;
         }
 
 /*-----------------------------------------------------------*/
@@ -323,3 +323,8 @@ main {
         cursor: pointer;
     }
 
+@media screen and (min-width: 100px) and (max-width: 330px) {
+    footer {
+        display: none;
+    }
+}

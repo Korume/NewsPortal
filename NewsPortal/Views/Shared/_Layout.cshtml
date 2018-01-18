@@ -7,7 +7,7 @@
     <meta name="description" content="Free news portal">
     <meta name="author" content="Dmitry Shmalyuk, Natalia Cheboksarova, Rostyslav Ruban, Vyacheslav Krivokhizha">
 
-    <title>@ViewBag.Title</title>
+    <title>NewsPortal</title>
     @RenderSection("StyleSheet")
     @Styles.Render("~/bundles/stylesheet-Basic")
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
@@ -75,8 +75,12 @@
         @RenderBody()
     </main>
     <footer>
-        <p class="footer-authors"><strong>Authors:</strong> Dmitry Shmalyuk, Natalia Cheboksarova, Rostyslav Ruban, Vyacheslav Krivokhizha.<br/>
-        <strong>Project managers:</strong> Vladislav Khomich, Sergey Miletsky, Anna Venhlovska.</p>
+        <section>
+            <p class="footer-authors">
+                <strong>Authors:</strong> Dmitry Shmalyuk, Natalia Cheboksarova, Rostyslav Ruban, Vyacheslav Krivokhizha.<br />
+                <strong>Project managers:</strong> Vladislav Khomich, Sergey Miletsky, Anna Venhlovska.
+            </p>
+        </section>
     </footer>
     @RenderSection("Script", false)
 </body>
