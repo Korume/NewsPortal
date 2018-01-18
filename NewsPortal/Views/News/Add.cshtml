@@ -32,7 +32,7 @@
                 <input type="file" name="uploadedImage" />
             </div>
             <div>
-                <input type="submit" value="Create" class="btn-submit-creation" />
+                <input type="submit" value="Create" class="btn-submit-creation"/>
             </div>
         </div>
     }
@@ -43,12 +43,20 @@
 
 @section script{
     <script src="~/CKEditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace("Content", { height: 250 });
-        if (window.localStorage.getItem("localMemoryMode") == true)
-        {
-            var array = window.localStorage.getItem("articles");
-            array.push({ 'Id': window.localStorage.getItem("Id")});
-        }
-    </script>
+<script>
+            CKEDITOR.replace("Content", { height: 250 });
+    document.getElementsByTagName("form")[0].addEventListener("submit", function () { 
+        if (window.localStorage.getItem("localMemoryMode")) {
+            var array = window.localStorage.getItem("articles")||[];
+            array.push({
+                'Id': window.localStorage.getItem("Id"), 'Title': document.getElementById("Title").value,
+                'Content': document.getElementById("").value
+            });
+            alert(array[0].Id);
+            window.localStorage.removeItem("articles");
+            window.localStorage.setItem("articles", JSON.stringify(array));
+                    alert(window.localStorage.getItem("articles"));
+                }
+            });
+</script>
 }
