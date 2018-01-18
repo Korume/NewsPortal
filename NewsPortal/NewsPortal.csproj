@@ -348,10 +348,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NewsPortal.mdf" />
-    <Content Include="App_Data\NewsPortal_log.ldf">
-      <DependentUpon>NewsPortal.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdditionalFiles\Icon\burger-menu.png" />
     <Content Include="Content\AdditionalFiles\Icon\eraser.png" />
     <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
@@ -504,6 +500,7 @@
     <Content Include="Content\StyleSheet_HomePage.css" />
     <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
+    <Content Include="Content\UploadedImages\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Models\DataBaseModels\User.hbm.xml">
@@ -614,7 +611,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\UploadedImages\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

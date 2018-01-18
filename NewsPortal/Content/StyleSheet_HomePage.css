@@ -15,7 +15,7 @@
     z-index: 1;
     width: 100%;
     height: inherit;
-    background: url("AdditionalFiles/Image/NewYork.jpg") no-repeat fixed;
+    background: url(/Content/AdditionalFiles/Image/NewYork.jpg) no-repeat fixed;
     background-size: cover;
     filter: blur(5px);
 }
@@ -87,13 +87,13 @@ main .news-head {
             }
 
     main .news-head .add-icon {
-        background: url("AdditionalFiles/Icon/IAdd.png") no-repeat center;
+        background: url(/Content/AdditionalFiles/Icon/IAdd.png) no-repeat center;
         background-size: 40px 40px;
         float: left;
     }
 
     main .news-head .sort-icon {
-        background: url("AdditionalFiles/Icon/ISortable.png") no-repeat center;
+        background: url(/Content/AdditionalFiles/Icon/ISortable.png) no-repeat center;
         background-size: 70px 70px;
         float: right;
     }
@@ -124,8 +124,7 @@ main .news-item {
     height: 25px;
     width: 25px;
     border: 1px solid white;
-    background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
-    background-color: #252525;
+    background: url(/Content/AdditionalFiles/Sprite/BSprite.png) no-repeat; background-color: #252525;
     box-sizing: border-box;
 }
 
@@ -156,9 +155,7 @@ main .news-item {
         height: 25px;
         width: 25px;
         /*border: 1px solid white;*/
-        background: #252525 url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
-        background-position:;
-        box-sizing: border-box;
+        background: #252525 url(/Content/AdditionalFiles/Sprite/BSprite.png) no-repeat; box-sizing: border-box;
     }
 
     .menu-news-item a.edit {

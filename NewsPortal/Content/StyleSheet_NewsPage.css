@@ -153,7 +153,7 @@ main {
     }
         .comment .comment-head .comment-menu input[type=button] {
             display: none;
-            background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+            background: url("Content/AdditionalFiles/Sprite/BSprite.png") no-repeat;
             background-color: #252525;
             box-sizing: border-box;
             width: 20px;

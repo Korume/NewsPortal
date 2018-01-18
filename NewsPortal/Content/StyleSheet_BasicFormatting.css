@@ -81,8 +81,7 @@ header div {
             display: none;
             width: 48px;
             height: 48px;
-            background: transparent url("AdditionalFiles/Icon/burger-menu.png") no-repeat center;
-            float: right;
+            background: transparent url(/Content/AdditionalFiles/Icon/burger-menu.png) no-repeat center; float: right;
         }
 
 .footer-authors {
