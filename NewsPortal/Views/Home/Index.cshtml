@@ -86,10 +86,11 @@
 
 <script>
     var sendBox = document.getElementById("memoryMode");
-    window.localStorage.setItem("localMemoryMode", true);
     sendBox.addEventListener("change", function () {
         if (document.getElementById("memoryMode").checked) {
+            window.localStorage.clear();
             window.localStorage.setItem("localMemoryMode", true);
+            window.localStorage.setItem("article",[]);
         }
         else {
             window.localStorage.setItem("localMemoryMode", false);

@@ -47,13 +47,12 @@
             CKEDITOR.replace("Content", { height: 250 });
     document.getElementsByTagName("form")[0].addEventListener("submit", function () { 
         if (window.localStorage.getItem("localMemoryMode")) {
-            var array = window.localStorage.getItem("articles")||[];
+            var array = JSON.parse(window.localStorage.getItem("articles")) || [];
+            var Context = CKEDITOR.instances.Content.getData();
             array.push({
                 'Id': window.localStorage.getItem("Id"), 'Title': document.getElementById("Title").value,
-                'Content': document.getElementById("").value
+                'Content': Context
             });
-            alert(array[0].Id);
-            window.localStorage.removeItem("articles");
             window.localStorage.setItem("articles", JSON.stringify(array));
                     alert(window.localStorage.getItem("articles"));
                 }
