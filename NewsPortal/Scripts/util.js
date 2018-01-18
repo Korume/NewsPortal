@@ -6,7 +6,7 @@
 			'<div class="comment">' +
 			'<div class="comment-head">' +
 			'<a href="" class="user-info">' +
-			'<img src="">' +
+			'<div class="img-user-info"></div >' +
 			'<span>' +
 			htmlEncode(name) +
 			'</span>' +

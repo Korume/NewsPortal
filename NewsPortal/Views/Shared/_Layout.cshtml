@@ -28,7 +28,7 @@
                     <div class="item-menu-min">
                         <ul>
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Account/Login")</li>
-                            <li>@Html.ActionLink("LogOFF", "LogOff", "Account")</li>
+                            <li>@Html.ActionLink("Log out", "LogOff", "Account")</li>
                             @if (User.Identity.IsAuthenticated)
                             {
 
@@ -40,7 +40,7 @@
                     </div>
                     <span class="item_menu">
                         @Html.ActionLink(User.Identity.Name, "Index", "Account/Login")
-                        @Html.ActionLink("Выйти", "LogOff", "Account")
+                        @Html.ActionLink("Log out", "LogOff", "Account")
                     </span>
                 </div>
             }
@@ -55,19 +55,17 @@
                     <div class="item-menu-min">
                         <ul>
                             <li>@Html.ActionLink("LOG IN", "Login", "Account")</li>
-                            <li>@Html.ActionLink("CHECK IN", "Register", "Account")</li>
+                            <li>@Html.ActionLink("SIGN UP", "Register", "Account")</li>
                             @if (User.Identity.IsAuthenticated)
                             {
-
                                 <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
-
                             }
                             @RenderSection("SortingNews", false)
                         </ul>
                     </div>
                     <span class="item-menu">
-                        @Html.ActionLink("Войти", "Login", "Account")
-                        @Html.ActionLink("Регистрация", "Register", "Account")
+                        @Html.ActionLink("Log in", "Login", "Account")
+                        @Html.ActionLink("Sign up", "Register", "Account")
                     </span>
                 </div>
             }
@@ -76,7 +74,10 @@
     <main>
         @RenderBody()
     </main>
-    <footer></footer>
+    <footer>
+        <p class="footer-authors"><strong>Authors:</strong> Dmitry Shmalyuk, Natalia Cheboksarova, Rostyslav Ruban, Vyacheslav Krivokhizha.<br/>
+        <strong>Project managers:</strong> Vladislav Khomich, Sergey Miletsky, Anna Venhlovska.</p>
+    </footer>
     @RenderSection("Script", false)
 </body>
 </html>

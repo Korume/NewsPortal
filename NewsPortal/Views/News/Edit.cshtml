@@ -11,12 +11,19 @@
         @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.EditorForModel()
-            <div>
-                <input type="file" name="uploadedImage" />
+            <div class="form-news-submits">
+                <input type="submit" value="Save changes" class="btn-submit-edit" />
+                <div>
+                    <div class="file_upload">
+                        <button type="button"></button>
+                        <input type="file" name="uploadedImage" />
+                    </div>
+                    <div class="form-news-clean">
+                        @Html.ActionLink(" ", "Index")
+                    </div>
+                </div>
             </div>
-            <div>
-                <input type="submit" value="Save the change" />
-            </div>
+
         }
     </div>
 </section>

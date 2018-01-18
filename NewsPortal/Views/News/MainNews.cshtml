@@ -23,7 +23,7 @@
         <section class="image">
             @if (Model.SourceImage != null)
             {
-                <img src="@Model.SourceImage" alt="img"></img>
+                <img src="@Model.SourceImage" alt="img" />
             }
         </section>
         <section class="text">
@@ -42,7 +42,9 @@
                         <div class="comment">
                             <div class="comment-head">
                                 <a href="" class="user-info">
-                                    <img src="">
+                                    <div class="img-user-info">
+
+                                    </div>
                                     <span>
                                         @elem.UserName
                                     </span>
@@ -86,10 +88,14 @@
                 }
             </div>
         </section>
-        <section class="content-right"></section>
+        <section class="content-right">
+            <p>Here could be your advertising banner</p>
+        </section>
     </div>
 </section>
+
 @section script{
+
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>

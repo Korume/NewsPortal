@@ -13,14 +13,14 @@
             <li>
                 @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false },
                new { @class = "sort" })
-        </li>
+            </li>
         }
         else
         {
             <li>
                 @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true },
                new { @class = "reverse-sort" })
-        </li>
+            </li>
         }
     }
 }
@@ -39,7 +39,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="add-icon">
-                @Html.ActionLink(" ", "Add", "News", htmlAttributes: new { title = "Create news" })
+                @Html.ActionLink(" ", "Add", "News")
             </div>
         }
         <div class="sort-icon">
@@ -90,23 +90,23 @@
 <div class="block-prev-page">
     @for (var i = -3; i < 3; i++)
     {
-    @CreateActionLink(i);
+        @CreateActionLink(i);
     }
 </div>
 @helper CreateActionLink(int offset)
 {
-    var page = Model.Page + offset;
-    if (page >= 0 && page <= Model.LastPage)
+var page = Model.Page + offset;
+if (page >= 0 && page <= Model.LastPage)
+{
+    if (offset != 0)
     {
-        if (offset != 0)
-        {
-            var nextPage = Model.Page + offset;
-                @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home",
+        var nextPage = Model.Page + offset;
+            @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home",
                new { page = nextPage, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
-        }
-        else
-        {
-            <span>@(Model.Page + 1)</span>
-        }
     }
+    else
+    {
+            <span>@(Model.Page + 1)</span>
+    }
+}
 }

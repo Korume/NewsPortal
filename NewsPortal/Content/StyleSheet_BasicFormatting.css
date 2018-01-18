@@ -85,6 +85,12 @@ header div {
             float: right;
         }
 
+.footer-authors {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-family: 'Lora', sans-serif;
+}
 /*ScrollBar*/
 html body::-webkit-scrollbar {
     width: 6px;

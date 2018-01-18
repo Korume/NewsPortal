@@ -34,14 +34,14 @@
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
                 <div>
-                    <div class="form-news-add-submits">
+                    <div class="form-news-submits">
                         <input type="submit" value="Save the news item" class="btn-submit-creation" />
                         <div>
                             <div class="file_upload">
                                 <button type="button"></button>
                                 <input type="file" name="uploadedImage" />
                             </div>
-                            <div class="form-news-add-clean">
+                            <div class="form-news-clean">
                                 @Html.ActionLink(" ", "Index")
                             </div>
                         </div>

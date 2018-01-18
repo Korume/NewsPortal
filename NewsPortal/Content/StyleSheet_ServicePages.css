@@ -247,20 +247,20 @@ main {
     border-top: none;
 }
 
-.form-news-add-submits {
+.form-news-submits {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-    .form-news-add-submits > div {
+    .form-news-submits > div {
         display: flex;
         justify-content: flex-end;
     }
 
-    .form-news-add-submits input[type=submit],
-    .form-news-add-submits button,
-    .form-news-add-submits a {
+    .form-news-submits input[type=submit],
+    .form-news-submits button,
+    .form-news-submits a {
         display: block;
         height: 40px;
         background-color: #232323;
@@ -274,7 +274,7 @@ main {
         cursor: pointer;
     }
 
-    .form-news-add-submits input[type=submit] {
+    .form-news-submits input[type=submit] {
         width: 100%;
         border-radius: 0 0 0 5px;
         border-right: none;
@@ -284,13 +284,13 @@ main {
     width: 30px;
 }
 
-.form-news-add-clean {
+.form-news-clean {
     width: 30px;
     text-align: center;
     line-height: 40px;
 }
 
-    .form-news-add-clean a {
+    .form-news-clean a {
         border-radius: 0 0 5px 0;
         background: #252525 url(AdditionalFiles/Icon/eraser.png) no-repeat center;
         background-size: 19px 15px;

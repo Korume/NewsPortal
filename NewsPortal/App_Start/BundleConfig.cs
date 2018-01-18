@@ -20,6 +20,11 @@ namespace NewsPortal
             //Script
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/jquery-min").Include("~/Scripts/jquery-3.2.1.min.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery-News").Include("~/Scripts/jquery.signalR-2.2.2.min.js*"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery-Hubs").Include("~/signalr/hubs"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery-Comment").Include("~/Scripts/util.js"));
         }
     }
 }
