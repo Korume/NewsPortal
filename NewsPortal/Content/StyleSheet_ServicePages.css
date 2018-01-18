@@ -1,19 +1,29 @@
 ﻿/*---------------------------------------------Основные настройки---------------------------------------------*/
+body, html {
+    height: 100%;
+}
+
 main {
     display: flex;
     background-color: transparent;
     justify-content: center;
     align-items: center;
 }
+
 /*---------------------------------------------Авторизация/Регистрация---------------------------------------------*/
 
 .Section-Authorization {
     width: 400px;
     height: auto;
     padding: 10px;
-    /*border: 1px solid white;*/
-    /*border-radius: 5px;*/
 }
+
+.Section-NewsEdit,
+.Section-NewsAdd {
+    width: 85%;
+    margin: 10px;
+}
+
 
 .title-head, .login-FFF, .login-confirm, .login-footer {
     width: 100%;
@@ -99,7 +109,6 @@ main {
 
         .login-confirm .FirstButton label > input[type="submit"],
         .registration-form input[type=submit],
-        .form-news-adding input[type=submit],
         .form-news-edit input[type=submit] {
             width: 80%;
             height: 40px;
@@ -199,7 +208,8 @@ main {
     border: 1px solid #767775;
 }
 
-.editor-label {
+.editor-label,
+.creation-control {
     color: white;
     font-size: 20px;
     font-family: 'PT Sans', sans-serif;
@@ -216,49 +226,101 @@ main {
     border-bottom: 2px solid white;
 }
 /*---------------------------------------------Добавление и редактирование новости---------------------------------------------*/
-.form-news-adding input[type=submit],
 .form-news-edit input[type=submit] {
     width: 100%;
+    border-radius: 0 0 5px 5px;
 }
-.form-news-adding .editor-field > textarea,
-.form-news-edit .editor-field > textarea{
+
+.form-news-edit .editor-field > textarea,
+.form-news-add textarea {
+    width: 100%;
     resize: none;
-    width: 760px;
+    height: 60px;
     font-family: "Lora", "sans-serif";
     font-size: 18px;
+    box-sizing: border-box
 }
 
-/*-----------------------Creation------------------------------------*/
-.creation-control {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 20px;
-    color: white;
+.form-news-edit input[type=submit] {
+    background-color: #2a2a2a;
+    border: 1px solid #b6b6b6;
+    border-top: none;
 }
 
-.btn-submit-creation {
-    display: inline-block;
-    font-weight: 700;
-    padding: .5em 2em;
-    border: 2px solid;
-    border-radius: 1px;
-    transition: 0.2s;
-    margin: 15px 0;
+.form-news-submits {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
-.btn-submit-creation:hover {
-    background: rgba(255,255,255,.2);
+    .form-news-submits > div {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .form-news-submits input[type=submit],
+    .form-news-submits button,
+    .form-news-submits a {
+        display: block;
+        height: 40px;
+        background-color: #232323;
+        font-size: 20px;
+        font-family: 'PT Sans', sans-serif;
+        color: white;
+        border: 1px solid #b6b6b6;
+        box-sizing: border-box;
+        text-decoration: none;
+        border-top: none;
+        cursor: pointer;
+    }
+
+    .form-news-submits input[type=submit] {
+        width: 100%;
+        border-radius: 0 0 0 5px;
+        border-right: none;
+    }
+
+.file_upload {
+    width: 30px;
 }
 
-.btn-submit-creation:active {
-    background: white;
+.form-news-clean {
+    width: 30px;
+    text-align: center;
+    line-height: 40px;
 }
-.text-danger {
-    color: red;
-    font-weight: bold;
+
+    .form-news-clean a {
+        border-radius: 0 0 5px 0;
+        background: #252525 url(AdditionalFiles/Icon/eraser.png) no-repeat center;
+        background-size: 19px 15px;
+    }
+
+/*input[type=file]*/
+.file_upload {
+    position: relative;
+    overflow: hidden;
 }
-.clean {
-    margin: 10px;
-    text-decoration: none;
-    font-size: 25px;
-    color: white;
-}
+
+    .file_upload button {
+        float: right;
+        width: 100%;
+        border-right: none;
+        background: #252525 url(AdditionalFiles/Sprite/BSprite.png) no-repeat;
+        background-position: -529px -44px;
+        background-size: 550px 150px;
+    }
+
+    .file_upload input[type=file] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(20);
+        letter-spacing: 10em; /* IE 9 fix */
+        -ms-transform: scale(20); /* IE 9 fix */
+        opacity: 0;
+        cursor: pointer;
+    }
+

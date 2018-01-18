@@ -1,25 +1,28 @@
 ﻿@model NewsPortal.Models.ViewModels.LoginViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
+    @Styles.Render("~/bundles/stylesheet-Service", "~/bundles/stylesheet-Site")
 }
-
-
 <section class="Section-Authorization">
     <div class="title-head">
         <span>Authorization</span>
     </div>
+    <!-- Fields for filling-->
     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "authorization-form" }))
     {
         <div class="login-FFF">
             <div>
-                @Html.EditorFor(LoginInputVM => LoginInputVM.UserName)
-                <div class="Image1"></div>
+                @Html.EditorFor(LoginViewModel => LoginViewModel.UserName)
+                <div class="Image1">
+                    <!--<img src="~/Content/AdditionalFiles/Icon/user.png">-->
+                </div>
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
             <div>
-                @Html.EditorFor(LoginInputVM => LoginInputVM.Password)
-                <div class="Image2"></div>
+                @Html.EditorFor(LoginViewModel => LoginViewModel.Password)
+                <div class="Image2">
+                    <!--<img src="../AdditionalFiles/pass-lock.png">-->
+                </div>
             </div>
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
@@ -30,7 +33,7 @@
         <div class="login-confirm">
             <div class="FirstButton">
                 <label>
-                    <input type="submit" name="Authorization" value="Войти">
+                    <input type="submit" name="Authorization" value="Log in">
                 </label>
             </div>
             <div class="SecondButton">
@@ -39,18 +42,18 @@
                 </span>
             </div>
         </div>
-        <div class="login-footer">
-            <div>
-                <span>Login with:</span>
+            <div class="login-footer">
+                <div>
+                    <span>Login with:</span>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <ul>
-                    <li><a href="#"></a></li>
-                    <li><a href="#"></a></li>
-                    <li><a href="#"></a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </div>
-        </div>
     }
 </section>

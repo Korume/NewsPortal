@@ -9,6 +9,7 @@ using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
 using NewsPortal.Managers.Picture;
+using NewsPortal.Managers.News;
 
 namespace NewsPortal.Controllers
 {
@@ -118,6 +119,11 @@ namespace NewsPortal.Controllers
 
         public ActionResult MainNews(int newsItemId)
         {
+            if (!NewsManager.CheckedNewsItem(newsItemId))
+            {
+                return RedirectToAction("NotFound","Error");
+            }
+
             var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
             var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
             var commentItems = CommentaryManager.ReturnCommentaries(newsItemId);
@@ -135,7 +141,7 @@ namespace NewsPortal.Controllers
             };
             return View(showMainNews);
         }
-        
+ 
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)

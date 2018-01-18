@@ -12,7 +12,7 @@ namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        const int newsItemsQuantity = 20;
+        const int newsItemsQuantity = 15;
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {

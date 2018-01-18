@@ -3,7 +3,26 @@
 @model HomePageModel
 
 @section StyleSheet {
-    <link rel="stylesheet" href="~/Content/StyleSheet_HomePage.css" />
+    @Styles.Render("~/bundles/stylesheet-Home")
+}
+@section SortingNews {
+    @if (Model.Thumbnails.Any())
+    {
+        if (Model.SortedByDate)
+        {
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false },
+               new { @class = "sort" })
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true },
+               new { @class = "reverse-sort" })
+            </li>
+        }
+    }
 }
 <section class="back-image">
     <div class="background-image">
@@ -28,11 +47,11 @@
             {
                 if (Model.SortedByDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort", title = "Sorted by date" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort", title = "Sorted by date" })
                 }
             }
         </div>
@@ -43,7 +62,7 @@
     {
         <article>
             @if (item.UserId == User.Identity.GetUserId().AsInt())
-            {
+                {
                 <div class="menu-news-item">
                     @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
                     <a href="#@item.Id" name="show-popup-window"></a>
@@ -66,13 +85,14 @@
             </div>
         </article>
     }
-    <div>
-        @for (var i = -3; i < 3; i++)
-        {
-            @CreateActionLink(i);
-        }
-    </div>
+
 </section>
+<div class="block-prev-page">
+    @for (var i = -3; i < 3; i++)
+    {
+        @CreateActionLink(i);
+    }
+</div>
 @helper CreateActionLink(int offset)
 {
     var page = Model.CurrentPage + offset;
