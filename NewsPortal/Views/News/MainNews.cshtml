@@ -21,77 +21,83 @@
         </h1>
     </div>
     <div class="main-news-items-content">
-        <section class="image"></section>
+        <section class="image">
+            @if (Model.SourceImage != null)
+            {
+                <img src="@Model.SourceImage" alt="img"></img>
+            }
+        </section>
         <section class="text">
-            @Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Content)
+            @Html.Raw(Model.Content)
         </section>
-    </div>
-    <div class="main-news-items-footer">
-        <section class="content-left">
-            <div class="content-head">
-                <span>Commentaries</span>
-            </div>
-            <ul class="content-list" id="comment-list">
-                @foreach (var elem in Model.CommentItems)
-                {
-                    <li class="content-list-item" id="item-@elem.Id">
-                        <div class="comment">
-                            <div class="comment-head">
-                                <a href="" class="user-info">
-                                    <img src="">
-                                    <span>
-                                        @elem.UserName
-                                    </span>
-                                </a>
-                                <time>
-                                    @elem.Timestamp
-                                </time>
-                                @if (User.Identity.GetUserId().AsInt() == elem.UserId)
-                                {
-                                    <div class="comment-menu" id="@elem.Id">
-                                        <input class="deleteComment"  type="button" />
+        </div>
+    <div></div>
+        <div class="main-news-items-footer">
+            <section class="content-left">
+                <div class="content-head">
+                    <span>Commentaries</span>
+                </div>
+                <ul class="content-list" id="comment-list">
+                    @foreach (var elem in Model.CommentItems)
+                    {
+                        <li class="content-list-item" id="item-@elem.Id">
+                            <div class="comment">
+                                <div class="comment-head">
+                                    <a href="" class="user-info">
+                                        <img src="">
+                                        <span>
+                                            @elem.UserName
+                                        </span>
+                                    </a>
+                                    <time>
+                                        @elem.Timestamp
+                                    </time>
+                                    @if (User.Identity.GetUserId().AsInt() == elem.UserId)
+                                    {
+                                        <div class="comment-menu" id="@elem.Id">
+                                            <input class="deleteComment"  type="button" />
 
-                                    </div>
-                                }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="comment-message">
+                                    @elem.Content
+                                </div>
+                                <div class="comment-footer">
+
+                                </div>
                             </div>
-                            <div class="comment-message">
-                                @elem.Content
-                            </div>
-                            <div class="comment-footer">
+                        </li>
+                    }
+                </ul>
+                <div class="comment-form">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form>
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment"></textarea>
+                            <input type="button" id="sendcomment" value="Send" />
+                        </form>
+                        <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
+                        <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
+                        <input id="userName" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)" />
+                    }
+                    else
+                    {
+                        <p>Please log in to add your comments.</p>
+                    }
+                </div>
+            </section>
+            <section class="content-right">
 
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-            <div class="comment-form">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <form>
-                        <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment"></textarea>
-                        <input type="button" id="sendcomment" value="Send" />
-                    </form>
-                    <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
-                    <input id="userId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserId)" />
-                    <input id="userName" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.UserName)" />
-                }
-                else
-                {
-                    <p>Please log in to add your comments.</p>
-                }
-            </div>
-        </section>
-        <section class="content-right">
+            </section>
+        </div>
+    </section>
 
-        </section>
-    </div>
-</section>
-
-@section script{
-    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/util.js"></script>
-}
+    @section script{
+        <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/util.js"></script>
+    }
 

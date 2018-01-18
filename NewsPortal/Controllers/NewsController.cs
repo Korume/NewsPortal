@@ -8,6 +8,8 @@ using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
+using NewsPortal.Managers.Picture;
+
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
@@ -40,13 +42,7 @@ namespace NewsPortal.Controllers
                         CreationDate = DateTime.Now
                     };
                     session.Save(newsItem);
-
-                    if (uploadedImage != null)
-                    {
-                        string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                        uploadedImage.SaveAs(Server.MapPath("~/Content/UploadedImages/" + newsItem.Id + fileName));
-                        newsItem.SourceImage = "/Content/UploadedImages/" + newsItem.Id + fileName;
-                    }
+                    newsItem.SourceImage = PictureManager.Upload(uploadedImage, newsItem.Id);
                     session.Update(newsItem);
                     transaction.Commit();
                 }
@@ -81,7 +77,8 @@ namespace NewsPortal.Controllers
                 {
                     Id = newsItem.Id,
                     Title = newsItem.Title,
-                    Content = newsItem.Content
+                    Content = newsItem.Content,
+                    SourceImage = newsItem.SourceImage
                 };
                 return View(editedNewsItem);
             }
@@ -90,7 +87,7 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult Edit(NewsItemEditViewModel editModel)
+        public ActionResult Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             if(!ModelState.IsValid)
             {
@@ -106,7 +103,11 @@ namespace NewsPortal.Controllers
 
                     newsItemToUpdate.Title = editModel.Title;
                     newsItemToUpdate.Content = editModel.Content;
-
+                    if (uploadedImage != null)
+                    {
+                        PictureManager.Delete(newsItemToUpdate.SourceImage);
+                        newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
+                    }
                     session.Update(newsItemToUpdate);
                     transaction.Commit();
                 }
@@ -126,6 +127,7 @@ namespace NewsPortal.Controllers
                 Id = newsItem.Id,
                 Title = newsItem.Title,
                 Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
                 CreationDate = newsItem.CreationDate,
                 UserId = newsItem.UserId,
                 UserName = newsUser.UserName,
@@ -144,6 +146,7 @@ namespace NewsPortal.Controllers
                 using (var transaction = session.BeginTransaction())
                 {
                     var newsItem = session.Get<NewsItem>(newsItemId);
+                    PictureManager.Delete(newsItem.SourceImage);
                     session.Delete(newsItem);
                     transaction.Commit();
                 }

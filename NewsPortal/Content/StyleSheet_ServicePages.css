@@ -224,7 +224,6 @@ main {
 .form-news-edit .editor-field > textarea{
     resize: none;
     width: 760px;
-    height: 130px;
     font-family: "Lora", "sans-serif";
     font-size: 18px;
 }
