@@ -32,7 +32,7 @@ namespace NewsPortal.Controllers
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var userName = session.Get<User>(item.UserId)?.UserName;
+                    var userName = session.Get<User>(item.UserId)?.UserName ?? String.Empty;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {

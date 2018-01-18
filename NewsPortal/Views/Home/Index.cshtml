@@ -72,7 +72,7 @@
             <div class="Title">
                 <span>
                     @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id },
-                        new { @class = "show-MainNews" })
+             new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
@@ -85,19 +85,28 @@
             </div>
         </article>
     }
-</section> 
+
+</section>
 <div class="block-prev-page">
-    @if (Model.Page > 0)
+    @for (var i = -3; i < 3; i++)
     {
-        var previousPage = Model.Page - 1;
-        @Html.ActionLink(Model.Page.ToString(), "Index", "Home", new { page = previousPage, sortedByDate = Model.SortedByDate },
-           new { @class = "prev-page" })
-    }
-    <span>@(Model.Page + 1)</span>
-    @if (Model.Page < Model.LastPage)
-    {
-        var nextPage = Model.Page + 1;
-        @Html.ActionLink((Model.Page + 2).ToString(), "Index", "Home", new { page = nextPage, sortedByDate = Model.SortedByDate },
-           new { @class = "next-page" })
+    @CreateActionLink(i);
     }
 </div>
+@helper CreateActionLink(int offset)
+{
+    var page = Model.Page + offset;
+    if (page >= 0 && page <= Model.LastPage)
+    {
+        if (offset != 0)
+        {
+            var nextPage = Model.Page + offset;
+                @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home",
+               new { page = nextPage, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
+        }
+        else
+        {
+            <span>@(Model.Page + 1)</span>
+        }
+    }
+}

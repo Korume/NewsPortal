@@ -8,10 +8,15 @@
         <span>News editing</span>
     </div>
     <div class="form-news-edit">
-        @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.EditorForModel()
-            <input type="submit" value="Save the change" />
+            <div>
+                <input type="file" name="uploadedImage" />
+            </div>
+            <div>
+                <input type="submit" value="Save the change" />
+            </div>
         }
     </div>
 </section>
@@ -19,6 +24,6 @@
 @section script{
     <script src="~/CKEditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("Content", { height: 300 });
+        CKEDITOR.replace("Content", { height: 250 });
     </script>
 }

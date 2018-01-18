@@ -557,6 +557,7 @@
     <Compile Include="Managers\Commentary\CommentaryManager.cs" />
     <Compile Include="Managers\News\NewsManager.cs" />
     <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
+    <Compile Include="Managers\Picture\PictureManager.cs" />
     <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
     <Compile Include="Identity\IdentityStore.cs" />
