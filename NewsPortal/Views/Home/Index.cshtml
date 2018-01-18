@@ -67,12 +67,9 @@
         </article>
     }
     <div>
-        @if (Model.LastPage > 1)
+        @for (var i = -3; i < 3; i++)
         {
-            for (var i = -3; i < 3; i++)
-            {
-                @CreateActionLink(i);
-            }
+            @CreateActionLink(i);
         }
     </div>
 </section>
@@ -84,8 +81,8 @@
         if (offset != 0)
         {
             var nextPage = Model.Page + offset;
-            @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home", 
-           new { page = nextPage, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
+                @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home",
+               new { page = nextPage, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
         }
         else
         {
