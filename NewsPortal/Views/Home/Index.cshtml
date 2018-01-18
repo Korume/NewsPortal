@@ -75,18 +75,18 @@
 </section>
 @helper CreateActionLink(int offset)
 {
-    var page = Model.Page + offset;
+    var page = Model.CurrentPage + offset;
     if (page >= 0 && page <= Model.LastPage)
     {
         if (offset != 0)
         {
-            var nextPage = Model.Page + offset;
-                @Html.ActionLink((Model.Page + offset + 1).ToString(), "Index", "Home",
-               new { page = nextPage, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
+            var pageTransition = Model.CurrentPage + offset;
+                @Html.ActionLink((Model.CurrentPage + offset + 1).ToString(), "Index", "Home",
+               new { page = pageTransition, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
         }
         else
         {
-            <span>@(Model.Page + 1)</span>
+            <span>@(Model.CurrentPage + 1)</span>
         }
     }
 }

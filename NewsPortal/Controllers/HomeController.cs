@@ -20,6 +20,12 @@ namespace NewsPortal.Controllers
             {
                 var session = manager.GetSession();
 
+                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
+                if (page < 0 || page > lastPage)
+                {
+                    return Redirect("/Error/NotFound");
+                }
+
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().
@@ -27,8 +33,6 @@ namespace NewsPortal.Controllers
                     SetFirstResult(page * newsItemsQuantity).
                     SetMaxResults(newsItemsQuantity).
                     List<NewsItem>();
-
-                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
 
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
@@ -47,7 +51,7 @@ namespace NewsPortal.Controllers
                 var homePageModel = new HomePageModel()
                 {
                     Thumbnails = thumbnails,
-                    Page = page,
+                    CurrentPage = page,
                     SortedByDate = sortedByDate,
                     LastPage = lastPage
                 };
