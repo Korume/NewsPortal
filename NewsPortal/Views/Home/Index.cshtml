@@ -37,9 +37,9 @@
     <span>News</span>
     <div>
         @if (User.Identity.IsAuthenticated)
-            {
+        {
             <div class="add-icon">
-                @Html.ActionLink(" ", "Add", "News")
+                @Html.ActionLink(" ", "Add", "News", htmlAttributes: new { title = "Create news" })
             </div>
         }
         <div class="sort-icon">
@@ -47,11 +47,11 @@
             {
                 if (Model.SortedByDate)
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = false }, new { @class = "sort", title = "Sorted by date" })
                 }
                 else
                 {
-                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort" })
+                    @Html.ActionLink(" ", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort", title = "Sorted by date" })
                 }
             }
         </div>
