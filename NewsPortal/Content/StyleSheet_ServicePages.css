@@ -155,6 +155,8 @@ main {
         padding: 0;
         margin: 0;
         list-style-type: none;
+        display: flex;
+        justify-content: space-around;
     }
 
         .login-footer ul li {
@@ -323,8 +325,14 @@ main {
         cursor: pointer;
     }
 
-@media screen and (min-width: 100px) and (max-width: 330px) {
-    footer {
-        display: none;
+@media screen and (max-width: 900px) {
+    html, body{
+        height: auto;
     }
+    footer {
+        background-color: transparent !important;
+        border-top: none !important;
+        bottom: 0 !important;
+        padding: 0 !important;
+    }   
 }
