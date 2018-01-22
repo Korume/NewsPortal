@@ -17,7 +17,7 @@ namespace NewsPortal.Models.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { set; get; }
 
-        [Required(ErrorMessage = "Enter username:")]
+        [Required(ErrorMessage = "Enter username")]
         [Display(Name = "Username:")]
         [DataType(DataType.Text)]
         public string UserName { set; get; }

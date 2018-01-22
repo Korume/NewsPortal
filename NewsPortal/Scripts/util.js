@@ -43,8 +43,7 @@
 			}
 			else {
 				$('#comment').val('The field must be set!').focus();
-			}
-			
+			}		
 		});
 		$(document).on("click", ".deleteComment", function () {
 			var id = $(this).parent().attr("id");
