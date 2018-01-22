@@ -6,7 +6,7 @@
 			'<div class="comment">' +
 			'<div class="comment-head">' +
 			'<a href="" class="user-info">' +
-			'<img src="">' +
+			'<div class="img-user-info"></div >' +
 			'<span>' +
 			htmlEncode(name) +
 			'</span>' +
@@ -31,14 +31,20 @@
 		//$('#comment-list').removeClass("comment-" + idComment);
 		//document.getElementById('#comment-list').parentNode.removeChild(idComment);
 		var deleteComment = document.getElementById('item-' + idComment);
-
 		deleteComment.parentNode.removeChild(deleteComment);
 	}
-	$.connection.hub.start().done(function () {
 
+	$.connection.hub.start().done(function () {
 		$('#sendcomment').click(function () {
-			chat.server.send($('#newsId').val(), $('#userId').val(), $('#comment').val(), $('#userName').val());
-			$('#comment').val('').focus();
+			var check = checkComment();
+			if (check) {
+				chat.server.send($('#newsId').val(), $('#userId').val(), $('#comment').val(), $('#userName').val());
+				$('#comment').val('').focus();
+			}
+			else {
+				$('#comment').val('The field must be set!').focus();
+			}
+			
 		});
 		$(document).on("click", ".deleteComment", function () {
 			var id = $(this).parent().attr("id");
@@ -51,3 +57,16 @@ function htmlEncode(value) {
 	var encodedValue = $('<div />').text(value).html();
 	return encodedValue;
 }
+
+function checkComment() {
+	var valueComment = $('#comment').val();
+	if (valueComment != 0) {
+		$('#sendcomment').removeAttr('disabled');
+		return true;
+	}
+	else {
+		$('#sendcomment').attr('disabled', 'disabled');
+		return false;
+	}
+}
+

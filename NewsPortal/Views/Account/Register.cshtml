@@ -1,10 +1,8 @@
 ﻿@model NewsPortal.Models.ViewModels.RegisterViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/bundles/stylesheet-Service", "~/bundles/stylesheet-Site")
 }
-
 <section class="Section-Registration">
     <div class="title-head">
         <span>Registration</span>

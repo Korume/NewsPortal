@@ -1,11 +1,8 @@
 ﻿@model NewsPortal.Models.ViewModels.NewsItemEditViewModel
 
 @section StyleSheet{
-    <link rel="stylesheet" href="~/Content/StyleSheet_ServicePages.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
-    <script src="~/CKEditor/ckeditor.js"></script>
+    @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
 }
-
 <section class="Section-NewsEdit">
     <div class="title-head">
         <span>News editing</span>
@@ -14,18 +11,26 @@
         @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.EditorForModel()
-            <div>
-                <input type="file" name="uploadedImage" />
+            <div class="form-news-submits">
+                <input type="submit" value="Save changes" class="btn-submit-edit" />
+                <div>
+                    <div class="file_upload">
+                        <button type="button"></button>
+                        <input type="file" name="uploadedImage" />
+                    </div>
+                    <div class="form-news-clean">
+                        @Html.ActionLink(" ", "Index")
+                    </div>
+                </div>
             </div>
-            <div>
-                <input type="submit" value="Edit" />
-            </div>
+
         }
     </div>
    
 </section>
 
 @section script{
+    <script src="~/CKEditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace("Content", { height: 250 });
     </script>

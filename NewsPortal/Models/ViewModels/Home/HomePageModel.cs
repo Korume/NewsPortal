@@ -8,7 +8,7 @@ namespace NewsPortal.Models.ViewModels
     public class HomePageModel
     {
         public IEnumerable<NewsItemThumbnailViewModel> Thumbnails { set; get; }
-        public int Page { set; get; }
+        public int CurrentPage { set; get; }
         public bool SortedByDate { set; get; }
         public int LastPage { set; get; }
     }

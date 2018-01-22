@@ -12,13 +12,19 @@ namespace NewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        const int newsItemsQuantity = 20;
+        const int newsItemsQuantity = 15;
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
+
+                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
+                if (page < 0 || page > lastPage)
+                {
+                    return Redirect("/Error/NotFound");
+                }
 
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
@@ -28,12 +34,10 @@ namespace NewsPortal.Controllers
                     SetMaxResults(newsItemsQuantity).
                     List<NewsItem>();
 
-                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
-
                 var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
                 foreach (var item in newsItemList)
                 {
-                    var userName = session.Get<User>(item.UserId)?.UserName;
+                    var userName = session.Get<User>(item.UserId)?.UserName ?? String.Empty;
 
                     thumbnails.Add(new NewsItemThumbnailViewModel()
                     {
@@ -47,7 +51,7 @@ namespace NewsPortal.Controllers
                 var homePageModel = new HomePageModel()
                 {
                     Thumbnails = thumbnails,
-                    Page = page,
+                    CurrentPage = page,
                     SortedByDate = sortedByDate,
                     LastPage = lastPage
                 };

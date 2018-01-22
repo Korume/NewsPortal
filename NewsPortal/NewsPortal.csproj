@@ -305,12 +305,11 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -349,13 +348,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdditionalFiles\Icon\burger-menu.png" />
+    <Content Include="Content\AdditionalFiles\Icon\eraser.png" />
     <Content Include="Content\AdditionalFiles\Icon\IAdd.png" />
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
     <Content Include="Content\AdditionalFiles\Icon\user.png" />
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
-    <Content Include="Content\AdditionalFiles\Sprite\Sprite.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
     <Content Include="CKEditor\adapters\jquery.js" />
     <Content Include="CKEditor\build-config.js" />
@@ -496,6 +496,7 @@
     <Content Include="CKEditor\styles.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet_BasicFormatting.css" />
+    <Content Include="Content\StyleSheet_HelpStyles.css" />
     <Content Include="Content\StyleSheet_HomePage.css" />
     <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />

@@ -1,8 +1,15 @@
-﻿
+﻿/*---------------------------------------------Основные настройки---------------------------------------------*/
+body, html{
+    height: auto;
+}
+footer {
+    display: none;
+}
+
+
 /*--------------------------------MainNews--------------------------------*/
 main {
     height: auto;
-    /*Разберись с большой белой линией*/
 }
 
 .main-news-items {
@@ -119,7 +126,7 @@ main {
         text-decoration: none;
     }
 
-        .comment .comment-head > a > img {
+        .comment .comment-head > a > .img-user-info {
             display: inline-block;
             width: 20px;
             height: 20px;
@@ -127,6 +134,8 @@ main {
             border-radius: 2px;
             margin: 0 5px 0 0;
             float: left;
+            background: #252525 url(/Content/AdditionalFiles/Sprite/BSprite.png) no-repeat;
+            background-position: -165px 3px;
         }
 
         .comment .comment-head > a > span {
@@ -144,7 +153,7 @@ main {
     }
         .comment .comment-head .comment-menu input[type=button] {
             display: none;
-            background: url("AdditionalFiles/Sprite/BSprite.png") no-repeat;
+            background: url("/Content/AdditionalFiles/Sprite/BSprite.png") no-repeat;
             background-color: #252525;
             box-sizing: border-box;
             width: 20px;
@@ -167,6 +176,7 @@ main {
 .comment .comment-message {
     padding: 5px;
     border-bottom: 1px solid silver;
+    overflow-wrap: break-word;
 }
 
 .comment-form {
@@ -196,8 +206,8 @@ main {
         border: 1px solid silver;
     }
 
-    .comment-form button{
-        width: 100%;
+    .comment-form input[type=button]{
+        width: 100px;
         height: 28px;
         margin-top: -5px;
         color: white;
@@ -210,11 +220,17 @@ main {
 
 .content-right {
     width: 30%;
-    height: 50px;
+    height: auto;
     background-color: white;
     margin: 0 0 5px 0;
     box-sizing: border-box;
     border-radius: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 25px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
 
