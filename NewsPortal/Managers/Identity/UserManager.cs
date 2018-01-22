@@ -11,13 +11,11 @@ namespace NewsPortal.Managers.Identity
         public UserManager(IUserStore<User, int> store)
             : base(store)
         {
-            UserValidator = new UserValidator<User, int>(this);
+            UserValidator = new UserValidator<User, int>(this) { AllowOnlyAlphanumericUserNames = true };
             PasswordValidator = new PasswordValidator() { RequiredLength = 6 };
             EmailService = new EmailService();
             var dataProtectionProvider = Startup.DataProtectionProvider;
             UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));
         }
-
-        //public bool CheckedEmailUser(stri)
     }
 }

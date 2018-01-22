@@ -56,7 +56,7 @@ namespace NewsPortal.Controllers
         {
             if (newsItemId == null)
             {
-                return Redirect("/Error/NotFound");
+                throw new HttpException(404, "Not Found");
             }
 
             using (var manager = new NHibernateManager())
@@ -65,7 +65,7 @@ namespace NewsPortal.Controllers
                 var newsItem = session.Get<NewsItem>(newsItemId);
                 if (newsItem == null)
                 {
-                    return View("NotFound");
+                    throw new HttpException(404, "Not Found");
                 }
 
                 bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();

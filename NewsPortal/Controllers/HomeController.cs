@@ -7,6 +7,8 @@ using NHibernate;
 using NHibernate.Criterion;
 using System.Configuration;
 using System;
+using System.Web;
+using NewsPortal.Managers.News;
 
 namespace NewsPortal.Controllers
 {
@@ -23,7 +25,7 @@ namespace NewsPortal.Controllers
                 var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
                 if (page < 0 || page > lastPage)
                 {
-                    return Redirect("/Error/NotFound");
+                    throw new HttpException(404, "Not Found");
                 }
 
                 var propertyForOrder = "CreationDate";

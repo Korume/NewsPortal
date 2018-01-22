@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
 using NewsPortal.Managers.NHibernate;
+using System;
 using NHibernate.Criterion;
 
 namespace NewsPortal.Controllers
