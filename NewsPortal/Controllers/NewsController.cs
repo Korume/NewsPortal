@@ -131,17 +131,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    var newsItem = session.Get<NewsItem>(newsItemId);
-                    PictureManager.Delete(newsItem.SourceImage);
-                    session.Delete(newsItem);
-                    transaction.Commit();
-                }
-            }
+     
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }

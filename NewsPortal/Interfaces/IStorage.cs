@@ -9,7 +9,7 @@ namespace NewsPortal.Interfaces
     interface IStorage
     {
         void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage);
-        void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage);
-        void Delete(object obj);
+        void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId);
+        void Delete(int id);
     }
 }

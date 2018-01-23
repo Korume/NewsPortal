@@ -5,14 +5,7 @@ using NewsPortal.ServiceClasses;
 using System;
 using System.Web;
 using NewsPortal.Interfaces;
-using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
-using System.Web.WebPages;
-using NewsPortal.Models.ViewModels.News;
-using NewsPortal.Managers.Commentary;
-using NewsPortal.Managers.NHibernate;
-
-using NewsPortal.Managers.News;
 
 namespace NewsPortal.Managers.NHibernate
 {
@@ -40,8 +33,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-
-        void IStorage.Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
+        void IStorage.Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             using (var manager = new NHibernateManager())
             {
@@ -50,7 +42,7 @@ namespace NewsPortal.Managers.NHibernate
                 {
                     NewsItem newsItem = new NewsItem()
                     {
-                        UserId = Convert.ToInt32(User),
+                        UserId = Convert.ToInt32(UserId),
                         Title = newsModel.Title,
                         Content = newsModel.Content,
                         CreationDate = DateTime.Now
@@ -58,6 +50,21 @@ namespace NewsPortal.Managers.NHibernate
                     session.Save(newsItem);
                     newsItem.SourceImage = PictureManager.Upload(uploadedImage, newsItem.Id);
                     session.Update(newsItem);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        void IStorage.Delete(int id)
+        {
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                using (var transaction = session.BeginTransaction())
+                {
+                    var newsItem = session.Get<NewsItem>(id);
+                    PictureManager.Delete(newsItem.SourceImage);
+                    session.Delete(newsItem);
                     transaction.Commit();
                 }
             }
