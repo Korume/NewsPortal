@@ -39,7 +39,7 @@
                         <div>
                             <div class="file_upload">
                                 <button type="button"></button>
-                                <input type="file" name="uploadedImage" />
+                                <input type="file" name="uploadedImage" id="fileImage"/>
                             </div>
                             <div class="form-news-clean">
                                 @Html.ActionLink(" ", "Index")
@@ -51,6 +51,48 @@
             </div>
         }
     </div>
+    <div class="Preview">
+        <div>
+            <article>
+                <div class="Title">
+                    <span>
+                        <a href="#null" id="TitlePreview"></a>
+                    </span>
+                </div>
+                <div class="NewsInformation">
+                    <div class="NameUser">
+                        @User.Identity.Name
+                    </div>
+                    <div class="CreationDate">
+                        @DateTime.Now
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="main-news-items">
+            <div class="main-news-items-info">
+                <time class="main-news-items-time">
+                    @DateTime.Now
+                </time>
+                <section class="main-news-items-nameUser">
+                    @User.Identity.Name
+                </section>
+            </div>
+            <div class="main-news-items-head">
+                <h1 id="TitlePreview-MainNews">
+                    
+                </h1>
+            </div>
+            <div class="main-news-items-content">
+                <section class="image">
+
+                </section>
+                <section class="text">
+                    
+                </section>
+            </div>
+        </div>
+    </div>
 </section>
 
 
@@ -60,4 +102,5 @@
     <script>
         CKEDITOR.replace("Content", { height: 250 });
     </script>
+    <script src="~/Scripts/jquery.preview.js"></script>
 }

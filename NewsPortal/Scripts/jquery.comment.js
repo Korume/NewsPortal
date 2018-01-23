@@ -13,7 +13,7 @@
 			'</a>' +
 			'<time>' +
 			htmlEncode(dateTime) +
-			'</time >' +
+			'</time>' +
 			'<div class="comment-menu" id="' + htmlEncode(idComment) + '">' +
 			'<input class="deleteComment" type="button" />' +
 			'</div>' +
@@ -27,11 +27,9 @@
 			'</li>'
 		);
 	};
+
 	chat.client.deleteCommentToPage = function (idComment) {
-		//$('#comment-list').removeClass("comment-" + idComment);
-		//document.getElementById('#comment-list').parentNode.removeChild(idComment);
-		var deleteComment = document.getElementById('item-' + idComment);
-		deleteComment.parentNode.removeChild(deleteComment);
+		$("#item-" + idComment).remove();
 	}
 
 	$.connection.hub.start().done(function () {
@@ -45,17 +43,13 @@
 				$('#comment').val('The field must be set!').focus();
 			}		
 		});
+
 		$(document).on("click", ".deleteComment", function () {
 			var id = $(this).parent().attr("id");
 			chat.server.delete(id);
 		});
 	});
 });
-
-function htmlEncode(value) {
-	var encodedValue = $('<div />').text(value).html();
-	return encodedValue;
-}
 
 function checkComment() {
 	var valueComment = $('#comment').val();
@@ -69,3 +63,7 @@ function checkComment() {
 	}
 }
 
+function htmlEncode(value) {
+	var encodedValue = $('<div />').text(value).html();
+	return encodedValue;
+}

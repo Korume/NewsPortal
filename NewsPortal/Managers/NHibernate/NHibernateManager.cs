@@ -17,7 +17,7 @@ namespace NewsPortal.Managers.NHibernate
         public ISession GetSession()
         {
             ISessionFactory factory = getSessionFactory();
-            ISession session = getExistingOrNewSession(factory);
+            ISession session = GetExistingOrNewSession(factory);
             return session;
         }
 
@@ -39,18 +39,18 @@ namespace NewsPortal.Managers.NHibernate
             return configuration;
         }
 
-        private ISession getExistingOrNewSession(ISessionFactory factory)
+        private ISession GetExistingOrNewSession(ISessionFactory factory)
         {
             if (HttpContext.Current != null)
             {
                 ISession session = GetExistingWebSession();
                 if (session == null)
                 {
-                    session = openSessionAndAddToContext(factory);
+                    session = OpenSessionAndAddToContext(factory);
                 }
                 else if (!session.IsOpen)
                 {
-                    session = openSessionAndAddToContext(factory);
+                    session = OpenSessionAndAddToContext(factory);
                 }
 
                 return session;
@@ -73,7 +73,7 @@ namespace NewsPortal.Managers.NHibernate
             return HttpContext.Current.Items[GetType().FullName] as ISession;
         }
 
-        private ISession openSessionAndAddToContext(ISessionFactory factory)
+        private ISession OpenSessionAndAddToContext(ISessionFactory factory)
         {
             ISession session = factory.OpenSession();
             HttpContext.Current.Items.Remove(GetType().FullName);
@@ -86,6 +86,7 @@ namespace NewsPortal.Managers.NHibernate
             get { return new IdentityStore(GetSession()); }
         }
 
+        #region Вспомогательные приложения
         public static User ReturnDB_User(int userID)
         {
             using (var manager = new NHibernateManager())
@@ -93,6 +94,7 @@ namespace NewsPortal.Managers.NHibernate
                 return manager.GetSession().Get<User>(userID);
             }
         }
+
         public static NewsItem ReturnDB_News(int newsID)
         {
             using (var manager = new NHibernateManager())
@@ -100,6 +102,7 @@ namespace NewsPortal.Managers.NHibernate
                 return manager.GetSession().Get<NewsItem>(newsID);
             }
         }
+
         public static CommentItem ReturnDB_Comment(int commentID)
         {
             using (var manager = new NHibernateManager())
@@ -107,6 +110,7 @@ namespace NewsPortal.Managers.NHibernate
                 return manager.GetSession().Get<CommentItem>(commentID);
             }
         }
+        #endregion
 
         public void Dispose()
         {

@@ -16,7 +16,7 @@ namespace NewsPortal.Managers.News
             {
                 var session = manager.GetSession();
                 var newsItem = session.Get<NewsItem>(newsItemId);
-                return newsItem != null ? true : false;
+                return newsItem != null;
             }
         }
     }

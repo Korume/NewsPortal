@@ -121,7 +121,7 @@ namespace NewsPortal.Controllers
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
-                return RedirectToAction("NotFound","Error");
+                throw new HttpException(404, "Not Found");
             }
 
             var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
