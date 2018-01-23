@@ -43,30 +43,8 @@ namespace NewsPortal.Controllers
                 return Redirect("/Error/NotFound");
             }
 
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                if (newsItem == null)
-                {
-                    return View("NotFound");
-                }
+            return View(StorageManager.GetEdit(newsItemId, User.Identity.GetUserId()));
 
-                bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
-                if (!isUserNewsItemOwner)
-                {
-                    return View("NewsOwnerError");
-                }
-
-                var editedNewsItem = new NewsItemEditViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content,
-                    SourceImage = newsItem.SourceImage
-                };
-                return View(editedNewsItem);
-            }
         }
 
         [HttpPost]

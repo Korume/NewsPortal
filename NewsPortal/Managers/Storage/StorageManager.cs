@@ -49,5 +49,10 @@ namespace NewsPortal.Managers.Storage
         {
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetHomePage(page, sortedByDate);
         }
+
+        public static NewsItemEditViewModel GetEdit(int? newsItemId, string UserId)
+        {
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEdit(newsItemId,UserId);
+        }
     }
 }

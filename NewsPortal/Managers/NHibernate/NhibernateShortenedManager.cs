@@ -35,6 +35,34 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
+        NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
+        {
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                var newsItem = session.Get<NewsItem>(newsItemId);
+                if (newsItem == null)
+                {
+                    throw new HttpException(404, "Error 404, bad page");
+                }
+
+                bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
+                if (!isUserNewsItemOwner)
+                {
+                    return null;
+                }
+            
+                var editedNewsItem = new NewsItemEditViewModel()
+                {
+                    Id = newsItem.Id,
+                    Title = newsItem.Title,
+                    Content = newsItem.Content,
+                    SourceImage = newsItem.SourceImage
+                };
+                return editedNewsItem;
+            }
+        }
+
         void IStorage.Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             using (var manager = new NHibernateManager())
