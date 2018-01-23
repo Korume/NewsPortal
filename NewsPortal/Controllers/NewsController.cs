@@ -10,6 +10,7 @@ using NewsPortal.Managers.NHibernate;
 using System.Web;
 using NewsPortal.Managers.Picture;
 using NewsPortal.Managers.News;
+using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
 {
@@ -19,6 +20,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult Add()
         {
+            
             return View();
         }
         [Authorize]
@@ -95,24 +97,7 @@ namespace NewsPortal.Controllers
                 return View(editModel);
             }
 
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
-
-                    newsItemToUpdate.Title = editModel.Title;
-                    newsItemToUpdate.Content = editModel.Content;
-                    if (uploadedImage != null)
-                    {
-                        PictureManager.Delete(newsItemToUpdate.SourceImage);
-                        newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
-                    }
-                    session.Update(newsItemToUpdate);
-                    transaction.Commit();
-                }
-            }
+        asdasdasdasdasdlasdk askd
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
