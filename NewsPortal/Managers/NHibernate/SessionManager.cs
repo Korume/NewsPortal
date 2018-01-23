@@ -5,7 +5,8 @@ using System.Web;
 
 namespace NewsPortal.Managers.NHibernate
 {
-    public class SessionManager
+    public static class SessionManager
     {
+
     }
 }

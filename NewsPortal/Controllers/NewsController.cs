@@ -20,7 +20,6 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult Add()
         {
-            
             return View();
         }
         [Authorize]
@@ -32,24 +31,7 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    NewsItem newsItem = new NewsItem()
-                    {
-                        UserId = Convert.ToInt32(User.Identity.GetUserId()),
-                        Title = newsModel.Title,
-                        Content = newsModel.Content,
-                        CreationDate = DateTime.Now
-                    };
-                    session.Save(newsItem);
-                    newsItem.SourceImage = PictureManager.Upload(uploadedImage, newsItem.Id);
-                    session.Update(newsItem);
-                    transaction.Commit();
-                }
-            }
+            StorageManager.Add(newsModel, uploadedImage, User.Identity.GetUserId());
             return RedirectToAction("Index", "Home");
         }
 
@@ -97,7 +79,7 @@ namespace NewsPortal.Controllers
                 return View(editModel);
             }
 
-        asdasdasdasdasdlasdk askd
+            StorageManager.Edit(editModel,uploadedImage);
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
@@ -131,7 +113,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-     
+            StorageManager.Delete(newsItemId);
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }

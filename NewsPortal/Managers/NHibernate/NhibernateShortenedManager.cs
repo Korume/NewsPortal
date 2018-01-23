@@ -6,12 +6,14 @@ using System;
 using System.Web;
 using NewsPortal.Interfaces;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using NHibernate.Criterion;
 
 namespace NewsPortal.Managers.NHibernate
 {
     public class NhibernateShortenedManager:StorageProvider,IStorage
     {
-         void IStorage.Edit(NewsItemEditViewModel editModel , HttpPostedFileBase uploadedImage)
+        void IStorage.Edit(NewsItemEditViewModel editModel , HttpPostedFileBase uploadedImage)
         {
             using (var manager = new NHibernateManager())
             {
@@ -69,6 +71,50 @@ namespace NewsPortal.Managers.NHibernate
                 }
             }
         }
+            
+        HomePageModel IStorage.GetHomePage(int page, bool sortedByDate)
+        {
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                int newsItemsQuantity = 15;
+                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
+                if (page < 0 || page > lastPage)
+                {
+                    throw new HttpException(404, "Error 404, bad page");
+                }
 
+                var propertyForOrder = "CreationDate";
+                var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
+                var newsItemList = session.CreateCriteria<NewsItem>().
+                    AddOrder(orderType).
+                    SetFirstResult(page * newsItemsQuantity).
+                    SetMaxResults(newsItemsQuantity).
+                    List<NewsItem>();
+
+                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
+                foreach (var item in newsItemList)
+                {
+                    var userName = session.Get<User>(item.UserId)?.UserName ?? String.Empty;
+
+                    thumbnails.Add(new NewsItemThumbnailViewModel()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        UserId = item.UserId,
+                        CreationDate = item.CreationDate,
+                        UserName = userName
+                    });
+                }
+                var homePageModel = new HomePageModel()
+                {
+                    Thumbnails = thumbnails,
+                    CurrentPage = page,
+                    SortedByDate = sortedByDate,
+                    LastPage = lastPage
+                };
+                return homePageModel;
+            }
+        }
     }
 }
