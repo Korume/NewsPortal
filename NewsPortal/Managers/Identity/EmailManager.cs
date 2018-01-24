@@ -22,7 +22,7 @@ namespace NewsPortal.Managers.Identity
                 smtpServer.Host = ConfigurationManager.AppSettings["mailHost"];
                 smtpServer.Port = int.Parse(ConfigurationManager.AppSettings["mailPort"]);
                 smtpServer.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["mailEnableSsl"]);
-                smtpServer.DeliveryMethod = (SmtpDeliveryMethod)Enum.Parse(typeof(SmtpDeliveryMethod), 
+                smtpServer.DeliveryMethod = (SmtpDeliveryMethod)Enum.Parse(typeof(SmtpDeliveryMethod),
                     ConfigurationManager.AppSettings["mailDeliveryMethod"]);
                 smtpServer.UseDefaultCredentials = bool.Parse(ConfigurationManager.AppSettings["mailUseDefaultCredentials"]);
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"],

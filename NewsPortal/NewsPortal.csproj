@@ -558,6 +558,7 @@
     <Compile Include="Managers\NHibernate\NhibernateShortenedManager.cs" />
     <Compile Include="Managers\Picture\PictureManager.cs" />
     <Compile Include="Managers\Storage\StorageManager.cs" />
+    <Compile Include="ModelBinders\RegisterModelBinder.cs" />
     <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
     <Compile Include="Identity\IdentityStore.cs" />
@@ -601,7 +602,6 @@
     <Content Include="Views\News\Add.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\News\NotFound.cshtml" />
     <Content Include="Views\Account\SuccesfulRegistration.cshtml" />
     <Content Include="Views\Account\SuccesfulConfirmation.cshtml" />
     <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
