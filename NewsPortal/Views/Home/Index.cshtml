@@ -67,7 +67,7 @@
                     @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
                     <a href="#@item.Id" name="show-popup-window"></a>
                 </div>
-                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Dialog.DialogViewModel { Id = item.Id, Title = item.Title })
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Partial.DialogViewModel { Id = item.Id, Title = item.Title })
             }
             <div class="Title">
                 <span>

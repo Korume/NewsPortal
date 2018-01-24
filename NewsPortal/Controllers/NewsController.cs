@@ -15,12 +15,13 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpGet]
+
         [Authorize]
         public ActionResult Add()
         {
             return View();
         }
+
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
@@ -159,13 +160,6 @@ namespace NewsPortal.Controllers
             }
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult Partial()
-        {            
-            return PartialView("DialogWindow");
         }
     }
 }

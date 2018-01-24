@@ -1,44 +1,48 @@
-﻿var target = document.getElementById('Title');
+﻿var articleShowCheck = false;
+var mainNewsCheck = false;
 
-var observer = new MutationObserver(function (mutations) {
-	mutations.forEach(function (mutation) {
-		alert("1");
-		var title = document.getElementById('Title').value;
-		document.getElementById('TitlePreview').innerHTML = title; 
-		document.getElementById('TitlePreview-MainNews').innerHTML = title;
-	});
-});
+var article = document.getElementById('previewArticle');
+var mainNews = document.getElementById('previewMainNews');
 
-var config = { attributes: true, childList: true, characterData: true }
+document.getElementById('Title').onfocus = function () {
+	disablePreview();
+	console.log("Okay");
+};
 
-observer.observe(target, config);
+function disablePreview() {
+	if (articleShowCheck) {
+		articleShowCheck = false;
+		article.style.display = "none";
+	}
 
-//document.getElementById('Title').addEventListener("DOMSubtreeModified", function () {
-//	var title = document.getElementById('Title').value;
-//	document.getElementById('TitlePreview').innerHTML = title; 
-//	document.getElementById('TitlePreview-MainNews').innerHTML = title;
-//});
+	if (mainNews) {
+		mainNewsCheck = false;
+		mainNews.style.display = "none";
+	}
+};
 
-function handleFileSelect() {
-	var files = document.getElementById('fileImage').target.files; // FileList object
+document.getElementById('ArticleShow').onclick = function () {
 
-		// Only process image files.
-		//if (!files.type.match('image.*')) {
-		//	continue;
-		//}
+	if (!articleShowCheck) {
+		articleShowCheck = true;
+		article.style.display = "block";
+		document.getElementById('TitlePreview').innerHTML = document.getElementById('Title').value;
+	}
+	else {
+		articleShowCheck = false;
+		article.style.display = "none";
+	}
+};
 
-		var reader = new FileReader();
+document.getElementById('MainNewsShow').onclick = function () {
 
-		// Closure to capture the file information.
-		reader.onload = (function (theFile) {
-			return function (e) {
-				// Render thumbnail.
-				var classImage = document.getElementsByClassName('.image');
-				classImage.innerHTML = ['<img class="imagePreview" src="', e.target.result,
-					'" title="', theFile.name, '"/>'].join('');
-				//document.getElementById('list').insertBefore(span, null);
-			};
-		})(files);
-		// Read in the image file as a data URL.
-		reader.readAsDataURL(f);
-}
+	if (!mainNewsCheck) {
+		mainNewsCheck = true;
+		mainNews.style.display = "block";
+		document.getElementById('TitlePreview-MainNews').innerHTML = document.getElementById('Title').value;
+	}
+	else {
+		mainNewsCheck = false;
+		mainNews.style.display = "none";
+	}
+};

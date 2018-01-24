@@ -187,7 +187,8 @@ html body::-webkit-scrollbar-track {
         margin-top: 0;
     }
 
-        main .news-item article {
+        main .news-item article,
+        main .Preview article {
             width: 400px;
         }
 
@@ -259,7 +260,8 @@ html body::-webkit-scrollbar-track {
 }
 
 @media screen and (min-width: 320px) and (max-width:400px) {
-    main .news-item article {
+    main .news-item article,
+    main .Preview article {
         width: 320px;
     }
     .popup-window {
