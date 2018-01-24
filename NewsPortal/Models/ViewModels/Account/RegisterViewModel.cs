@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using NewsPortal.ModelBinders;
 
 namespace NewsPortal.Models.ViewModels
 {
+    [ModelBinder(typeof(RegisterModelBinder))]
     public class RegisterViewModel
     {
         [ScaffoldColumn(false)]
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
+        [HiddenInput(DisplayValue = false)]
         public int Id { set; get; }
 
         [Required(ErrorMessage = "Enter E-mail address")]
@@ -31,7 +34,7 @@ namespace NewsPortal.Models.ViewModels
         public string Password { set; get; }
 
         [Required(ErrorMessage = "Confirm the password")]
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords do not match")]
         [Display(Name = "Confirm the password:")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { set; get; }
