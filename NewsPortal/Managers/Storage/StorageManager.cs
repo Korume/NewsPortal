@@ -8,6 +8,7 @@ using System.Web;
 using NewsPortal.Managers.NHibernate;
 using NewsPortal.Interfaces;
 using NewsPortal.Managers.LocalMemory;
+using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.Storage
 {
@@ -57,6 +58,11 @@ namespace NewsPortal.Managers.Storage
         public static NewsItemEditViewModel GetEdit(int? newsItemId, string UserId)
         {
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEdit(newsItemId, UserId);
+        }
+
+        public static NewsItemMainPageViewModel GetMainNews(int id)
+        {
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetMainNews(id);
         }
     }
 }

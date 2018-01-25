@@ -65,22 +65,7 @@ namespace NewsPortal.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
-            var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
-            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
-            var commentItems = CommentaryManager.ReturnCommentaries(newsItemId);
-
-            var showMainNews = new NewsItemMainPageViewModel()
-            {
-                Id = newsItem.Id,
-                Title = newsItem.Title,
-                Content = newsItem.Content,
-                SourceImage = newsItem.SourceImage,
-                CreationDate = newsItem.CreationDate,
-                UserId = newsItem.UserId,
-                UserName = newsUser.UserName,
-                CommentItems = commentItems
-            };
-            return View(showMainNews);
+            return View(StorageManager.GetMainNews(newsItemId));
         }
 
         [HttpPost]

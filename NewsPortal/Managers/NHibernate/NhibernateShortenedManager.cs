@@ -7,6 +7,8 @@ using System.Web;
 using NewsPortal.Interfaces;
 using System.Collections.Generic;
 using NHibernate.Criterion;
+using NewsPortal.Models.ViewModels.News;
+using NewsPortal.Managers.Commentary;
 
 namespace NewsPortal.Managers.NHibernate
 {
@@ -142,6 +144,27 @@ namespace NewsPortal.Managers.NHibernate
                 };
                 return homePageModel;
             }
+        }
+
+        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        {
+            var newsItem = NHibernateManager.ReturnDB_News(id);
+            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
+            var commentItems = CommentaryManager.ReturnCommentaries(id);
+
+            var showMainNews = new NewsItemMainPageViewModel()
+            {
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName,
+                CommentItems = commentItems
+            };
+
+            return showMainNews;
         }
     }
 }

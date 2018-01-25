@@ -1,4 +1,5 @@
 ﻿using NewsPortal.Models.ViewModels;
+using NewsPortal.Models.ViewModels.News;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace NewsPortal.Interfaces
         void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId);
         void Delete(int id);
         HomePageModel GetHomePage(int page = 0, bool sortedByDate = true);
+        NewsItemMainPageViewModel GetMainNews(int id);
     }
 }
