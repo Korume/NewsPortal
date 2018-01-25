@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NewsPortal.Interfaces;
+using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
+using NewsPortal.Models.ViewModels.News;
 using NewsPortal.ServiceClasses;
 
 namespace NewsPortal.Managers.LocalMemory
@@ -49,7 +51,6 @@ namespace NewsPortal.Managers.LocalMemory
 
         NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
         {
-            NewsItemEditViewModel editedNewsItem = null;
             foreach (var news in allNews.ToList())
             {
                 if (news.Id == newsItemId)
@@ -60,20 +61,17 @@ namespace NewsPortal.Managers.LocalMemory
                     {
                         return null;
                     }
-                    editedNewsItem = new NewsItemEditViewModel()
+                    var editedNewsItem = new NewsItemEditViewModel()
                     {
                         Id = allNews[index].Id,
                         Title = allNews[index].Title,
                         Content = allNews[index].Content,
                         SourceImage = allNews[index].SourceImage
                     };
-                }
-                else
-                {
-                    throw new HttpException(404, "Error 404, bad page");
+                    return editedNewsItem;
                 }
             }
-            return editedNewsItem;
+            throw new HttpException(404, "Error 404, bad page");
         }
 
         void IStorage.Delete(int id)
@@ -126,6 +124,31 @@ namespace NewsPortal.Managers.LocalMemory
                 LastPage = lastPage
             };
             return homePageModel;
+        }
+        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        {
+            foreach (var news in allNews.ToList())
+            {
+                if (news.Id == id)
+                {
+                    int index = allNews.IndexOf(news);
+                    var commentItems = CommentaryManager.ReturnCommentaries(index);
+                    var newsUser = NHibernateManager.ReturnDB_User(allNews[index].UserId);
+                    var showMainNews = new NewsItemMainPageViewModel()
+                    {
+                        Id = allNews[index].Id,
+                        Title = allNews[index].Title,
+                        Content = allNews[index].Content,
+                        SourceImage = allNews[index].SourceImage,
+                        CreationDate = allNews[index].CreationDate,
+                        UserId = allNews[index].UserId,
+                        UserName = newsUser.UserName,
+                        CommentItems = commentItems
+                    };
+                    return showMainNews;
+                }
+            }
+            throw new HttpException(404, "Error 404, bad page");
         }
     }
 }
