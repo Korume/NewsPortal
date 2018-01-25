@@ -29,7 +29,7 @@
                         @Html.LabelFor(model => model.Content)
                     </div>
                     <div>
-                        @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = "" } })
+                        @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = ""} })
                     </div>
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
@@ -39,7 +39,7 @@
                         <div>
                             <div class="file_upload">
                                 <button type="button"></button>
-                                <input type="file" name="uploadedImage" />
+                                <input type="file" name="uploadedImage" id="fileImage"/>
                             </div>
                             <div class="form-news-clean">
                                 @Html.ActionLink(" ", "Add", "News")
@@ -51,6 +51,7 @@
             </div>
         }
     </div>
+    @Html.Partial("Preview", new NewsPortal.Models.ViewModels.News.NewsItemMainPageViewModel { CreationDate = DateTime.Now, UserName = User.Identity.Name})
 </section>
 
 
@@ -58,6 +59,7 @@
 @section script{
     <script src="~/CKEditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("Content", { height: 250 });
+        CKEDITOR.replace("Content", { height: 250});
     </script>
+    <script src="~/Scripts/jquery.preview.js"></script>
 }
