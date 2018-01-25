@@ -15,15 +15,25 @@ namespace NewsPortal.Managers.Storage
 
    public enum MemMode { Database=0, LocalStorage=1 };
 
-    static class MemoryMode
+    static public class MemoryMode
     {
         public static MemMode CurrentMemoryMode;
         public static List<StorageProvider> list = new List<StorageProvider>();
+
+        public static void MemorySwitch(string action)
+        {
+            if (action == "database")
+            {
+                CurrentMemoryMode = MemMode.Database;
+            }
+            else if (action == "memory")
+            {
+                CurrentMemoryMode = MemMode.LocalStorage;
+            }
+        }
         static MemoryMode()
-        { 
-            //CurrentMemoryMode = MemMode.Database;
+        {
             list.Add(new NhibernateShortenedManager());
-            CurrentMemoryMode = MemMode.LocalStorage;
             list.Add(new LocalMemoryManager());
         }
     }

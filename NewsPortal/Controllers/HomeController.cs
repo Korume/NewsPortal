@@ -18,7 +18,21 @@ namespace NewsPortal.Controllers
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-                return View(StorageManager.GetHomePage(page,sortedByDate));
+            return View(StorageManager.GetHomePage(page, sortedByDate));
+        }
+
+        [HttpPost]
+        public ActionResult Index(string action)
+        {
+            if (action == "database")
+            {
+                MemoryMode.MemorySwitch("database");
+            }
+            else if (action == "memory")
+            {
+                MemoryMode.MemorySwitch("memory");
+            }
+            return View(StorageManager.GetHomePage(0, true));
         }
     }
 }

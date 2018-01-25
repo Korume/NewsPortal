@@ -12,7 +12,6 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-
         [Authorize]
         public ActionResult Add()
         {
@@ -28,6 +27,7 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
+
             StorageManager.Add(newsModel, uploadedImage, User.Identity.GetUserId());
             return RedirectToAction("Index", "Home");
         }
@@ -41,7 +41,6 @@ namespace NewsPortal.Controllers
             }
 
             return View(StorageManager.GetEdit(newsItemId, User.Identity.GetUserId()));
-
         }
 
         [HttpPost]
@@ -55,7 +54,6 @@ namespace NewsPortal.Controllers
             }
 
             StorageManager.Edit(editModel, uploadedImage);
-            //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
 
@@ -74,7 +72,6 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteNewsItem(int newsItemId)
         {
             StorageManager.Delete(newsItemId);
-            //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
     }

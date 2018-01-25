@@ -33,23 +33,21 @@
                             @RenderSection("SortingNews", false)
                             <li>
                                 <section class="database-menu-min">
-                                    <form>
-                                        <input type="radio" name="database" class="radio" id="databaseM" />
-                                        <label for="databaseM">DataBase</label>
-                                        <input type="radio" name="database" class="radio" id="memoryM" />
-                                        <label for="memoryM">Memory</label>
-                                    </form>
+                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                                     {
+                                        <button name="action" value="database">Database</button>
+                                        <button name="action" value="memory">Memory</button>
+                                     }
                                 </section>
                             </li>
                         </ul>
                     </div>
                     <div class="database_menu">
-                        <form>
-                            <input type="radio" name="database" class="radio" id="database" />
-                            <label for="database">DataBase</label>
-                            <input type="radio" name="database" class="radio" id="memory" />
-                            <label for="memory">Memory</label>
-                        </form>
+                         @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                          {
+                            <button name="action" value="database">Database</button>
+                            <button name="action" value="memory">Memory</button>
+                          }
                     </div>
                     <span class="item_menu">
                         @Html.ActionLink(User.Identity.Name, "Index", "Home")
