@@ -13,7 +13,7 @@ using NewsPortal.Models.ViewModels.News;
 namespace NewsPortal.Managers.Storage
 {
 
-   public enum MemMode { Database=0, LocalStorage=1 };
+   public enum MemMode { Database, LocalStorage };
 
     static class MemoryMode
     {
