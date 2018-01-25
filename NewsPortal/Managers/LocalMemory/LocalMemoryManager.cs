@@ -49,7 +49,7 @@ namespace NewsPortal.Managers.LocalMemory
             }
         }
 
-        NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
+        NewsItemEditViewModel IStorage.GetEditedNewsItem(int? newsItemId, string UserId)
         {
             foreach (var news in allNews.ToList())
             {

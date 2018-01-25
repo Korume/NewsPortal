@@ -13,9 +13,11 @@ namespace NewsPortal
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.LowercaseUrls = true;
+
             routes.MapRoute(
                 name: "MainNewsPage",
-                url: "{controller}/{title}-{newsItemId}",
+                url: "{controller}/{newsItemId}",
                 defaults: new { controller = "News", action = "MainNews" },
                 constraints: new { newsItemId = @"\d+" }
                 );

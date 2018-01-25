@@ -36,7 +36,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
+        NewsItemEditViewModel IStorage.GetEditedNewsItem(int? newsItemId, string UserId)
         {
             using (var manager = new NHibernateManager())
             {

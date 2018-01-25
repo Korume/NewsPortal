@@ -37,10 +37,14 @@ namespace NewsPortal.Controllers
         {
             if (newsItemId == null)
             {
-                return Redirect("/Error/NotFound");
+                throw new HttpException(404, "Not Found");
             }
-
-            return View(StorageManager.GetEdit(newsItemId, User.Identity.GetUserId()));
+            var editedNewsItem = StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
+            if (editedNewsItem == null)
+            {
+                return View("NewsOwnerError");
+            }
+            return View(StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId()));
         }
 
         [HttpPost]
