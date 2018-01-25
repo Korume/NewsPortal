@@ -56,7 +56,7 @@ namespace NewsPortal.Managers.Storage
 
         public static NewsItemEditViewModel GetEdit(int? newsItemId, string UserId)
         {
-            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEdit(newsItemId,UserId);
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEdit(newsItemId, UserId);
         }
     }
 }

@@ -1,14 +1,10 @@
-﻿using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
+﻿using NewsPortal.Models.ViewModels;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Web.WebPages;
-using System;
 using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
-using NewsPortal.Managers.Picture;
 using NewsPortal.Managers.News;
 using NewsPortal.Managers.Storage;
 
@@ -52,12 +48,12 @@ namespace NewsPortal.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(editModel);
             }
 
-            StorageManager.Edit(editModel,uploadedImage);
+            StorageManager.Edit(editModel, uploadedImage);
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
@@ -66,7 +62,7 @@ namespace NewsPortal.Controllers
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
-                return RedirectToAction("NotFound","Error");
+                return RedirectToAction("NotFound", "Error");
             }
 
             var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
@@ -86,7 +82,7 @@ namespace NewsPortal.Controllers
             };
             return View(showMainNews);
         }
- 
+
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
@@ -99,7 +95,7 @@ namespace NewsPortal.Controllers
         [HttpGet]
         [Authorize]
         public ActionResult Partial()
-        {            
+        {
             return PartialView("DialogWindow");
         }
     }

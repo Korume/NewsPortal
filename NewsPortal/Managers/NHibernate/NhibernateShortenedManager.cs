@@ -5,15 +5,14 @@ using NewsPortal.ServiceClasses;
 using System;
 using System.Web;
 using NewsPortal.Interfaces;
-using System.Web.Mvc;
 using System.Collections.Generic;
 using NHibernate.Criterion;
 
 namespace NewsPortal.Managers.NHibernate
 {
-    public class NhibernateShortenedManager:StorageProvider,IStorage
+    public class NhibernateShortenedManager : StorageProvider, IStorage
     {
-        void IStorage.Edit(NewsItemEditViewModel editModel , HttpPostedFileBase uploadedImage)
+        void IStorage.Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             using (var manager = new NHibernateManager())
             {
@@ -51,7 +50,7 @@ namespace NewsPortal.Managers.NHibernate
                 {
                     return null;
                 }
-            
+
                 var editedNewsItem = new NewsItemEditViewModel()
                 {
                     Id = newsItem.Id,
@@ -99,7 +98,7 @@ namespace NewsPortal.Managers.NHibernate
                 }
             }
         }
-            
+
         HomePageModel IStorage.GetHomePage(int page, bool sortedByDate)
         {
             using (var manager = new NHibernateManager())

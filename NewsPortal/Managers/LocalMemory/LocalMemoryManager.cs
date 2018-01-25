@@ -8,7 +8,6 @@ using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.ServiceClasses;
-using NHibernate.Criterion;
 
 namespace NewsPortal.Managers.LocalMemory
 {
@@ -33,7 +32,6 @@ namespace NewsPortal.Managers.LocalMemory
 
         void IStorage.Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
-            // in process
             foreach (var news in allNews.ToList())
             {
                 if (news.Id == editModel.Id)
@@ -77,6 +75,7 @@ namespace NewsPortal.Managers.LocalMemory
             }
             return editedNewsItem;
         }
+
         void IStorage.Delete(int id)
         {
             foreach (var news in allNews.ToList())
@@ -87,9 +86,10 @@ namespace NewsPortal.Managers.LocalMemory
                 }
             }
         }
+
         HomePageModel IStorage.GetHomePage(int page, bool sortedByDate)
         {
-            int newsItemsQuantity = 4;
+            int newsItemsQuantity = 15;
             var sortedNews = sortedByDate ? allNews.OrderBy(x => x.CreationDate).ToList() :
                     allNews.OrderByDescending(x => x.CreationDate).ToList();
             //var some = allNews.GetRange(page * newsItemsQuantity, newsItemsQuantity);

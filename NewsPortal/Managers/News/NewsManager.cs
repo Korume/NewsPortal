@@ -1,9 +1,9 @@
-﻿
-using NewsPortal.Managers.NHibernate;
+﻿using NewsPortal.Managers.NHibernate;
 using NewsPortal.Models.DataBaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace NewsPortal.Managers.News
@@ -18,6 +18,13 @@ namespace NewsPortal.Managers.News
                 var newsItem = session.Get<NewsItem>(newsItemId);
                 return newsItem != null ? true : false;
             }
+        }
+
+        public static string EditNewsTitleForUrl(string title)
+        {
+            StringBuilder builder = new StringBuilder(title);
+            builder.Replace(' ', '-');
+            return builder.ToString();
         }
     }
 }
