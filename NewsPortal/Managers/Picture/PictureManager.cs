@@ -15,6 +15,7 @@ namespace NewsPortal.Managers.Picture
             }
             return null;
         }
+
         public static void Delete(string path)
         {
             if (path != null)

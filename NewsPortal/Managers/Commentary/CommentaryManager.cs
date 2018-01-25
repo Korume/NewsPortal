@@ -33,7 +33,7 @@ namespace NewsPortal.Managers.Commentary
             }
         }
 
-        public static void SaveComment(string content, int userId, int newsId, string userName, ref int commentId)
+        public static int SaveComment(string content, int userId, int newsId, string userName)
         {
             using (var manager = new NHibernateManager())
             {
@@ -47,7 +47,7 @@ namespace NewsPortal.Managers.Commentary
                     NewsId = newsId
                 };
                 session.Save(commentItem);
-                commentId = commentItem.Id;
+                return commentItem.Id;
             }
         }
 

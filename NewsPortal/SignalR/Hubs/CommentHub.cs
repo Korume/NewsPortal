@@ -9,10 +9,10 @@ namespace NewsPortal.SignalR.Hubs
     {
         public void Send(int newsId, int userId, string comment, string userName)
         {
-            var commentId = 0;
-            CommentaryManager.SaveComment(comment, userId, newsId, userName, ref commentId);
+            var commentId = CommentaryManager.SaveComment(comment, userId, newsId, userName);
             Clients.All.addNewCommentToPage(commentId, userName, comment, DateTime.Now.ToString());
         }
+
         public void Delete(int commentId)
         {
             CommentaryManager.DeleteComment(commentId);

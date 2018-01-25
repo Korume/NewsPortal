@@ -12,12 +12,13 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpGet]
+
         [Authorize]
         public ActionResult Add()
         {
             return View();
         }
+
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
@@ -62,7 +63,7 @@ namespace NewsPortal.Controllers
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
-                return RedirectToAction("NotFound", "Error");
+                throw new HttpException(404, "Not Found");
             }
 
             return View(StorageManager.GetMainNews(newsItemId));
@@ -75,13 +76,6 @@ namespace NewsPortal.Controllers
             StorageManager.Delete(newsItemId);
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult Partial()
-        {
-            return PartialView("DialogWindow");
         }
     }
 }

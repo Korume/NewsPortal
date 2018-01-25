@@ -21,7 +21,7 @@ namespace NewsPortal.Models.ViewModels
         [RegularExpression(@"^[^\p{IsCyrillic}]+$", ErrorMessage = "Don't use Cyrillic characters")]
         public string Email { set; get; }
 
-        [Required(ErrorMessage = "Enter username:")]
+        [Required(ErrorMessage = "Enter username")]
         [Display(Name = "Username:")]
         [DataType(DataType.Text)]
         [RegularExpression("^[A-Za-z0-9@_]+$", ErrorMessage = "You can use these symbols: a-z A-Z 0-9 @ _")]

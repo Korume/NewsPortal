@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
 using NewsPortal.Managers.NHibernate;
+using System.Threading.Tasks;
 using System;
 using NHibernate.Criterion;
 
@@ -19,38 +20,29 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = SignInManager.PasswordSignIn(model.UserName, model.Password, false, false);
+                var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    //---------------------------------------------
-                    ViewBag.Message = "Incorrect username or password";
+                    ModelState.AddModelError("", "Wrong login or password!");
                 }
-            }       
+            }
             return View(model);
         }
 
+        [Authorize]
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
-        }
-
-        public SignInManager SignInManager
-        {        
-            get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
-        }
-
-        public UserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
         }
 
         public ActionResult Register()
@@ -60,25 +52,28 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel registerModel)
+        public async Task<ActionResult> Register(RegisterViewModel registerModel)
         {
             if (ModelState.IsValid)
             {
                 using (var manager = new NHibernateManager())
                 {
                     var session = manager.GetSession();
-                    var userByEmail = session.QueryOver<User>().
+
+                    var userByEmail = await session.QueryOver<User>().
                         Where(u => u.Email == registerModel.Email).
-                        SingleOrDefault();
+                        SingleOrDefaultAsync();
+
                     if (userByEmail != null)
                     {
-                        ModelState.AddModelError("Email", "This E-mail address is not available.");
+                        ModelState.AddModelError("Email", $"This E-mail address is not available.");
                         return View(registerModel);
                     }
 
-                    var userByUserName = session.QueryOver<User>().
+                    var userByUserName = await session.QueryOver<User>().
                         Where(u => u.UserName == registerModel.UserName).
-                        SingleOrDefault();
+                        SingleOrDefaultAsync();
+
                     if (userByUserName != null)
                     {
                         ModelState.AddModelError("UserName", "This UserName is not available.");
@@ -98,7 +93,7 @@ namespace NewsPortal.Controllers
                     {
                         session.Save(newUser);
 
-                        string code = UserManager.GenerateEmailConfirmationToken(newUser.Id);
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code },
                             protocol: Request.Url.Scheme);
                         var message = new IdentityMessage()
@@ -107,7 +102,7 @@ namespace NewsPortal.Controllers
                             Subject = "Account confirmation",
                             Destination = newUser.Email
                         };
-                        UserManager.EmailService.Send(message);
+                        await UserManager.EmailService.SendAsync(message);
 
                         return View("SuccesfulRegistration");
                     }
@@ -118,11 +113,11 @@ namespace NewsPortal.Controllers
             return View(registerModel);
         }
 
-        public ActionResult ConfirmEmail(int? userId, string code)
+        public async Task<ActionResult> ConfirmEmail(int? userId, string code)
         {
             if (userId != null && code != null)
             {
-                var result = UserManager.ConfirmEmail(userId.Value, code);
+                var result = await UserManager.ConfirmEmailAsync(userId.Value, code);
 
                 if (result.Succeeded)
                 {
@@ -139,5 +134,17 @@ namespace NewsPortal.Controllers
             }
             return View("UnsuccesfulConfirmation");
         }
+
+        #region Вспомогательные приложения
+        private SignInManager SignInManager
+        {
+            get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
+        }
+
+        private UserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
+        }
+        #endregion
     }
 }

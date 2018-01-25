@@ -7,6 +7,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using System.Configuration;
 using System;
+using System.Web;
 using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
