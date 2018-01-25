@@ -43,7 +43,7 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
             var editedNewsItem = StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
-            if(editedNewsItem == null)
+            if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
             }
@@ -56,12 +56,12 @@ namespace NewsPortal.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(editModel);
             }
 
-            StorageManager.Edit(editModel,uploadedImage);
+            StorageManager.Edit(editModel, uploadedImage);
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
