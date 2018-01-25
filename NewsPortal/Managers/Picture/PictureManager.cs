@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace NewsPortal.Managers.Picture
 {
@@ -6,8 +8,18 @@ namespace NewsPortal.Managers.Picture
     {
         public static string Upload(HttpPostedFileBase uploadedImage, int newsItemId)
         {
+            int maxSize = 2 * 1024 * 1024;
+            List<string> mimes = new List<string>
+            {
+                "image/jpeg", "image/jpg", "image/png"
+            };
             if (uploadedImage != null)
             {
+                if (uploadedImage.ContentLength > maxSize || 
+                    mimes.FirstOrDefault(m => m == uploadedImage.ContentType) == null)
+                {
+                    return null;
+                }
                 string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
                 string path = "/Content/UploadedImages/" + newsItemId + fileName;
                 uploadedImage.SaveAs(HttpContext.Current.Server.MapPath(path));
