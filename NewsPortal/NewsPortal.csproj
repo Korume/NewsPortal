@@ -552,7 +552,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Commentary\CommentaryManager.cs" />
     <Compile Include="Managers\News\NewsManager.cs" />
     <Compile Include="Managers\NHibernate\NHibernateManager.cs" />

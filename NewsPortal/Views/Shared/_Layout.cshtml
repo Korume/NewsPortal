@@ -29,14 +29,27 @@
                         <ul>
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                             <li>@Html.ActionLink("Log out", "LogOff", "Account")</li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-
-                                <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
-
-                            }
+                            <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
                             @RenderSection("SortingNews", false)
+                            <li>
+                                <section class="database-menu-min">
+                                    <form>
+                                        <input type="radio" name="database" class="radio" id="databaseM" />
+                                        <label for="databaseM">DataBase</label>
+                                        <input type="radio" name="database" class="radio" id="memoryM" />
+                                        <label for="memoryM">Memory</label>
+                                    </form>
+                                </section>
+                            </li>
                         </ul>
+                    </div>
+                    <div class="database_menu">
+                        <form>
+                            <input type="radio" name="database" class="radio" id="database" />
+                            <label for="database">DataBase</label>
+                            <input type="radio" name="database" class="radio" id="memory" />
+                            <label for="memory">Memory</label>
+                        </form>
                     </div>
                     <span class="item_menu">
                         @Html.ActionLink(User.Identity.Name, "Index", "Home")
@@ -56,10 +69,6 @@
                         <ul>
                             <li>@Html.ActionLink("LOG IN", "Login", "Account")</li>
                             <li>@Html.ActionLink("SIGN UP", "Register", "Account")</li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
-                            }
                             @RenderSection("SortingNews", false)
                         </ul>
                     </div>

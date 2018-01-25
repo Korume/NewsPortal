@@ -8,6 +8,12 @@ document.getElementById('Title').onfocus = function () {
 	disablePreview();
 	console.log("Okay");
 };
+CKEDITOR.on('instanceReady', function (evt) {
+	var editor = evt.editor;
+	editor.on('focus', function () {
+		disablePreview();
+	});
+});	
 
 function disablePreview() {
 	if (articleShowCheck) {
@@ -18,7 +24,7 @@ function disablePreview() {
 	if (mainNews) {
 		mainNewsCheck = false;
 		mainNews.style.display = "none";
-	}
+	}			
 };
 
 document.getElementById('ArticleShow').onclick = function () {
@@ -35,11 +41,12 @@ document.getElementById('ArticleShow').onclick = function () {
 };
 
 document.getElementById('MainNewsShow').onclick = function () {
-
 	if (!mainNewsCheck) {
 		mainNewsCheck = true;
 		mainNews.style.display = "block";
 		document.getElementById('TitlePreview-MainNews').innerHTML = document.getElementById('Title').value;
+		var Context = CKEDITOR.instances.Content.getData();
+		document.getElementById('textPreview').innerHTML = Context;
 	}
 	else {
 		mainNewsCheck = false;

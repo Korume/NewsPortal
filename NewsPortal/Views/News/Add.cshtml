@@ -29,7 +29,7 @@
                         @Html.LabelFor(model => model.Content)
                     </div>
                     <div>
-                        @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = "" } })
+                        @Html.TextAreaFor(model => model.Content, 20, 120, new { htmlAttributes = new { @class = ""} })
                     </div>
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
@@ -59,7 +59,7 @@
 @section script{
     <script src="~/CKEditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("Content", { height: 250 });
+        CKEDITOR.replace("Content", { height: 250});
     </script>
     <script src="~/Scripts/jquery.preview.js"></script>
 }
