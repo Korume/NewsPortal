@@ -69,11 +69,11 @@ main {
     }
 
     .login-FFF .Image1 {
-        background: url(AdditionalFiles/Icon/user.png) no-repeat center;
+        background: url(/Content/AdditionalFiles/Icon/user.png) no-repeat center;
     }
 
     .login-FFF .Image2 {
-        background: url(AdditionalFiles/Icon/pass-lock.png) no-repeat center;
+        background: url(/Content/AdditionalFiles/Icon/pass-lock.png) no-repeat center;
     }
 
     .login-FFF input[type=text],
@@ -124,11 +124,11 @@ main {
     }
 
         .login-confirm .SecondButton span a {
-            padding: 8px;
             font-size: 20px;
             font-family: 'PT Sans', sans-serif;
             color: #767775;
             text-decoration: none;
+            line-height: 40px;
         }
 
 /*-----------------------------------------------------------*/
@@ -155,6 +155,8 @@ main {
         padding: 0;
         margin: 0;
         list-style-type: none;
+        display: flex;
+        justify-content: space-around;
     }
 
         .login-footer ul li {
@@ -163,8 +165,7 @@ main {
             height: 50px;
             border: 1px solid white;
             margin: 5px;
-            background: url("AdditionalFiles/Sprite/white_sprait.png") no-repeat;
-            background-size: 250px 100px;
+            background: url(/Content/AdditionalFiles/Sprite/white_sprait.png) no-repeat; background-size: 250px 100px;
         }
 
             .login-footer ul li a {
@@ -292,7 +293,7 @@ main {
 
     .form-news-clean a {
         border-radius: 0 0 5px 0;
-        background: #252525 url(AdditionalFiles/Icon/eraser.png) no-repeat center;
+        background: #252525 url(/Content/AdditionalFiles/Icon/eraser.png) no-repeat center;
         background-size: 19px 15px;
     }
 
@@ -306,7 +307,7 @@ main {
         float: right;
         width: 100%;
         border-right: none;
-        background: #252525 url(AdditionalFiles/Sprite/BSprite.png) no-repeat;
+        background: #252525 url(/Content/AdditionalFiles/Sprite/BSprite.png) no-repeat;
         background-position: -529px -44px;
         background-size: 550px 150px;
     }
@@ -324,3 +325,14 @@ main {
         cursor: pointer;
     }
 
+@media screen and (max-width: 900px) {
+    html, body{
+        height: auto;
+    }
+    footer {
+        background-color: transparent !important;
+        border-top: none !important;
+        bottom: 0 !important;
+        padding: 0 !important;
+    }   
+}

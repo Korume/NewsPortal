@@ -26,6 +26,7 @@
 
         }
     </div>
+   
 </section>
 
 @section script{
@@ -33,4 +34,21 @@
     <script>
         CKEDITOR.replace("Content", { height: 250 });
     </script>
+<script>
+        document.getElementById("previewTitle").innerHTML = document.getElementById("Title").innerHTML;
+        var input = document.getElementById("Title");
+        input.oninput = function () {
+            document.getElementById("previewTitle").innerHTML = document.getElementById("Title").innerHTML;
+        };
+
+        var Context = CKEDITOR.instances.Content.getData();
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function () {
+                Context = CKEDITOR.instances.Content.getData();
+                document.getElementById("previewContent").innerHTML = Context;
+            });
+        }
+
+</script>
+
 }

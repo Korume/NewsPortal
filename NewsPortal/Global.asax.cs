@@ -1,4 +1,5 @@
 ﻿using NewsPortal.Controllers;
+using NewsPortal.Managers.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace NewsPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

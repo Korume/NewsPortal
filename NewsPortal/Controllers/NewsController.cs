@@ -10,6 +10,7 @@ using NewsPortal.Managers.NHibernate;
 using System.Web;
 using NewsPortal.Managers.Picture;
 using NewsPortal.Managers.News;
+using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
 {
@@ -30,24 +31,7 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    NewsItem newsItem = new NewsItem()
-                    {
-                        UserId = Convert.ToInt32(User.Identity.GetUserId()),
-                        Title = newsModel.Title,
-                        Content = newsModel.Content,
-                        CreationDate = DateTime.Now
-                    };
-                    session.Save(newsItem);
-                    newsItem.SourceImage = PictureManager.Upload(uploadedImage, newsItem.Id);
-                    session.Update(newsItem);
-                    transaction.Commit();
-                }
-            }
+            StorageManager.Add(newsModel, uploadedImage, User.Identity.GetUserId());
             return RedirectToAction("Index", "Home");
         }
 
@@ -59,30 +43,8 @@ namespace NewsPortal.Controllers
                 return Redirect("/Error/NotFound");
             }
 
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                if (newsItem == null)
-                {
-                    return View("NotFound");
-                }
+            return View(StorageManager.GetEdit(newsItemId, User.Identity.GetUserId()));
 
-                bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
-                if (!isUserNewsItemOwner)
-                {
-                    return View("NewsOwnerError");
-                }
-
-                var editedNewsItem = new NewsItemEditViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content,
-                    SourceImage = newsItem.SourceImage
-                };
-                return View(editedNewsItem);
-            }
         }
 
         [HttpPost]
@@ -95,24 +57,7 @@ namespace NewsPortal.Controllers
                 return View(editModel);
             }
 
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
-
-                    newsItemToUpdate.Title = editModel.Title;
-                    newsItemToUpdate.Content = editModel.Content;
-                    if (uploadedImage != null)
-                    {
-                        PictureManager.Delete(newsItemToUpdate.SourceImage);
-                        newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
-                    }
-                    session.Update(newsItemToUpdate);
-                    transaction.Commit();
-                }
-            }
+            StorageManager.Edit(editModel,uploadedImage);
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
@@ -146,17 +91,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    var newsItem = session.Get<NewsItem>(newsItemId);
-                    PictureManager.Delete(newsItem.SourceImage);
-                    session.Delete(newsItem);
-                    transaction.Commit();
-                }
-            }
+            StorageManager.Delete(newsItemId);
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
         }
