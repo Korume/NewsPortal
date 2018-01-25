@@ -1,14 +1,10 @@
-﻿using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
+﻿using NewsPortal.Models.ViewModels;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Web.WebPages;
-using System;
 using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Managers.NHibernate;
 using System.Web;
-using NewsPortal.Managers.Picture;
 using NewsPortal.Managers.News;
 using NewsPortal.Managers.Storage;
 
@@ -16,12 +12,13 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpGet]
+
         [Authorize]
         public ActionResult Add()
         {
             return View();
         }
+
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
@@ -40,15 +37,11 @@ namespace NewsPortal.Controllers
         {
             if (newsItemId == null)
             {
-                throw new HttpException(404, "Not Found");
-            }
-            var editedNewsItem = StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
-            if(editedNewsItem == null)
-            {
-                return View("NewsOwnerError");
+                return Redirect("/Error/NotFound");
             }
 
-            return View(editedNewsItem);
+            return View(StorageManager.GetEdit(newsItemId, User.Identity.GetUserId()));
+
         }
 
         [HttpPost]
@@ -56,12 +49,12 @@ namespace NewsPortal.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(editModel);
             }
 
-            StorageManager.Edit(editModel,uploadedImage);
+            StorageManager.Edit(editModel, uploadedImage);
             //Cделать уведомление "Новость сохранена успешно"
             return RedirectToAction("Index", "Home");
         }
@@ -70,27 +63,12 @@ namespace NewsPortal.Controllers
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
-                return RedirectToAction("NotFound","Error");
+                throw new HttpException(404, "Not Found");
             }
 
-            var newsItem = NHibernateManager.ReturnDB_News(newsItemId);
-            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
-            var commentItems = CommentaryManager.ReturnCommentaries(newsItemId);
-
-            var showMainNews = new NewsItemMainPageViewModel()
-            {
-                Id = newsItem.Id,
-                Title = newsItem.Title,
-                Content = newsItem.Content,
-                SourceImage = newsItem.SourceImage,
-                CreationDate = newsItem.CreationDate,
-                UserId = newsItem.UserId,
-                UserName = newsUser.UserName,
-                CommentItems = commentItems
-            };
-            return View(showMainNews);
+            return View(StorageManager.GetMainNews(newsItemId));
         }
- 
+
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
@@ -98,13 +76,6 @@ namespace NewsPortal.Controllers
             StorageManager.Delete(newsItemId);
             //Создать уведомление "Новость удалена успешно"
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult Partial()
-        {            
-            return PartialView("DialogWindow");
         }
     }
 }

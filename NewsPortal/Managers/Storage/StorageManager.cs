@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using NewsPortal.Managers.NHibernate;
 using NewsPortal.Interfaces;
+using NewsPortal.Managers.LocalMemory;
+using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.Storage
 {
@@ -17,15 +19,18 @@ namespace NewsPortal.Managers.Storage
     {
         public static MemMode CurrentMemoryMode;
         public static List<StorageProvider> list = new List<StorageProvider>();
-        static MemoryMode() { 
-         CurrentMemoryMode = MemMode.Database;
+        static MemoryMode()
+        { 
+            //CurrentMemoryMode = MemMode.Database;
             list.Add(new NhibernateShortenedManager());
+            CurrentMemoryMode = MemMode.LocalStorage;
+            list.Add(new LocalMemoryManager());
         }
     }
 
     public static class StorageManager
     {
-       public static int GetMemoryMode()
+        public static int GetMemoryMode()
         {
             return (int)MemoryMode.CurrentMemoryMode;
         }
@@ -50,9 +55,14 @@ namespace NewsPortal.Managers.Storage
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetHomePage(page, sortedByDate);
         }
 
-        public static NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
+        public static NewsItemEditViewModel GetEdit(int? newsItemId, string UserId)
         {
-            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEditedNewsItem(newsItemId,UserId);
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEdit(newsItemId, UserId);
+        }
+
+        public static NewsItemMainPageViewModel GetMainNews(int id)
+        {
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetMainNews(id);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model NewsPortal.Models.ViewModels.Dialog.DialogViewModel
+﻿@model NewsPortal.Models.ViewModels.Partial.DialogViewModel
 
 <div id="@Model.Id" class="popup-backdrop">
     <div class="popup-window">
@@ -16,7 +16,7 @@
             {
                 @Html.Hidden("newsItemId", Model.Id)
                 <input type="submit" value="Yes" />
-            }
+            } 
             <a href="" name="close-popup-window">No</a>
         </div>
     </div>

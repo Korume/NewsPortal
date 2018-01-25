@@ -528,6 +528,7 @@
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery.preview.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
@@ -535,7 +536,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\util.js" />
+    <Content Include="Scripts\jquery.comment.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -553,6 +554,7 @@
     </Compile>
     <Compile Include="Interfaces\IStorage.cs" />
     <Compile Include="Managers\Commentary\CommentaryManager.cs" />
+    <Compile Include="Managers\LocalMemory\LocalMemoryManager.cs" />
     <Compile Include="Managers\News\NewsManager.cs" />
     <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
     <Compile Include="Managers\NHibernate\NhibernateShortenedManager.cs" />
@@ -566,7 +568,7 @@
     <Compile Include="Managers\Identity\SignInManager.cs" />
     <Compile Include="Managers\Identity\UserManager.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\Dialog\DialogViewModel.cs" />
+    <Compile Include="Models\ViewModels\Partial\DialogViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomePageModel.cs" />
     <!-- <Compile Include="Models\ViewModels\NewsItemViewModel.cs" /> -->
     <Compile Include="Models\ViewModels\News\NewsItemAddViewModel.cs" />
@@ -607,6 +609,7 @@
     <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
     <Content Include="Views\News\NewsOwnerError.cshtml" />
     <Content Include="Views\Home\DialogWindow.cshtml" />
+    <Content Include="Views\News\Preview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

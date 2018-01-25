@@ -5,15 +5,16 @@ using NewsPortal.ServiceClasses;
 using System;
 using System.Web;
 using NewsPortal.Interfaces;
-using System.Web.Mvc;
 using System.Collections.Generic;
 using NHibernate.Criterion;
+using NewsPortal.Models.ViewModels.News;
+using NewsPortal.Managers.Commentary;
 
 namespace NewsPortal.Managers.NHibernate
 {
     public class NhibernateShortenedManager : StorageProvider, IStorage
     {
-        public void Edit(NewsItemEditViewModel editModel , HttpPostedFileBase uploadedImage)
+        void IStorage.Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             using (var manager = new NHibernateManager())
             {
@@ -35,7 +36,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
+        NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
         {
             using (var manager = new NHibernateManager())
             {
@@ -51,7 +52,7 @@ namespace NewsPortal.Managers.NHibernate
                 {
                     return null;
                 }
-            
+
                 var editedNewsItem = new NewsItemEditViewModel()
                 {
                     Id = newsItem.Id,
@@ -63,7 +64,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
+        void IStorage.Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             using (var manager = new NHibernateManager())
             {
@@ -85,7 +86,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        public void Delete(int id)
+        void IStorage.Delete(int id)
         {
             using (var manager = new NHibernateManager())
             {
@@ -99,8 +100,8 @@ namespace NewsPortal.Managers.NHibernate
                 }
             }
         }
-            
-        public HomePageModel GetHomePage(int page, bool sortedByDate)
+
+        HomePageModel IStorage.GetHomePage(int page, bool sortedByDate)
         {
             using (var manager = new NHibernateManager())
             {
@@ -143,6 +144,27 @@ namespace NewsPortal.Managers.NHibernate
                 };
                 return homePageModel;
             }
+        }
+
+        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        {
+            var newsItem = NHibernateManager.ReturnDB_News(id);
+            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
+            var commentItems = CommentaryManager.ReturnCommentaries(id);
+
+            var showMainNews = new NewsItemMainPageViewModel()
+            {
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName,
+                CommentItems = commentItems
+            };
+
+            return showMainNews;
         }
     }
 }
