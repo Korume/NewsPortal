@@ -4,10 +4,6 @@ using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.Managers.NHibernate;
 using NHibernate;
-using NHibernate.Criterion;
-using System.Configuration;
-using System;
-using System.Web;
 using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
@@ -22,16 +18,17 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string action)
+        public ActionResult Index(bool isDatabase)
         {
-            if (action == "database")
+            if (isDatabase == true)
             {
-                MemoryMode.MemorySwitch("database");
+                MemoryMode.MemorySwitch(MemMode.Database);
             }
-            else if (action == "memory")
+            else if (isDatabase == false)
             {
-                MemoryMode.MemorySwitch("memory");
+                MemoryMode.MemorySwitch(MemMode.LocalStorage);
             }
+
             return View(StorageManager.GetHomePage(0, true));
         }
     }

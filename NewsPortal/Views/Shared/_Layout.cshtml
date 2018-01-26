@@ -32,24 +32,34 @@
                             <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
                             @RenderSection("SortingNews", false)
                             <li>
-                                <section class="database-menu-min">
+                                <section class="database-menu-min" title="Memory/Database">
                                     @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                                     {
-                                        <button name="action" value="database">Database</button>
-                                        <button name="action" value="memory">Memory</button>
-                                     }
+                                    {
+                                        @Html.CheckBox("isDatabase", true, htmlAttributes: new
+                                        {
+                                            @class = "checkbox",
+                                            onclick = "this.form.submit();",
+                                            id = "isDatabaseMenuMin"
+                                        })
+                                        @Html.Label("isDatabaseMenuMin", " ")
+                                    }
                                 </section>
                             </li>
                         </ul>
                     </div>
-                    <div class="database_menu">
-                         @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                          {
-                            <button name="action" value="database">Database</button>
-                            <button name="action" value="memory">Memory</button>
-                          }
-                    </div>
-                    <span class="item_menu">
+                    <div class="database-menu"  title="Memory/Database">
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            @Html.CheckBox("isDatabase", true, htmlAttributes: new
+                            {
+                                @class = "checkbox",
+                                onclick = "this.form.submit();",
+                                id = "isDatabaseMenu"
+                            })
+                            @Html.Label("isDatabaseMenu", " ")
+                        }
+                    </div>  
+                    <span class="item-menu">
                         @Html.ActionLink(User.Identity.Name, "Index", "Home")
                         @Html.ActionLink("Log out", "LogOff", "Account")
                     </span>
