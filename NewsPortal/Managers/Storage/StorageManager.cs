@@ -1,9 +1,6 @@
-﻿using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
+﻿using NewsPortal.Models.ViewModels;
 using NewsPortal.ServiceClasses;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using NewsPortal.Managers.NHibernate;
 using NewsPortal.Interfaces;
@@ -12,25 +9,30 @@ using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.Storage
 {
-
-   public enum MemMode { Database=0, LocalStorage=1 };
+   public enum MemMode { Database, LocalStorage };
 
     static public class MemoryMode
     {
         public static MemMode CurrentMemoryMode;
         public static List<StorageProvider> list = new List<StorageProvider>();
 
-        public static void MemorySwitch(string action)
+        public static void MemorySwitch(MemMode value)
         {
-            if (action == "database")
+            switch (value)
             {
-                CurrentMemoryMode = MemMode.Database;
-            }
-            else if (action == "memory")
-            {
-                CurrentMemoryMode = MemMode.LocalStorage;
+                case MemMode.Database:
+                    {
+                        CurrentMemoryMode = MemMode.Database;
+                        break;
+                    }
+                case MemMode.LocalStorage:
+                    {
+                        CurrentMemoryMode = MemMode.LocalStorage;
+                        break;
+                    }
             }
         }
+
         static MemoryMode()
         {
             list.Add(new NhibernateShortenedManager());
@@ -63,6 +65,11 @@ namespace NewsPortal.Managers.Storage
         public static HomePageModel GetHomePage(int page = 0, bool sortedByDate = true)
         {
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetHomePage(page, sortedByDate);
+        }
+
+        public static HomePageModel GetCheckedToggle(bool toggleCheck = true)
+        {
+            return new HomePageModel() { CheckedToggle = toggleCheck };
         }
 
         public static NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)

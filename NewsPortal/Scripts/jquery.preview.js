@@ -6,8 +6,8 @@ var mainNews = document.getElementById('previewMainNews');
 
 document.getElementById('Title').onfocus = function () {
 	disablePreview();
-	console.log("Okay");
 };
+
 CKEDITOR.on('instanceReady', function (evt) {
 	var editor = evt.editor;
 	editor.on('focus', function () {
@@ -28,7 +28,6 @@ function disablePreview() {
 };
 
 document.getElementById('ArticleShow').onclick = function () {
-
 	if (!articleShowCheck) {
 		articleShowCheck = true;
 		article.style.display = "block";

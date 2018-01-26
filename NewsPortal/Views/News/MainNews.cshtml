@@ -57,13 +57,13 @@
                                     <div class="comment-menu" id="@elem.Id">
                                         <input class="deleteComment" type="button" />
 
-                                        </div>
-                                    }
-                                </div>
-                                <div class="comment-message">
-                                    @elem.Content
-                                </div>
-                                <div class="comment-footer">
+                                    </div>
+                                }
+                            </div>
+                            <div class="comment-message">
+                                @elem.Content
+                            </div>
+                            <div class="comment-footer">
 
                             </div>
                         </div>
@@ -75,12 +75,12 @@
                 {
                     <form>
                         <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment" onkeyup="checkComment();"></textarea>
-                        <input type="button" id="sendcomment" value="Send" disabled="disabled"/>
+                        <textarea name="comment" id="comment" onkeyup="checkComment();" placeholder="The field must be set!"></textarea>
+                        <input type="button" id="sendcomment" value="Send" disabled="disabled" />
                     </form>
-                        <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
-                        <input id="userId" type="hidden" value="@User.Identity.GetUserId()" />
-                        <input id="userName" type="hidden" value="@User.Identity.Name" />
+                    <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
+                    <input id="userId" type="hidden" value="@User.Identity.GetUserId()" />
+                    <input id="userName" type="hidden" value="@User.Identity.Name" />
                 }
                 else
                 {

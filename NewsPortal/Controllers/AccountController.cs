@@ -7,8 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
 using NewsPortal.Managers.NHibernate;
 using System.Threading.Tasks;
-using System;
-using NHibernate.Criterion;
+
 
 namespace NewsPortal.Controllers
 {

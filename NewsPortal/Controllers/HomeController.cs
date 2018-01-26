@@ -1,14 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
-using NewsPortal.Managers.NHibernate;
-using NHibernate;
-using NHibernate.Criterion;
-using System.Configuration;
-using System;
-using System.Web;
+﻿using System.Web.Mvc;
 using NewsPortal.Managers.Storage;
+using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
@@ -22,16 +14,19 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string action)
+        public ActionResult Index(bool isDatabase)
         {
-            if (action == "database")
+            if (isDatabase == true)
             {
-                MemoryMode.MemorySwitch("database");
+                MemoryMode.MemorySwitch(MemMode.Database);
+                StorageManager.GetCheckedToggle(false);
             }
-            else if (action == "memory")
+            else if (isDatabase == false)
             {
-                MemoryMode.MemorySwitch("memory");
+                MemoryMode.MemorySwitch(MemMode.LocalStorage);
+                StorageManager.GetCheckedToggle();
             }
+
             return View(StorageManager.GetHomePage(0, true));
         }
     }
