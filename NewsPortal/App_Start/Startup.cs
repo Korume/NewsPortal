@@ -17,7 +17,6 @@ namespace NewsPortal.App_Start
 
         public void Configuration(IAppBuilder app)
         {
-            // Any connection or hub wire up and configuration should go here
             app.MapSignalR();
             app.CreatePerOwinContext(() => new UserManager(new NHibernateManager().Users));
             app.CreatePerOwinContext<SignInManager>((options, context) => 
