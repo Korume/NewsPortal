@@ -610,7 +610,6 @@
     <Content Include="Views\News\NewsOwnerError.cshtml" />
     <Content Include="Views\Home\DialogWindow.cshtml" />
     <Content Include="Views\News\Preview.cshtml" />
-    <Content Include="Views\Error\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
