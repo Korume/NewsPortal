@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using NewsPortal.Models.DataBaseModels;
-using NewsPortal.Models.ViewModels;
-using NewsPortal.Managers.NHibernate;
-using NHibernate;
+﻿using System.Web.Mvc;
 using NewsPortal.Managers.Storage;
+using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
@@ -23,10 +19,12 @@ namespace NewsPortal.Controllers
             if (isDatabase == true)
             {
                 MemoryMode.MemorySwitch(MemMode.Database);
+                StorageManager.GetCheckedToggle(false);
             }
             else if (isDatabase == false)
             {
                 MemoryMode.MemorySwitch(MemMode.LocalStorage);
+                StorageManager.GetCheckedToggle();
             }
 
             return View(StorageManager.GetHomePage(0, true));

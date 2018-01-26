@@ -11,5 +11,11 @@ namespace NewsPortal.Models.ViewModels
         public int CurrentPage { set; get; }
         public bool SortedByDate { set; get; }
         public int LastPage { set; get; }
+        public bool CheckedToggle { set; get; }
+
+        public HomePageModel()
+        {
+            CheckedToggle = true;
+        }
     }
 }

@@ -67,6 +67,11 @@ namespace NewsPortal.Managers.Storage
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetHomePage(page, sortedByDate);
         }
 
+        public static HomePageModel GetCheckedToggle(bool toggleCheck = true)
+        {
+            return new HomePageModel() { CheckedToggle = toggleCheck };
+        }
+
         public static NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
         {
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEditedNewsItem(newsItemId, UserId);

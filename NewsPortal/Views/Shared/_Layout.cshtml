@@ -31,34 +31,10 @@
                             <li>@Html.ActionLink("Log out", "LogOff", "Account")</li>
                             <li>@Html.ActionLink("ADDING NEWS", "Add", "News")</li>
                             @RenderSection("SortingNews", false)
-                            <li>
-                                <section class="database-menu-min" title="Memory/Database">
-                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                                    {
-                                        @Html.CheckBox("isDatabase", true, htmlAttributes: new
-                                        {
-                                            @class = "checkbox",
-                                            onclick = "this.form.submit();",
-                                            id = "isDatabaseMenuMin"
-                                        })
-                                        @Html.Label("isDatabaseMenuMin", " ")
-                                    }
-                                </section>
-                            </li>
+                            @RenderSection("DatabaseMenuMin", false)
                         </ul>
                     </div>
-                    <div class="database-menu"  title="Memory/Database">
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                        {
-                            @Html.CheckBox("isDatabase", true, htmlAttributes: new
-                            {
-                                @class = "checkbox",
-                                onclick = "this.form.submit();",
-                                id = "isDatabaseMenu"
-                            })
-                            @Html.Label("isDatabaseMenu", " ")
-                        }
-                    </div>  
+                    @RenderSection("DatabaseMenu", false)
                     <span class="item-menu">
                         @Html.ActionLink(User.Identity.Name, "Index", "Home")
                         @Html.ActionLink("Log out", "LogOff", "Account")
@@ -78,8 +54,10 @@
                             <li>@Html.ActionLink("LOG IN", "Login", "Account")</li>
                             <li>@Html.ActionLink("SIGN UP", "Register", "Account")</li>
                             @RenderSection("SortingNews", false)
+                            @RenderSection("DatabaseMenuMin", false)
                         </ul>
                     </div>
+                    @RenderSection("DatabaseMenu", false)
                     <span class="item-menu">
                         @Html.ActionLink("Log in", "Login", "Account")
                         @Html.ActionLink("Sign up", "Register", "Account")

@@ -12,18 +12,54 @@
         {
             <li>
                 @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false },
-               new { @class = "sort" })
+                                new { @class = "sort" })
             </li>
         }
         else
         {
             <li>
                 @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true },
-               new { @class = "reverse-sort" })
+                                new { @class = "reverse-sort" })
             </li>
         }
     }
 }
+
+@section DatabaseMenuMin {
+    <li>
+        <section class="database-menu-min" title="Memory/Database">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                @Html.CheckBox("isDatabase", Model.CheckedToggle, htmlAttributes: new
+                {
+                    @class = "checkbox",
+                    onclick = "this.form.submit();",
+                    id = "isDatabaseMenuMin"
+                })
+                @Html.Label("isDatabaseMenuMin", " ")
+            }
+        </section>
+    </li>
+}
+
+
+@section DatabaseMenu {
+    <div class="database-menu" title="Memory/Database">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.CheckBox("isDatabase", Model.CheckedToggle, htmlAttributes: new
+            {
+                @class = "checkbox",
+                onclick = "this.form.submit();",
+                id = "isDatabaseMenu"
+            })
+            @Html.Label("isDatabaseMenu", " ")
+        }
+ 
+    </div>
+}
+
+
 <section class="back-image">
     <div class="background-image">
         <!--Here is the picture-->
@@ -62,7 +98,7 @@
     {
         <article>
             @if (item.UserId == User.Identity.GetUserId().AsInt())
-                {
+            {
                 <div class="menu-news-item">
                     @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
                     <a href="#@item.Id" name="show-popup-window"></a>
@@ -93,19 +129,19 @@
     }
 </div>
 @helper CreateActionLink(int offset)
-{
-    var page = Model.CurrentPage + offset;
-    if (page >= 0 && page <= Model.LastPage)
     {
-        if (offset != 0)
+        var page = Model.CurrentPage + offset;
+        if (page >= 0 && page <= Model.LastPage)
         {
-            var pageTransition = Model.CurrentPage + offset;
+            if (offset != 0)
+            {
+                var pageTransition = Model.CurrentPage + offset;
                 @Html.ActionLink((Model.CurrentPage + offset + 1).ToString(), "Index", "Home",
-               new { page = pageTransition, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
+                              new { page = pageTransition, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
+            }
+            else
+            {
+                <span>@(Model.CurrentPage + 1)</span>
+            }
         }
-        else
-        {
-            <span>@(Model.CurrentPage + 1)</span>
-        }
-    }
 }
