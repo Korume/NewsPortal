@@ -14,7 +14,7 @@ namespace NewsPortal.Managers.NHibernate
 {
     public class NhibernateShortenedManager : StorageProvider, IStorage
     {
-        void IStorage.Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
+        public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             using (var manager = new NHibernateManager())
             {
@@ -36,7 +36,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        NewsItemEditViewModel IStorage.GetEditedNewsItem(int? newsItemId, string UserId)
+        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
         {
             using (var manager = new NHibernateManager())
             {
@@ -64,7 +64,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        void IStorage.Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
+        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             using (var manager = new NHibernateManager())
             {
@@ -86,7 +86,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        void IStorage.Delete(int id)
+        public void Delete(int id)
         {
             using (var manager = new NHibernateManager())
             {
@@ -101,7 +101,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        HomePageModel IStorage.GetHomePage(int page, bool sortedByDate)
+        public HomePageModel GetHomePage(int page, bool sortedByDate)
         {
             using (var manager = new NHibernateManager())
             {
@@ -146,7 +146,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        public NewsItemMainPageViewModel GetMainNews(int id)
         {
             var newsItem = NHibernateManager.ReturnDB_News(id);
             var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
