@@ -15,7 +15,6 @@ namespace NewsPortal.Managers.LocalMemory
 {
     public class LocalMemoryManager : StorageProvider, IStorage
     {
-        //Лист переделать
         static int id = 0;
         // NewsItem
         List<NewsItem> allNews = new List<NewsItem>();
@@ -93,10 +92,6 @@ namespace NewsPortal.Managers.LocalMemory
                     allNews.OrderByDescending(x => x.CreationDate).ToList();
             //var some = allNews.GetRange(page * newsItemsQuantity, newsItemsQuantity);
             var lastPage = (int)allNews.Count / newsItemsQuantity;
-            if (page < 0 || page > lastPage)
-            {
-                throw new HttpException(404, "Error 404, bad page");
-            }
             var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
 
             foreach (var item in sortedNews)
