@@ -619,6 +619,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Managers\LocalMemory\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
