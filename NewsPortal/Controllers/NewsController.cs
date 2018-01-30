@@ -28,7 +28,8 @@ namespace NewsPortal.Controllers
                 return View(newsModel);
             }
 
-            StorageManager.Add(newsModel, uploadedImage, User.Identity.GetUserId());
+          Storage.Add(newsModel, uploadedImage, User.Identity.GetUserId());
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -39,12 +40,12 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            var editedNewsItem = StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
+            var editedNewsItem = Storage.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
             }
-            return View(StorageManager.GetEditedNewsItem(newsItemId, User.Identity.GetUserId()));
+            return View(Storage.GetEditedNewsItem(newsItemId, User.Identity.GetUserId()));
         }
 
         [HttpPost]
@@ -57,7 +58,7 @@ namespace NewsPortal.Controllers
                 return View(editModel);
             }
 
-            StorageManager.Edit(editModel, uploadedImage);
+            Storage.Edit(editModel, uploadedImage);
             return RedirectToAction("Index", "Home");
         }
 
@@ -68,14 +69,14 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            return View(StorageManager.GetMainNews(newsItemId));
+            return View(Storage.GetMainNews(newsItemId));
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            StorageManager.Delete(newsItemId);
+            Storage.Delete(newsItemId);
             return RedirectToAction("Index", "Home");
         }
     }

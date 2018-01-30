@@ -9,15 +9,14 @@ using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.Models.ViewModels.News;
-using NewsPortal.ServiceClasses;
 
 namespace NewsPortal.Managers.LocalMemory
 {
-    public class LocalMemoryManager : StorageProvider, IStorage
+    public class LocalMemoryManager :  IStorage
     {
-        //
         static int id = 0;
         List<NewsItem> allNews = new List<NewsItem>();
+
         public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             id++;
@@ -48,30 +47,6 @@ namespace NewsPortal.Managers.LocalMemory
                     }
                 }
             }
-        }
-
-        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
-        {
-            foreach (var news in allNews.ToList())
-            {
-                if (news.Id == newsItemId)
-                {
-                    bool isUserOwner = news.UserId == Convert.ToInt32(UserId);
-                    if (!isUserOwner)
-                    {
-                        return null;
-                    }
-                    var editedNewsItem = new NewsItemEditViewModel()
-                    {
-                        Id = news.Id,
-                        Title = news.Title,
-                        Content = news.Content,
-                        SourceImage = news.SourceImage
-                    };
-                    return editedNewsItem;
-                }
-            }
-            return null;
         }
 
         public void Delete(int id)
@@ -121,6 +96,7 @@ namespace NewsPortal.Managers.LocalMemory
             };
             return homePageModel;
         }
+
         public NewsItemMainPageViewModel GetMainNews(int id)
         {
             foreach (var news in allNews.ToList())
@@ -141,6 +117,30 @@ namespace NewsPortal.Managers.LocalMemory
                         CommentItems = commentItems
                     };
                     return showMainNews;
+                }
+            }
+            return null;
+        }
+
+        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
+        {
+            foreach (var news in allNews.ToList())
+            {
+                if (news.Id == newsItemId)
+                {
+                    bool isUserOwner = news.UserId == Convert.ToInt32(UserId);
+                    if (!isUserOwner)
+                    {
+                        return null;
+                    }
+                    var editedNewsItem = new NewsItemEditViewModel()
+                    {
+                        Id = news.Id,
+                        Title = news.Title,
+                        Content = news.Content,
+                        SourceImage = news.SourceImage
+                    };
+                    return editedNewsItem;
                 }
             }
             return null;

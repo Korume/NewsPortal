@@ -1,8 +1,6 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using NewsPortal.Managers.Storage;
-using NewsPortal.Models.ViewModels;
 
 namespace NewsPortal.Controllers
 {
@@ -13,7 +11,7 @@ namespace NewsPortal.Controllers
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-            return View(StorageManager.GetHomePage(page, sortedByDate));
+            return View(Storage.GetHomePage(page, sortedByDate));
         }
 
         [HttpPost]
@@ -21,16 +19,17 @@ namespace NewsPortal.Controllers
         {
             if (isDatabase || cookie.Value == "Database")
             {
-                MemoryMode.CurrentMemoryMode = MemMode.Database;
-                cookie["Storage"] = "Database";
+                StorageProvider.SwitchStorage(MemoryMode.Database);
             }
             else if (!isDatabase || cookie.Value == "LocalStorage")
             {
-                MemoryMode.CurrentMemoryMode = MemMode.LocalStorage;
-                cookie["Storage"] = "LocalStorage";
+                StorageProvider.SwitchStorage(MemoryMode.LocalStorage);
             }
+
+            //лучше был бы свитч
+
             Response.Cookies.Add(cookie);
-            return View(StorageManager.GetHomePage(0, true));
+            return View(Storage.GetHomePage(0, true));
         }
     }
 }

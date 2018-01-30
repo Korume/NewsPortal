@@ -1,7 +1,6 @@
 ﻿using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
-using NewsPortal.ServiceClasses;
 using System;
 using System.Web;
 using NewsPortal.Interfaces;
@@ -9,60 +8,12 @@ using System.Collections.Generic;
 using NHibernate.Criterion;
 using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.Commentary;
+using NewsPortal.Managers.NHibernate;
 
-namespace NewsPortal.Managers.NHibernate
+namespace NewsPortal.Managers.Storage
 {
-    public class NhibernateShortenedManager : StorageProvider, IStorage
+    public class DataBaseManager :  IStorage
     {
-        public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
-        {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using (var transaction = session.BeginTransaction())
-                {
-                    var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
-
-                    newsItemToUpdate.Title = editModel.Title;
-                    newsItemToUpdate.Content = editModel.Content;
-                    if (uploadedImage != null)
-                    {
-                        PictureManager.Delete(newsItemToUpdate.SourceImage);
-                        newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
-                    }
-                    session.Update(newsItemToUpdate);
-                    transaction.Commit();
-                }
-            }
-        }
-
-        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
-        {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                if (newsItem == null)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
-
-                bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
-                if (!isUserNewsItemOwner)
-                {
-                    return null;
-                }
-
-                var editedNewsItem = new NewsItemEditViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content,
-                    SourceImage = newsItem.SourceImage
-                };
-                return editedNewsItem;
-            }
-        }
 
         public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
@@ -96,6 +47,28 @@ namespace NewsPortal.Managers.NHibernate
                     var newsItem = session.Get<NewsItem>(id);
                     PictureManager.Delete(newsItem.SourceImage);
                     session.Delete(newsItem);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
+        {
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                using (var transaction = session.BeginTransaction())
+                {
+                    var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
+
+                    newsItemToUpdate.Title = editModel.Title;
+                    newsItemToUpdate.Content = editModel.Content;
+                    if (uploadedImage != null)
+                    {
+                        PictureManager.Delete(newsItemToUpdate.SourceImage);
+                        newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
+                    }
+                    session.Update(newsItemToUpdate);
                     transaction.Commit();
                 }
             }
@@ -165,6 +138,34 @@ namespace NewsPortal.Managers.NHibernate
             };
 
             return showMainNews;
+        }
+
+        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
+        {
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+                var newsItem = session.Get<NewsItem>(newsItemId);
+                if (newsItem == null)
+                {
+                    throw new HttpException(404, "Error 404, bad page");
+                }
+
+                bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
+                if (!isUserNewsItemOwner)
+                {
+                    return null;
+                }
+
+                var editedNewsItem = new NewsItemEditViewModel()
+                {
+                    Id = newsItem.Id,
+                    Title = newsItem.Title,
+                    Content = newsItem.Content,
+                    SourceImage = newsItem.SourceImage
+                };
+                return editedNewsItem;
+            }
         }
     }
 }
