@@ -40,8 +40,7 @@ namespace NewsPortal.Managers.LocalMemory
                 {
                     news.Title = editModel.Title;
                     news.Content = editModel.Content;
-
-                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    
                     // перенести
                     if (uploadedImage != null)
                     {
@@ -148,7 +147,7 @@ namespace NewsPortal.Managers.LocalMemory
                     return showMainNews;
                 }
             }
-            throw new HttpException(404, "Error 404, bad page");
+            return null;
         }
     }
 }
