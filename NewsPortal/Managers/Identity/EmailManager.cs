@@ -19,6 +19,7 @@ namespace NewsPortal.Managers.Identity
                 message.Body = identityMessage.Body;
                 message.IsBodyHtml = true;
 
+                // 
                 smtpServer.Host = ConfigurationManager.AppSettings["mailHost"];
                 smtpServer.Port = int.Parse(ConfigurationManager.AppSettings["mailPort"]);
                 smtpServer.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["mailEnableSsl"]);

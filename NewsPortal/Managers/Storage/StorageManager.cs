@@ -9,30 +9,13 @@ using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.Storage
 {
-   public enum MemMode { Database, LocalStorage };
+    public enum MemMode { Database, LocalStorage };
 
-    static public class MemoryMode
+    public class MemoryMode
     {
         public static MemMode CurrentMemoryMode;
         public static List<StorageProvider> list = new List<StorageProvider>();
-
-        public static void MemorySwitch(MemMode value)
-        {
-            switch (value)
-            {
-                case MemMode.Database:
-                    {
-                        CurrentMemoryMode = MemMode.Database;
-                        break;
-                    }
-                case MemMode.LocalStorage:
-                    {
-                        CurrentMemoryMode = MemMode.LocalStorage;
-                        break;
-                    }
-            }
-        }
-
+        
         static MemoryMode()
         {
             list.Add(new NhibernateShortenedManager());
@@ -65,11 +48,6 @@ namespace NewsPortal.Managers.Storage
         public static HomePageModel GetHomePage(int page = 0, bool sortedByDate = true)
         {
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetHomePage(page, sortedByDate);
-        }
-
-        public static HomePageModel GetCheckedToggle(bool toggleCheck = true)
-        {
-            return new HomePageModel() { CheckedToggle = toggleCheck };
         }
 
         public static NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)

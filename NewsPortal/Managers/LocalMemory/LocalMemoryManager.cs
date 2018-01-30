@@ -16,15 +16,15 @@ namespace NewsPortal.Managers.LocalMemory
     public class LocalMemoryManager : StorageProvider, IStorage
     {
         static int id = 0;
-        List<NewsItemAddViewModel> allNews = new List<NewsItemAddViewModel>();
+        // NewsItem
+        List<NewsItem> allNews = new List<NewsItem>();
         public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
         {
             id++;
-            allNews.Add(new NewsItemAddViewModel()
+            allNews.Add(new NewsItem()
             {
                 Id = id,
                 UserId = Convert.ToInt32(UserId),
-                UserName = newsModel.UserName,
                 Title = newsModel.Title,
                 Content = newsModel.Content,
                 CreationDate = DateTime.Now,
@@ -38,12 +38,14 @@ namespace NewsPortal.Managers.LocalMemory
             {
                 if (news.Id == editModel.Id)
                 {
-                    int index = allNews.IndexOf(news);
-                    allNews[index].Title = editModel.Title;
-                    allNews[index].Content = editModel.Content;
+                    news.Title = editModel.Title;
+                    news.Content = editModel.Content;
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // перенести
                     if (uploadedImage != null)
                     {
-                        allNews[index].SourceImage = PictureManager.Upload(uploadedImage, id);
+                        news.SourceImage = PictureManager.Upload(uploadedImage, id);
                     }
                 }
             }
@@ -55,23 +57,22 @@ namespace NewsPortal.Managers.LocalMemory
             {
                 if (news.Id == newsItemId)
                 {
-                    int index = allNews.IndexOf(news);
-                    bool isUserNewsItemOwner = allNews[index].UserId == Convert.ToInt32(UserId);
-                    if (!isUserNewsItemOwner)
+                    bool isUserOwner = news.UserId == Convert.ToInt32(UserId);
+                    if (!isUserOwner)
                     {
                         return null;
                     }
                     var editedNewsItem = new NewsItemEditViewModel()
                     {
-                        Id = allNews[index].Id,
-                        Title = allNews[index].Title,
-                        Content = allNews[index].Content,
-                        SourceImage = allNews[index].SourceImage
+                        Id = news.Id,
+                        Title = news.Title,
+                        Content = news.Content,
+                        SourceImage = news.SourceImage
                     };
                     return editedNewsItem;
                 }
             }
-            throw new HttpException(404, "Error 404, bad page");
+            return null;
         }
 
         public void Delete(int id)
@@ -80,7 +81,7 @@ namespace NewsPortal.Managers.LocalMemory
             {
                 if (news.Id == id)
                 {
-                    allNews.RemoveAt(allNews.IndexOf(news));
+                    allNews.Remove(news);
                 }
             }
         }
@@ -131,17 +132,16 @@ namespace NewsPortal.Managers.LocalMemory
             {
                 if (news.Id == id)
                 {
-                    int index = allNews.IndexOf(news);
-                    var commentItems = CommentaryManager.ReturnCommentaries(index);
-                    var newsUser = NHibernateManager.ReturnDB_User(allNews[index].UserId);
+                    var commentItems = CommentaryManager.ReturnCommentaries(news.Id);
+                    var newsUser = NHibernateManager.ReturnDB_User(news.UserId);
                     var showMainNews = new NewsItemMainPageViewModel()
                     {
-                        Id = allNews[index].Id,
-                        Title = allNews[index].Title,
-                        Content = allNews[index].Content,
-                        SourceImage = allNews[index].SourceImage,
-                        CreationDate = allNews[index].CreationDate,
-                        UserId = allNews[index].UserId,
+                        Id = news.Id,
+                        Title = news.Title,
+                        Content = news.Content,
+                        SourceImage = news.SourceImage,
+                        CreationDate = news.CreationDate,
+                        UserId = news.UserId,
                         UserName = newsUser.UserName,
                         CommentItems = commentItems
                     };
