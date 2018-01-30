@@ -1,7 +1,6 @@
 ﻿using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
-using NewsPortal.ServiceClasses;
 using System;
 using System.Web;
 using NewsPortal.Interfaces;
@@ -12,7 +11,7 @@ using NewsPortal.Managers.Commentary;
 
 namespace NewsPortal.Managers.NHibernate
 {
-    public class NhibernateShortenedManager : StorageProvider, IStorage
+    public class NhibernateShortenedManager :  IStorage
     {
         public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {

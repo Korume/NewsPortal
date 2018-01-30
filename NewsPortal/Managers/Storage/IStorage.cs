@@ -7,7 +7,7 @@ using System.Web;
 
 namespace NewsPortal.Interfaces
 {
-    interface IStorage
+    public interface IStorage
     {
         void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage);
         NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId);

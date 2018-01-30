@@ -9,22 +9,21 @@ using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.Models.ViewModels.News;
-using NewsPortal.ServiceClasses;
 
 namespace NewsPortal.Managers.LocalMemory
 {
-    public class LocalMemoryManager : StorageProvider, IStorage
+    public class LocalMemoryManager :  IStorage
     {
         //Лист переделать
         static int id = 0;
         List<NewsItemAddViewModel> allNews = new List<NewsItemAddViewModel>();
-        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
+        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string userId)
         {
             id++;
             allNews.Add(new NewsItemAddViewModel()
             {
                 Id = id,
-                UserId = Convert.ToInt32(UserId),
+                UserId = Convert.ToInt32(userId),
                 UserName = newsModel.UserName,
                 Title = newsModel.Title,
                 Content = newsModel.Content,

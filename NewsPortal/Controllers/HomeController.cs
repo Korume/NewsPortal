@@ -10,7 +10,7 @@ namespace NewsPortal.Controllers
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-            return View(StorageManager.GetHomePage(page, sortedByDate));
+            return View(StorageProvider.GetHomePage(page, sortedByDate));
         }
 
         [HttpPost]
@@ -19,15 +19,15 @@ namespace NewsPortal.Controllers
             if (isDatabase == true)
             {
                 MemoryMode.MemorySwitch(MemMode.Database);
-                StorageManager.GetCheckedToggle(false);
+                StorageProvider.GetCheckedToggle(false);
             }
             else if (isDatabase == false)
             {
                 MemoryMode.MemorySwitch(MemMode.LocalStorage);
-                StorageManager.GetCheckedToggle();
+                StorageProvider.GetCheckedToggle();
             }
 
-            return View(StorageManager.GetHomePage(0, true));
+            return View(StorageProvider.GetHomePage(0, true));
         }
     }
 }

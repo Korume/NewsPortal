@@ -552,14 +552,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IStorage.cs" />
+    <Compile Include="Managers\Storage\IStorage.cs" />
     <Compile Include="Managers\Commentary\CommentaryManager.cs" />
-    <Compile Include="Managers\LocalMemory\LocalMemoryManager.cs" />
+    <Compile Include="Managers\Storage\LocalMemoryManager.cs" />
     <Compile Include="Managers\News\NewsManager.cs" />
     <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
-    <Compile Include="Managers\NHibernate\NhibernateShortenedManager.cs" />
+    <Compile Include="Managers\Storage\DataBaseManager.cs" />
     <Compile Include="Managers\Picture\PictureManager.cs" />
-    <Compile Include="Managers\Storage\StorageManager.cs" />
+    <Compile Include="Managers\Storage\StorageProvider.cs" />
     <Compile Include="ModelBinders\RegisterModelBinder.cs" />
     <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />
@@ -579,7 +579,6 @@
     <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="Models\DataBaseModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceClasses\StorageProvider.cs" />
     <Compile Include="SignalR\Hubs\CommentHub.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -620,6 +619,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Managers\LocalMemory\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
