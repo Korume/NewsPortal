@@ -23,7 +23,7 @@ namespace NewsPortal.Managers.Storage
         { 
             //CurrentMemoryMode = MemMode.Database;
             list.Add(new NhibernateShortenedManager());
-            CurrentMemoryMode = MemMode.LocalStorage;
+            CurrentMemoryMode = MemMode.Database;
             list.Add(new LocalMemoryManager());
         }
     }

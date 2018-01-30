@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
+    [HandleError]
     public class ErrorController : Controller
     {
         public ActionResult Index()

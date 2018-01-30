@@ -49,7 +49,7 @@ namespace NewsPortal.Managers.LocalMemory
             }
         }
 
-        NewsItemEditViewModel IStorage.GetEdit(int? newsItemId, string UserId)
+        NewsItemEditViewModel IStorage.GetEditedNewsItem(int? newsItemId, string UserId)
         {
             foreach (var news in allNews.ToList())
             {
@@ -119,9 +119,9 @@ namespace NewsPortal.Managers.LocalMemory
             var homePageModel = new HomePageModel()
             {
                 Thumbnails = thumbnails,
-                CurrentPage = page,
+                CurrentPageIndex = page,
                 SortedByDate = sortedByDate,
-                LastPage = lastPage
+                LastPageIndex = lastPage
             };
             return homePageModel;
         }
