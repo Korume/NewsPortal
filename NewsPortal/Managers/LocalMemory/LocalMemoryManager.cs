@@ -15,6 +15,7 @@ namespace NewsPortal.Managers.LocalMemory
 {
     public class LocalMemoryManager : StorageProvider, IStorage
     {
+        //Лист переделать
         static int id = 0;
         List<NewsItemAddViewModel> allNews = new List<NewsItemAddViewModel>();
         public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
