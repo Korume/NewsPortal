@@ -17,7 +17,7 @@ namespace NewsPortal
 
             routes.MapRoute(
                 name: "MainNewsPage",
-                url: "{controller}/{newsItemId}",
+                url: "{controller}/{title}-{newsItemId}",
                 defaults: new { controller = "News", action = "MainNews" },
                 constraints: new { newsItemId = @"\d+" }
                 );

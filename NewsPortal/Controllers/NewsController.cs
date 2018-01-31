@@ -61,14 +61,14 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult MainNews(int newsItemId)
+        public ActionResult MainNews(int newsItemId, string title)
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
                 throw new HttpException(404, "Not Found");
             }
 
-            return View(StorageManager.GetMainNews(newsItemId));
+            return View(StorageManager.GetMainNews(newsItemId, title));
         }
 
         [HttpPost]
