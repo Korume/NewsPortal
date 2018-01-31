@@ -62,7 +62,6 @@ namespace NewsPortal.Controllers
                     var userByEmail = await session.QueryOver<User>().
                         Where(u => u.Email == registerModel.Email).
                         SingleOrDefaultAsync();
-
                     if (userByEmail != null)
                     {
                         ModelState.AddModelError("Email", $"This E-mail address is not available.");
@@ -72,7 +71,6 @@ namespace NewsPortal.Controllers
                     var userByUserName = await session.QueryOver<User>().
                         Where(u => u.UserName == registerModel.UserName).
                         SingleOrDefaultAsync();
-
                     if (userByUserName != null)
                     {
                         ModelState.AddModelError("UserName", "This UserName is not available.");

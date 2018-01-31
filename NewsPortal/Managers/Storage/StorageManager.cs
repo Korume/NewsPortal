@@ -20,6 +20,7 @@ namespace NewsPortal.Managers.Storage
         {
             list.Add(new NhibernateShortenedManager());
             list.Add(new LocalMemoryManager());
+            CurrentMemoryMode = MemMode.Database;
         }
     }
 
@@ -55,9 +56,9 @@ namespace NewsPortal.Managers.Storage
             return (MemoryMode.list[GetMemoryMode()] as IStorage).GetEditedNewsItem(newsItemId, UserId);
         }
 
-        public static NewsItemMainPageViewModel GetMainNews(int id)
+        public static NewsItemMainPageViewModel GetMainNews(int id, string title)
         {
-            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetMainNews(id);
+            return (MemoryMode.list[GetMemoryMode()] as IStorage).GetMainNews(id, title);
         }
     }
 }

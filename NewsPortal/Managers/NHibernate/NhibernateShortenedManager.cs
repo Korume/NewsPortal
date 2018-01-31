@@ -138,15 +138,15 @@ namespace NewsPortal.Managers.NHibernate
                 var homePageModel = new HomePageModel()
                 {
                     Thumbnails = thumbnails,
-                    CurrentPage = page,
+                    CurrentPageIndex = page,
                     SortedByDate = sortedByDate,
-                    LastPage = lastPage
+                    LastPageIndex = lastPage
                 };
                 return homePageModel;
             }
         }
 
-        public NewsItemMainPageViewModel GetMainNews(int id)
+        public NewsItemMainPageViewModel GetMainNews(int id, string title)
         {
             var newsItem = NHibernateManager.ReturnDB_News(id);
             var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);

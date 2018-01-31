@@ -1,5 +1,6 @@
 ﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
+@using NewsPortal.ExtansionClasses;
 @model HomePageModel
 
 @section StyleSheet {
@@ -107,7 +108,8 @@
             }
             <div class="Title">
                 <span>
-                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id }, new { @class = "show-MainNews" })
+                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id, title = item.Title },
+                   new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
@@ -123,26 +125,6 @@
 
 </section>
 <div class="block-prev-page">
-    @for (var i = -3; i < 3; i++)
-    {
-        @CreateActionLink(i);
-    }
+    @Html.PageLinks(Model.LastPageIndex, Model.CurrentPageIndex,
+    number => Url.Action("Index", new { page = number, sortedByDate = Model.SortedByDate }))
 </div>
-@helper CreateActionLink(int offset)
-    {
-    //
-        var page = Model.CurrentPage + offset;
-        if (page >= 0 && page <= Model.LastPage)
-        {
-            if (offset != 0)
-            {
-                var pageTransition = Model.CurrentPage + offset;
-                @Html.ActionLink((Model.CurrentPage + offset + 1).ToString(), "Index", "Home",
-                              new { page = pageTransition, sortedByDate = Model.SortedByDate }, new { @class = "next-page" })
-            }
-            else
-            {
-                <span>@(Model.CurrentPage + 1)</span>
-            }
-        }
-}
