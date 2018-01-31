@@ -15,7 +15,6 @@ namespace NewsPortal.Managers.LocalMemory
 {
     public class LocalMemoryManager : StorageProvider, IStorage
     {
-        //
         static int id = 0;
         List<NewsItem> allNews = new List<NewsItem>();
         public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
@@ -40,12 +39,7 @@ namespace NewsPortal.Managers.LocalMemory
                 {
                     news.Title = editModel.Title;
                     news.Content = editModel.Content;
-                    
-                    // перенести
-                    if (uploadedImage != null)
-                    {
-                        news.SourceImage = PictureManager.Upload(uploadedImage, id);
-                    }
+                    news.SourceImage = PictureManager.Upload(uploadedImage, id);
                 }
             }
         }
@@ -71,7 +65,7 @@ namespace NewsPortal.Managers.LocalMemory
                     return editedNewsItem;
                 }
             }
-            return null;
+            throw new HttpException(404, "Error 404, bad page");
         }
 
         public void Delete(int id)
@@ -90,11 +84,11 @@ namespace NewsPortal.Managers.LocalMemory
             int newsItemsQuantity = 15;
             var sortedNews = sortedByDate ? allNews.OrderBy(x => x.CreationDate).ToList() :
                     allNews.OrderByDescending(x => x.CreationDate).ToList();
-            //var some = allNews.GetRange(page * newsItemsQuantity, newsItemsQuantity);
-            var lastPage = (int)allNews.Count / newsItemsQuantity;
+            var some = sortedNews.Skip(page * newsItemsQuantity).Take(newsItemsQuantity).ToList();
+            int lastPage = allNews.Count / (newsItemsQuantity + 1);
             var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
 
-            foreach (var item in sortedNews)
+            foreach (var item in some)
             {
                 string userName;
                 using (var manager = new NHibernateManager())
@@ -121,6 +115,7 @@ namespace NewsPortal.Managers.LocalMemory
             };
             return homePageModel;
         }
+
         public NewsItemMainPageViewModel GetMainNews(int id)
         {
             foreach (var news in allNews.ToList())
@@ -143,7 +138,7 @@ namespace NewsPortal.Managers.LocalMemory
                     return showMainNews;
                 }
             }
-            return null;
+            throw new HttpException(404, "Error 404, bad page");
         }
     }
 }
