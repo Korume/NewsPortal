@@ -537,7 +537,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.comment.js" />
-    <Content Include="NotFound.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

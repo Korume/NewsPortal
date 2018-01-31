@@ -14,6 +14,6 @@ namespace NewsPortal.Interfaces
         void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId);
         void Delete(int id);
         HomePageModel GetHomePage(int page = 0, bool sortedByDate = true);
-        NewsItemMainPageViewModel GetMainNews(int id);
+        NewsItemMainPageViewModel GetMainNews(int id, string title);
     }
 }

@@ -146,7 +146,7 @@ namespace NewsPortal.Managers.NHibernate
             }
         }
 
-        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        NewsItemMainPageViewModel IStorage.GetMainNews(int id, string title)
         {
             var newsItem = NHibernateManager.ReturnDB_News(id);
             var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);

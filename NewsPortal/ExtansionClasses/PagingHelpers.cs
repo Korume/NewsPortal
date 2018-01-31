@@ -25,7 +25,7 @@ namespace NewsPortal.ExtansionClasses
                 result.Append(CreateLink("Previous", currentPageIndex - 1, pageUrl));
             }
 
-            if (lastPage > centerPagesQuantity * 2 + 1)
+            if (lastPage >= currentPageIndex + centerPagesQuantity * 2 || currentPageIndex - centerPagesQuantity * 2 >= 0)
             {
                 if (currentPageIndex <= boundaryPagesQuantity)
                 {
@@ -55,11 +55,11 @@ namespace NewsPortal.ExtansionClasses
 
             if (currentPageIndex == lastPage)
             {
-                result.Append(CreateSpan("Previous"));
+                result.Append(CreateSpan("Next"));
             }
             else
             {
-                result.Append(CreateLink("Previous", currentPageIndex + 1, pageUrl));
+                result.Append(CreateLink("Next", currentPageIndex + 1, pageUrl));
             }
             return MvcHtmlString.Create(result.ToString());
         }

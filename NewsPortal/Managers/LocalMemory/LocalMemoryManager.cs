@@ -125,7 +125,7 @@ namespace NewsPortal.Managers.LocalMemory
             };
             return homePageModel;
         }
-        NewsItemMainPageViewModel IStorage.GetMainNews(int id)
+        NewsItemMainPageViewModel IStorage.GetMainNews(int id, string title)
         {
             foreach (var news in allNews.ToList())
             {
