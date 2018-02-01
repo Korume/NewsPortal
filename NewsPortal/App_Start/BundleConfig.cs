@@ -17,7 +17,8 @@ namespace NewsPortal
             bundles.Add(new StyleBundle("~/bundles/stylesheet-Home").Include("~/Content/StyleSheet_HomePage.css"));
             bundles.Add(new StyleBundle("~/bundles/stylesheet-News").Include("~/Content/StyleSheet_NewsPage.css"));
             bundles.Add(new StyleBundle("~/bundles/stylesheet-Service").Include("~/Content/StyleSheet_ServicePages.css"));
-           
+            bundles.Add(new StyleBundle("~/bundles/stylesheet-Start").Include("~/Content/StyleSheet_StartPage.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));
         }
