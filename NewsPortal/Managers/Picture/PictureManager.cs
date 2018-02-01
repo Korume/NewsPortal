@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -21,7 +22,7 @@ namespace NewsPortal.Managers.Picture
                     return null;
                 }
                 string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
-                string path = "/Content/UploadedImages/" + newsItemId + fileName;
+                string path = ConfigurationManager.AppSettings["pathForImage"] + newsItemId + fileName;
                 uploadedImage.SaveAs(HttpContext.Current.Server.MapPath(path));
                 return path;
             }
