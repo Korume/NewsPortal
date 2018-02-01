@@ -5,11 +5,11 @@
         <span>Preview</span>
     </div>
     <div>
-        <input type="button" name="AtricleShow" id="ArticleShow" value="Aritcle" />
-        <article id="previewArticle">
+        <input type="button" name="AtricleShow" id="Article" value="Aritcle" />
+        <article class="preview-none">
             <div class="Title">
                 <span>
-                    <a href="#null" id="TitlePreview"></a>
+                    <a href="#null"></a>
                 </span>
             </div>
             <div class="NewsInformation">
@@ -23,8 +23,8 @@
         </article>
     </div>
     <div>
-        <input type="button" name="MainNewsShow" id="MainNewsShow" value="MainNews" />
-        <div class="main-news-items" id="previewMainNews">
+        <input type="button" name="MainNewsShow" id="MainContent" value="MainNews" />
+        <div class="main-news-items preview-none">
             <div class="main-news-items-info">
                 <time class="main-news-items-time">
                     @Model.CreationDate
@@ -34,11 +34,11 @@
                 </section>
             </div>
             <div class="main-news-items-head">
-                <h1 id="TitlePreview-MainNews"></h1>
+                <h1></h1>
             </div>
             <div class="main-news-items-content">
-                <section class="image" id="imagePreview"></section>
-                <section class="text" id="textPreview"></section>
+                <section class="image"></section>
+                <section class="text"></section>
             </div>
         </div>
     </div>

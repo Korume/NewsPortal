@@ -67,8 +67,7 @@ header div {
     }
 
         header div:last-child span {
-            width: 180px;
-            text-align: right;
+            margin: 0px 0px 0 10px;
         }
 
         header div:last-child a {
@@ -127,60 +126,20 @@ html body::-webkit-scrollbar-track {
         border-left: solid 1px #aaa;
         background-color: #eee;
     }
-/*Checkbox*/
-.checkbox {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    margin: 10px 0 0 20px;
+
+.database-menu {
+    width: auto;
 }
 
-    .checkbox + input + label {
-        position: relative;
-        padding: 0 0 0 60px;
-        cursor: pointer;
+    .database-menu select {
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid white;
+        font-family: 'Roboto', sans-serif;
     }
 
-        .checkbox + input + label:before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 0;
-            width: 50px;
-            height: 26px;
-            border-radius: 13px;
-            background: #CDD1DA;
-            box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
-            transition: .2s;
-        }
 
-        .checkbox + input + label:after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            width: 22px;
-            height: 22px;
-            border-radius: 10px;
-            background: #FFF;
-            box-shadow: 0 2px 5px rgba(0,0,0,.3);
-            transition: .2s;
-        }
 
-    .checkbox:checked + input + label:before {
-        background: #9FD468;
-    }
-
-    .checkbox:checked + input + label:after {
-        left: 26px;
-    }
-
-    .checkbox:focus + input + label:before {
-        box-shadow: inset 0 2px 3px rgba(0,0,0,.2), 0 0 0 3px rgba(255,255,0,.7);
-    }
-.database-menu{
-    width:auto;
-}
 .database-menu-min {
     display: none;
     padding: 10px;

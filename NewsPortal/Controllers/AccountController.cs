@@ -27,7 +27,7 @@ namespace NewsPortal.Controllers
                 var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result == SignInStatus.Success)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "News");
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace NewsPortal.Controllers
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "News");
         }
 
         public ActionResult Register()
@@ -62,7 +62,6 @@ namespace NewsPortal.Controllers
                     var userByEmail = await session.QueryOver<User>().
                         Where(u => u.Email == registerModel.Email).
                         SingleOrDefaultAsync();
-
                     if (userByEmail != null)
                     {
                         ModelState.AddModelError("Email", $"This E-mail address is not available.");
@@ -72,7 +71,6 @@ namespace NewsPortal.Controllers
                     var userByUserName = await session.QueryOver<User>().
                         Where(u => u.UserName == registerModel.UserName).
                         SingleOrDefaultAsync();
-
                     if (userByUserName != null)
                     {
                         ModelState.AddModelError("UserName", "This UserName is not available.");

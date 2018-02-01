@@ -62,9 +62,10 @@ namespace NewsPortal.ModelService
             var homePageModel = new HomePageModel()
             {
                 Thumbnails = thumbnails,
-                CurrentPage = page,
+                CurrentPageIndex = page,
+                LastPageIndex=lastPage,
                 SortedByDate = sortedByDate,
-                LastPage = lastPage
+
             };
 
                 return homePageModel;

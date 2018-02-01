@@ -41,7 +41,7 @@
                     <li class="content-list-item" id="item-@elem.Id">
                         <div class="comment">
                             <div class="comment-head">
-                                <a href="" class="user-info">
+                                <a href="#none" class="user-info">
                                     <div class="img-user-info">
 
                                     </div>
@@ -75,8 +75,8 @@
                 {
                     <form>
                         <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment" onkeyup="checkComment();" placeholder="The field must be set!"></textarea>
-                        <input type="button" id="sendcomment" value="Send" disabled="disabled" />
+                        <textarea name="comment" id="comment" onkeyup="checkedContent();" placeholder="The field must be set!"></textarea>
+                        <input type="button" id="sendComment" value="Send" disabled="disabled" />
                     </form>
                     <input id="newsId" type="hidden" value="@Html.DisplayTextFor(NewsItemMainPageViewModel => NewsItemMainPageViewModel.Id)" />
                     <input id="userId" type="hidden" value="@User.Identity.GetUserId()" />
@@ -94,7 +94,39 @@
     </div>
 </section>
 
-@section script{
+<template id="template-comment">
+    <li class="content-list-item">
+        <div class="comment">
+            <div class="comment-head">
+                <a href="#none" class="user-info">
+                    <div class="img-user-info">
+
+                    </div>
+                    <span>
+                        
+                    </span>
+                </a>
+                <time>
+                    
+                </time>
+                <div class="comment-menu">
+                    <input class="deleteComment" type="button" />
+
+                </div>
+            </div>
+            <div class="comment-message">
+                
+            </div>
+            <div class="comment-footer">
+
+            </div>
+        </div>
+    </li>
+</template>
+
+
+
+@section scripts{
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>

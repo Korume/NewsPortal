@@ -8,14 +8,8 @@ namespace NewsPortal.Models.ViewModels
     public class HomePageModel
     {
         public IEnumerable<NewsItemThumbnailViewModel> Thumbnails { set; get; }
-        public int CurrentPage { set; get; }
+        public int CurrentPageIndex { set; get; }
+        public int LastPageIndex { set; get; }
         public bool SortedByDate { set; get; }
-        public int LastPage { set; get; }
-        public bool CheckedToggle { set; get; }
-
-        public HomePageModel()
-        {
-            CheckedToggle = true;
-        }
     }
 }

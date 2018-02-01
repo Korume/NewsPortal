@@ -1,0 +1,126 @@
+﻿@using NewsPortal.Models.ViewModels;
+@using Microsoft.AspNet.Identity;
+@using NewsPortal.App_Code;
+@model HomePageModel
+
+@section StyleSheet {
+    @Styles.Render("~/bundles/stylesheet-Home")
+}
+
+@section SortingNews {
+    @if (Model.Thumbnails.Any())
+    {
+        if (Model.SortedByDate)
+        {
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "News", new { sortedByDate = false }, new { @class = "sort" })
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("SORTING NEWS", "Index", "News", new { sortedByDate = true }, new { @class = "reverse-sort" })
+            </li>
+        }
+    }
+}
+
+@section DatabaseMenuMin {
+    <li>
+        <section class="database-menu-min" title="Memory/Database">
+            @using (Html.BeginForm("Index", "News", FormMethod.Post))
+            {
+                @Html.DropDownList("storage",
+                           new SelectList(new string[] { "Database", "LocalStorage" }),
+                           "Select storage",
+                           new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-min", title = "Select storage" })
+            }
+        </section>
+    </li>
+}
+
+@section DatabaseMenu {
+    <div class="database-menu" title="Memory/Database">
+        @using (Html.BeginForm("Index", "News", FormMethod.Post))
+        {
+            @Html.DropDownList("storage",
+                          new SelectList(new string[] { "Database", "LocalStorage" }),
+                          "Select storage",
+                          new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-max", title = "Select storage" })
+        }
+    </div>
+}
+
+<section class="back-image">
+    <div class="background-image">
+        <!--Here is the picture-->
+    </div>
+    <div class="background-text">
+        <span>News of the day</span><br />
+        <span>"Random Title"</span>
+    </div>
+</section>
+<section class="news-head">
+    <span>News</span>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="add-icon">
+                @Html.ActionLink(" ", "Add", "News")
+            </div>
+        }
+        <div class="sort-icon">
+            @if (Model.Thumbnails.Any())
+            {
+                if (Model.SortedByDate)
+                {
+                    @Html.ActionLink(" ", "Index", "News", new { sortedByDate = false }, new { @class = "sort", title = "Sorted by date" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Index", "News", new { sortedByDate = true }, new { @class = "reverse-sort", title = "Sorted by date" })
+                }
+            }
+        </div>
+    </div>
+</section>
+<section class="news-item">
+    @foreach (var item in Model.Thumbnails)
+    {
+        <article>
+            @if (item.UserId == User.Identity.GetUserId().AsInt())
+            {
+                <div class="menu-news-item">
+                    @Html.ActionLink(" ", "Edit", "News", new { newsItemId = item.Id }, new { @class = "edit" })
+                    <a href="#@item.Id" name="show-popup-window"></a>
+                </div>
+                @Html.Partial("DialogWindow", new NewsPortal.Models.ViewModels.Partial.DialogViewModel { Id = item.Id, Title = item.Title })
+            }
+            <div class="Title">
+                <span>
+                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id, title = item.Title },
+                                  new { @class = "show-MainNews" })
+                </span>
+            </div>
+            <div class="NewsInformation">
+                <div class="NameUser">
+                    @Html.DisplayFor(thumbnail => item.UserName)
+                </div>
+                <div class="CreationDate">
+                    @Html.DisplayFor(thumbnail => item.CreationDate)
+                </div>
+            </div>
+        </article>
+    }
+
+</section>
+<div class="block-prev-page">
+    @Html.PageLinks(Model.LastPageIndex, Model.CurrentPageIndex,
+                number => Url.Action("Index", new { page = number, sortedByDate = Model.SortedByDate }))
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.settingsStorage.js"></script>
+}

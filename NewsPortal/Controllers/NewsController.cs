@@ -1,18 +1,52 @@
 ﻿using NewsPortal.Models.ViewModels;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using NewsPortal.Models.ViewModels.News;
-using NewsPortal.Managers.Commentary;
-using NewsPortal.Managers.NHibernate;
 using System.Web;
 using NewsPortal.Managers.News;
-using NewsPortal.Managers.Storage;
+using System;
 using NewsPortal.ModelService;
+using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
+        const int newsItemsQuantity = 15;
+        HttpCookie cookie = new HttpCookie("Storage");
+
+        public ActionResult Index(int page = 0, bool sortedByDate = true)
+        {
+            if (cookie.Value == null)
+            {
+                cookie.Value = "Database";
+                cookie.Expires = DateTime.Now.AddDays(10);
+                Response.Cookies.Add(cookie);
+            }
+            return View(ModelReturner.GetHomePage(page, sortedByDate));
+        }
+
+        [HttpPost]
+        public ActionResult Index(string storage)
+        {
+            if (storage == "Database" || cookie.Value == "Database")
+                if (cookie.Value != "Database")
+                {
+                    cookie.Value = "Database";
+                }
+            else 
+            if (storage == "LocalStorage" || cookie.Value == "LocalStorage")
+            {
+
+                if (cookie.Value != "LocalStorage")
+                {
+                    cookie.Value = "LocalStorage";
+                }
+            }
+            cookie.Expires = DateTime.Now.AddDays(10);
+            Response.Cookies.Add(cookie);
+            return View(ModelReturner.GetHomePage(0, true));
+        }
+
         [Authorize]
         public ActionResult Add()
         {
@@ -31,7 +65,7 @@ namespace NewsPortal.Controllers
 
             Storage.Add(newsModel, uploadedImage, User.Identity.GetUserId());
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "News");
         }
 
         [Authorize]
@@ -60,10 +94,10 @@ namespace NewsPortal.Controllers
             }
 
             Storage.Edit(editModel, uploadedImage);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "News");
         }
 
-        public ActionResult MainNews(int newsItemId)
+        public ActionResult MainNews(int newsItemId, string title)
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
             {
@@ -78,7 +112,7 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteNewsItem(int newsItemId)
         {
             Storage.Delete(newsItemId);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "News");
         }
     }
 }

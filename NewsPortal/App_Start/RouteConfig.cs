@@ -17,14 +17,20 @@ namespace NewsPortal
 
             routes.MapRoute(
                 name: "MainNewsPage",
-                url: "{controller}/{newsItemId}",
+                url: "{controller}/{title}-{newsItemId}",
                 defaults: new { controller = "News", action = "MainNews" },
                 constraints: new { newsItemId = @"\d+" }
                 );
 
             routes.MapRoute(
+                name: "NewsAdding",
+                url: "news-adding",
+                defaults: new { controller = "News", action = "Add" }
+                );
+
+            routes.MapRoute(
                 name: "NewsEdit",
-                url: "{controller}/{action}/{newsItemId}",
+                url: "news-editings/{newsItemId}",
                 defaults: new { controller = "News", action = "Edit" },
                 constraints: new { newsItemId = @"\d+" }
                 );

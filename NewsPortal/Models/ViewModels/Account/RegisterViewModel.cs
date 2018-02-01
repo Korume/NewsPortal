@@ -11,10 +11,6 @@ namespace NewsPortal.Models.ViewModels
     [ModelBinder(typeof(RegisterModelBinder))]
     public class RegisterViewModel
     {
-        [ScaffoldColumn(false)]
-        [HiddenInput(DisplayValue = false)]
-        public int Id { set; get; }
-
         [Required(ErrorMessage = "Enter E-mail address")]
         [Display(Name = "E-mail address:")]
         [DataType(DataType.EmailAddress)]
