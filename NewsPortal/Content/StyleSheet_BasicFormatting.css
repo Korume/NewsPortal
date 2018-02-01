@@ -76,16 +76,15 @@ header div {
             text-decoration: none;
         }
 
-            header div:last-child a:last-child {
-                margin-left: 10px;
-            }
-
         header div:last-child .item-menu-min {
             display: none;
             width: 48px;
             height: 48px;
             background: transparent url(/Content/AdditionalFiles/Icon/burger-menu.png) no-repeat center;
             float: right;
+        }
+        header div:last-child .item-menu a:last-child{
+            margin-left: 10px;
         }
 
 footer > section {
@@ -141,21 +140,19 @@ html body::-webkit-scrollbar-track {
 
 
 .database-menu-min {
-    display: none;
+    display: flex;
+    justify-content: center;
     padding: 10px;
-    margin: 5px;
+    border-bottom: 1px solid white;
 }
 
-@media screen and (min-width: 1024px) and (max-width:1280px) {
-
-
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
     .Section-NewsEdit {
         width: 50%;
     }
 }
 
-@media screen and (min-width: 768px) and (max-width:1023px) {
-
+@media screen and (min-width: 768px) and (max-width: 1023px) {
     .Section-NewsEdit {
         width: 75%;
     }
@@ -167,21 +164,13 @@ html body::-webkit-scrollbar-track {
     }
 }
 
-@media screen and (min-width: 320px) and (max-width:767px) {
-    .background-text span:first-child {
-        font-size: 60px;
-    }
-
-    .background-text span:last-child {
-        font-size: 50px;
-    }
-
+@media screen and (min-width: 320px) and (max-width: 767px) {
     .Section-NewsEdit {
         width: 85%;
     }
 }
 
-@media screen and (min-width: 320px) and (max-width:520px) {
+@media screen and (min-width: 320px) and (max-width: 520px) {
 
     html body::-webkit-scrollbar {
         width: 0;
@@ -206,11 +195,7 @@ html body::-webkit-scrollbar-track {
         }
 
     .background-text span:first-child {
-        font-size: 14vw;
-    }
-
-    .background-text span:last-child {
-        font-size: 12vw;
+        font-size: 20vw;
     }
 
     main {
@@ -288,19 +273,9 @@ html body::-webkit-scrollbar-track {
     .footer-authors {
         font-size: 8px;
     }
-
-    .item-menu-min > ul > li:last-child {
-        display: flex;
-        justify-content: center;
-    }
-
-    .database-menu-min {
-        display: inline-block;
-        border-bottom: 1px solid white;
-    }
 }
 
-@media screen and (min-width: 320px) and (max-width:400px) {
+@media screen and (min-width: 320px) and (max-width: 400px) {
     main .news-item article,
     main .Preview article {
         width: 320px;

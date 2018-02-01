@@ -28,12 +28,13 @@
 @section DatabaseMenuMin {
     <li>
         <section class="database-menu-min" title="Memory/Database">
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            @using (Html.BeginForm("Index", "News", FormMethod.Post))
             {
                 @Html.DropDownList("storage",
                            new SelectList(new string[] { "Database", "LocalStorage" }),
                            "Select storage",
-                           new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-min", title = "Select storage" })
+                           new { @class = "select-storage", onchange = "this.form.submit()",
+                               id = "storage-menu-min", title = "Select storage" })
             }
         </section>
     </li>
@@ -41,12 +42,13 @@
 
 @section DatabaseMenu {
     <div class="database-menu" title="Memory/Database">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Index", "News", FormMethod.Post))
         {
             @Html.DropDownList("storage",
                           new SelectList(new string[] { "Database", "LocalStorage" }),
                           "Select storage",
-                          new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-max", title = "Select storage" })
+                          new { @class = "select-storage", onchange = "this.form.submit()",
+                              id = "storage-menu-max", title = "Select storage" })
         }
     </div>
 }
@@ -56,8 +58,7 @@
         <!--Here is the picture-->
     </div>
     <div class="background-text">
-        <span>News of the day</span><br />
-        <span>"Random Title"</span>
+        <span>NEWS PORTAL</span>
     </div>
 </section>
 <section class="news-head">
