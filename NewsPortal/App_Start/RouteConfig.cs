@@ -23,8 +23,14 @@ namespace NewsPortal
                 );
 
             routes.MapRoute(
+                name: "NewsAdding",
+                url: "news-adding",
+                defaults: new { controller = "News", action = "Add" }
+                );
+
+            routes.MapRoute(
                 name: "NewsEdit",
-                url: "{controller}/{action}/{newsItemId}",
+                url: "news-editings/{newsItemId}",
                 defaults: new { controller = "News", action = "Edit" },
                 constraints: new { newsItemId = @"\d+" }
                 );

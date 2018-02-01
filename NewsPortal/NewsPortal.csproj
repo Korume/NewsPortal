@@ -543,6 +543,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\PagingHelpers.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
@@ -550,7 +551,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="ExtansionClasses\PagingHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -604,15 +604,16 @@
     <!-- <Content Include="Views\Shared\Dialog\YesOrNo.cshtml" /> -->
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\Add.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Account\SuccesfulRegistration.cshtml" />
     <Content Include="Views\Account\SuccesfulConfirmation.cshtml" />
     <Content Include="Views\Account\UnsuccesfulConfirmation.cshtml" />
     <Content Include="Views\News\NewsOwnerError.cshtml" />
-    <Content Include="Views\Home\DialogWindow.cshtml" />
+    <Content Include="Views\News\DialogWindow.cshtml" />
     <Content Include="Views\News\Preview.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

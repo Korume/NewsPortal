@@ -5,11 +5,11 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace NewsPortal.ExtansionClasses
+namespace NewsPortal.App_Code
 {
     public static class PagingHelpers
     {
-        public static MvcHtmlString PageLinks(this HtmlHelper html, int lastPage, int currentPageIndex, Func<int, string> pageUrl)
+        public static MvcHtmlString PageLinks(this HtmlHelper html, int lastPageIndex, int currentPageIndex, Func<int, string> pageUrl)
         {
             const int boundaryPagesQuantity = 5;
             const int centerPagesQuantity = 2;
@@ -17,6 +17,7 @@ namespace NewsPortal.ExtansionClasses
 
             var result = new StringBuilder();
             if (currentPageIndex == 0)
+
             {
                 result.Append(CreateSpan("Previous"));
             }
@@ -24,20 +25,24 @@ namespace NewsPortal.ExtansionClasses
             {
                 result.Append(CreateLink("Previous", currentPageIndex - 1, pageUrl));
             }
-
-            if (lastPage >= currentPageIndex + centerPagesQuantity * 2 || currentPageIndex - centerPagesQuantity * 2 >= 0)
+            bool isPagingHaveGap = currentPageIndex + centerPagesQuantity * 2 < lastPageIndex || 
+                currentPageIndex - centerPagesQuantity * 2 >= 0;
+            if (isPagingHaveGap)
             {
-                if (currentPageIndex <= boundaryPagesQuantity)
+                bool isCurrentPageIndexInLeft = currentPageIndex <= boundaryPagesQuantity;
+                bool isCurrentPageIndexInRight = currentPageIndex >= lastPageIndex - boundaryPagesQuantity;
+
+                if (isCurrentPageIndexInLeft)
                 {
                     result.Append(CreateLinksInInterval(0, currentPageIndex + centerPagesQuantity, currentPageIndex, pageUrl));
                     result.Append(CreateSpan("..."));
-                    result.Append(CreateLinksInInterval(lastPage - farPagesQuantity + 1, lastPage, currentPageIndex, pageUrl));
+                    result.Append(CreateLinksInInterval(lastPageIndex - farPagesQuantity + 1, lastPageIndex, currentPageIndex, pageUrl));
                 }
-                else if (currentPageIndex >= lastPage - boundaryPagesQuantity)
+                else if (isCurrentPageIndexInRight)
                 {
                     result.Append(CreateLinksInInterval(0, farPagesQuantity - 1, currentPageIndex, pageUrl));
                     result.Append(CreateSpan("..."));
-                    result.Append(CreateLinksInInterval(currentPageIndex - centerPagesQuantity, lastPage, currentPageIndex, pageUrl));
+                    result.Append(CreateLinksInInterval(currentPageIndex - centerPagesQuantity, lastPageIndex, currentPageIndex, pageUrl));
                 }
                 else
                 {
@@ -45,15 +50,15 @@ namespace NewsPortal.ExtansionClasses
                     result.Append(CreateSpan("..."));
                     result.Append(CreateLinksInInterval(currentPageIndex - centerPagesQuantity, currentPageIndex + centerPagesQuantity, currentPageIndex, pageUrl));
                     result.Append(CreateSpan("..."));
-                    result.Append(CreateLinksInInterval(lastPage - farPagesQuantity + 1, lastPage, currentPageIndex, pageUrl));
+                    result.Append(CreateLinksInInterval(lastPageIndex - farPagesQuantity + 1, lastPageIndex, currentPageIndex, pageUrl));
                 }
             }
             else
             {
-                result.Append(CreateLinksInInterval(0, lastPage, currentPageIndex, pageUrl));
+                result.Append(CreateLinksInInterval(0, lastPageIndex, currentPageIndex, pageUrl));
             }
 
-            if (currentPageIndex == lastPage)
+            if (currentPageIndex == lastPageIndex)
             {
                 result.Append(CreateSpan("Next"));
             }
