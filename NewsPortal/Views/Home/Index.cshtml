@@ -6,21 +6,20 @@
 @section StyleSheet {
     @Styles.Render("~/bundles/stylesheet-Home")
 }
+
 @section SortingNews {
     @if (Model.Thumbnails.Any())
     {
         if (Model.SortedByDate)
         {
             <li>
-                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false },
-                                new { @class = "sort" })
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = false }, new { @class = "sort" })
             </li>
         }
         else
         {
             <li>
-                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true },
-                                new { @class = "reverse-sort" })
+                @Html.ActionLink("SORTING NEWS", "Index", "Home", new { sortedByDate = true }, new { @class = "reverse-sort" })
             </li>
         }
     }
@@ -31,35 +30,26 @@
         <section class="database-menu-min" title="Memory/Database">
             @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
-                @Html.CheckBox("isDatabase", Model.CheckedToggle, htmlAttributes: new
-                {
-                    @class = "checkbox",
-                    onclick = "this.form.submit();",
-                    id = "isDatabaseMenuMin"
-                })
-                @Html.Label("isDatabaseMenuMin", " ")
+                @Html.DropDownList("storage",
+                      new SelectList(new string[] { "Database", "LocalStorage" }),
+                      "Select storage",
+                      new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-min", title = "Select storage" })
             }
         </section>
     </li>
 }
 
-
 @section DatabaseMenu {
     <div class="database-menu" title="Memory/Database">
         @using (Html.BeginForm("Index", "Home", FormMethod.Post))
         {
-            @Html.CheckBox("isDatabase", Model.CheckedToggle, htmlAttributes: new
-            {
-                @class = "checkbox",
-                onclick = "this.form.submit();",
-                id = "isDatabaseMenu"
-            })
-            @Html.Label("isDatabaseMenu", " ")
+            @Html.DropDownList("storage",
+                     new SelectList(new string[] { "Database", "LocalStorage" }),
+                     "Select storage",
+                     new { @class = "select-storage", onchange = "this.form.submit()", id = "storage-menu-max", title="Select storage"})
         }
- 
     </div>
 }
-
 
 <section class="back-image">
     <div class="background-image">
@@ -109,7 +99,7 @@
             <div class="Title">
                 <span>
                     @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id, title = item.Title },
-                   new { @class = "show-MainNews" })
+                             new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">
@@ -126,5 +116,11 @@
 </section>
 <div class="block-prev-page">
     @Html.PageLinks(Model.LastPageIndex, Model.CurrentPageIndex,
-    number => Url.Action("Index", new { page = number, sortedByDate = Model.SortedByDate }))
+            number => Url.Action("Index", new { page = number, sortedByDate = Model.SortedByDate }))
 </div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.settingsStorage.js"></script>
+}

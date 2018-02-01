@@ -1,69 +1,59 @@
-﻿$(function () {
-	var chat = $.connection.commentHub;
-	chat.client.addNewCommentToPage = function (idComment, name, message, dateTime) {
-		$('#comment-list').append(
-			'<li class="content-list-item" id="item-' + htmlEncode(idComment) + '" >' +
-			'<div class="comment">' +
-			'<div class="comment-head">' +
-			'<a href="" class="user-info">' +
-			'<div class="img-user-info"></div >' +
-			'<span>' +
-			htmlEncode(name) +
-			'</span>' +
-			'</a>' +
-			'<time>' +
-			htmlEncode(dateTime) +
-			'</time>' +
-			'<div class="comment-menu" id="' + htmlEncode(idComment) + '">' +
-			'<input class="deleteComment" type="button" />' +
-			'</div>' +
-			'</div>' +
-			'<div class="comment-message">' +
-			htmlEncode(message) +
-			'</div>' +
-			'<div class="comment-footer">' +
-			'</div>' +
-			'</div>' +
-			'</li>'
-		);
-	};
+﻿var chat = $.connection.commentHub;
 
-	chat.client.deleteCommentToPage = function (idComment) {
-		$("#item-" + idComment).remove();
-	}
+chat.client.addNewCommentToPage = function (idComment, name, message, dateTime) {
+	createComment(idComment, name, message, dateTime);
+};
+chat.client.deleteCommentToPage = function (idComment) {
+	deleteComment(idComment);
+};
 
-	$.connection.hub.start().done(function () {
-		$('#sendcomment').click(function () {
-			var check = checkComment();
-			if (check) {
-				chat.server.send($('#newsId').val(), $('#userId').val(), $('#comment').val(), $('#userName').val());
-				$('#comment').val('').focus();
-			}
-			else {
-				$('#comment').val('The field must be set!').focus();
-			}		
-		});
-
-		$(document).on("click", ".deleteComment", function () {
-			var id = $(this).parent().attr("id");
-			chat.server.delete(id);
-		});
-	});
+$.connection.hub.start().done(function () {
+	$('#sendComment').on('click', buttonSendComment);
+	$(document).on("click", ".deleteComment", buttonDeleteComment);
 });
 
-function checkComment() {
+function buttonSendComment() {
+	var checked = checkedContent();
+	if (checked) {
+		chat.server.send($('#newsId').val(), $('#userId').val(),
+			$('#comment').val(), $('#userName').val());
+
+		$('#comment').val('').focus();
+	}
+	else {
+		$('#comment').val('The field must be set!').focus();
+	}
+};
+
+function buttonDeleteComment() {
+	var id = $(this).parent().attr("id");
+	chat.server.delete(id);
+};
+
+function createComment(idComment, nameUser, message, dateTime) {
+	var comment = $('#template-comment').contents().clone();
+	comment.attr('id', 'item-' + idComment);
+	comment.find('a').children('span').text(nameUser);
+	comment.find('time').text(dateTime);
+	comment.find('div.comment-menu').attr('id', idComment);
+	comment.find('div.comment-message').text(message);
+	$('#comment-list').append(comment);
+};
+
+function deleteComment(idComment) {
+	$("#item-" + idComment).remove();
+};
+
+function checkedContent() {
 	var valueComment = $('#comment').val();
+	var sendComment = $('#sendComment');
+
 	if (valueComment != 0) {
-		$('#sendcomment').removeAttr('disabled');
+		sendComment.removeAttr('disabled');
 		return true;
 	}
 	else {
-		$('#sendcomment').attr('disabled', 'disabled');
+		sendComment.attr('disabled', 'disabled');
 		return false;
 	}
-}
-
-function htmlEncode(value) {
-	var encodedValue = $('<div />').text(value).html();
-	return encodedValue;
 }

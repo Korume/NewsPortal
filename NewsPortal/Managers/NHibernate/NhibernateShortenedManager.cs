@@ -108,10 +108,10 @@ namespace NewsPortal.Managers.NHibernate
                 var session = manager.GetSession();
                 int newsItemsQuantity = 15;
                 var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
-                if (page < 0 || page > lastPage)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
+                //if (page < 0 || page > lastPage)
+                //{
+                //    throw new HttpException(404, "Error 404, bad page");
+                //}
 
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
