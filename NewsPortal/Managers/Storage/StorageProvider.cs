@@ -1,10 +1,9 @@
 ﻿using NewsPortal.Models.ViewModels;
 using System.Collections.Generic;
 using System.Web;
-using NewsPortal.Managers.NHibernate;
 using NewsPortal.Interfaces;
-using NewsPortal.Models.ViewModels.News;
 using NewsPortal.Managers.LocalMemory;
+using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Managers.Storage
 {
@@ -33,36 +32,4 @@ namespace NewsPortal.Managers.Storage
         }
     }
 
-    public static class Storage
-    {
-        public static void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
-        {
-            StorageProvider.GetStorage().Edit(editModel, uploadedImage);
-        }
-
-        public static void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
-        {
-            StorageProvider.GetStorage().Add(newsModel, uploadedImage, UserId);
-        }
-
-        public static void Delete(int id)
-        {
-            StorageProvider.GetStorage().Delete(id);
-        }
-
-        public static HomePageModel GetHomePage(int page = 0, bool sortedByDate = true)
-        {
-            return StorageProvider.GetStorage().GetHomePage(page, sortedByDate);
-        }
-
-        public static NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
-        {
-            return StorageProvider.GetStorage().GetEditedNewsItem(newsItemId, UserId);
-        }
-
-        public static NewsItemMainPageViewModel GetMainNews(int id)
-        {
-            return StorageProvider.GetStorage().GetMainNews(id);
-        }
-    }
 }

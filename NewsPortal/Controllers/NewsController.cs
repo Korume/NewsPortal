@@ -7,6 +7,7 @@ using NewsPortal.Managers.NHibernate;
 using System.Web;
 using NewsPortal.Managers.News;
 using NewsPortal.Managers.Storage;
+using NewsPortal.ModelService;
 
 namespace NewsPortal.Controllers
 {
@@ -28,7 +29,7 @@ namespace NewsPortal.Controllers
                 return View(newsModel);
             }
 
-          Storage.Add(newsModel, uploadedImage, User.Identity.GetUserId());
+            Storage.Add(newsModel, uploadedImage, User.Identity.GetUserId());
 
             return RedirectToAction("Index", "Home");
         }
@@ -40,12 +41,12 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            var editedNewsItem = Storage.GetEditedNewsItem(newsItemId, User.Identity.GetUserId());
+            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, User.Identity.GetUserId());
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
             }
-            return View(Storage.GetEditedNewsItem(newsItemId, User.Identity.GetUserId()));
+            return View(ModelReturner.GetEditedNewsItem(newsItemId.Value, User.Identity.GetUserId()));
         }
 
         [HttpPost]
@@ -69,7 +70,7 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            return View(Storage.GetMainNews(newsItemId));
+            return View(ModelReturner.GetMainNews(newsItemId));
         }
 
         [HttpPost]

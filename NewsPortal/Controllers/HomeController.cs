@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using NewsPortal.Managers.Storage;
+using NewsPortal.ModelService;
 
 namespace NewsPortal.Controllers
 {
@@ -11,7 +12,7 @@ namespace NewsPortal.Controllers
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
-            return View(Storage.GetHomePage(page, sortedByDate));
+            return View(ModelReturner.GetHomePage(page, sortedByDate));
         }
 
         [HttpPost]
@@ -25,11 +26,8 @@ namespace NewsPortal.Controllers
             {
                 StorageProvider.SwitchStorage(MemoryMode.LocalStorage);
             }
-
-            //лучше был бы свитч
-
             Response.Cookies.Add(cookie);
-            return View(Storage.GetHomePage(0, true));
+            return View(ModelReturner.GetHomePage(0, true));
         }
     }
 }

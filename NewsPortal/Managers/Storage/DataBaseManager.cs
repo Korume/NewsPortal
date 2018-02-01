@@ -15,23 +15,28 @@ namespace NewsPortal.Managers.Storage
     public class DataBaseManager :  IStorage
     {
 
-        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
+        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string userId)
         {
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
+
                 using (var transaction = session.BeginTransaction())
                 {
                     NewsItem newsItem = new NewsItem()
                     {
-                        UserId = Convert.ToInt32(UserId),
+                        UserId = Convert.ToInt32(userId),
                         Title = newsModel.Title,
                         Content = newsModel.Content,
                         CreationDate = DateTime.Now
                     };
+
                     session.Save(newsItem);
+
                     newsItem.SourceImage = PictureManager.Upload(uploadedImage, newsItem.Id);
+
                     session.Update(newsItem);
+
                     transaction.Commit();
                 }
             }
@@ -42,11 +47,15 @@ namespace NewsPortal.Managers.Storage
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
+
                 using (var transaction = session.BeginTransaction())
                 {
                     var newsItem = session.Get<NewsItem>(id);
+
                     PictureManager.Delete(newsItem.SourceImage);
+
                     session.Delete(newsItem);
+
                     transaction.Commit();
                 }
             }
@@ -57,115 +66,63 @@ namespace NewsPortal.Managers.Storage
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
+
                 using (var transaction = session.BeginTransaction())
                 {
                     var newsItemToUpdate = session.Get<NewsItem>(editModel.Id);
 
                     newsItemToUpdate.Title = editModel.Title;
+
                     newsItemToUpdate.Content = editModel.Content;
+
                     if (uploadedImage != null)
                     {
                         PictureManager.Delete(newsItemToUpdate.SourceImage);
+
                         newsItemToUpdate.SourceImage = PictureManager.Upload(uploadedImage, editModel.Id);
                     }
+
                     session.Update(newsItemToUpdate);
+
                     transaction.Commit();
                 }
             }
         }
 
-        public HomePageModel GetHomePage(int page, bool sortedByDate)
+        public NewsItem Get(int id)
+        {
+           return NHibernateManager.ReturnDB_News(id);
+        }
+
+        public List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate=true)
         {
             using (var manager = new NHibernateManager())
             {
-                var session = manager.GetSession();
-                int newsItemsQuantity = 15;
-                var lastPage = (int)Math.Ceiling(session.QueryOver<NewsItem>().RowCount() / (double)newsItemsQuantity) - 1;
-                if (page < 0 || page > lastPage)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
-
                 var propertyForOrder = "CreationDate";
+
+                var session = manager.GetSession();
+
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
+
                 var newsItemList = session.CreateCriteria<NewsItem>().
-                    AddOrder(orderType).
-                    SetFirstResult(page * newsItemsQuantity).
-                    SetMaxResults(newsItemsQuantity).
-                    List<NewsItem>();
+                AddOrder(orderType).
+                SetFirstResult(firstIndex).
+                SetMaxResults(itemsCount).
+                List<NewsItem>();
 
-                var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
-                foreach (var item in newsItemList)
-                {
-                    var userName = session.Get<User>(item.UserId)?.UserName ?? String.Empty;
-
-                    thumbnails.Add(new NewsItemThumbnailViewModel()
-                    {
-                        Id = item.Id,
-                        Title = item.Title,
-                        UserId = item.UserId,
-                        CreationDate = item.CreationDate,
-                        UserName = userName
-                    });
-                }
-                var homePageModel = new HomePageModel()
-                {
-                    Thumbnails = thumbnails,
-                    CurrentPage = page,
-                    SortedByDate = sortedByDate,
-                    LastPage = lastPage
-                };
-                return homePageModel;
+                return newsItemList as List<NewsItem>;
             }
         }
 
-        public NewsItemMainPageViewModel GetMainNews(int id)
-        {
-            var newsItem = NHibernateManager.ReturnDB_News(id);
-            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
-            var commentItems = CommentaryManager.ReturnCommentaries(id);
-
-            var showMainNews = new NewsItemMainPageViewModel()
-            {
-                Id = newsItem.Id,
-                Title = newsItem.Title,
-                Content = newsItem.Content,
-                SourceImage = newsItem.SourceImage,
-                CreationDate = newsItem.CreationDate,
-                UserId = newsItem.UserId,
-                UserName = newsUser.UserName,
-                CommentItems = commentItems
-            };
-
-            return showMainNews;
-        }
-
-        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
+        public int Length()
         {
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                if (newsItem == null)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
 
-                bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
-                if (!isUserNewsItemOwner)
-                {
-                    return null;
-                }
-
-                var editedNewsItem = new NewsItemEditViewModel()
-                {
-                    Id = newsItem.Id,
-                    Title = newsItem.Title,
-                    Content = newsItem.Content,
-                    SourceImage = newsItem.SourceImage
-                };
-                return editedNewsItem;
+                return session.QueryOver<NewsItem>().RowCount();
             }
         }
+
     }
 }

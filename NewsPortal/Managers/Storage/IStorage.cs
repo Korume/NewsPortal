@@ -1,5 +1,7 @@
-﻿using NewsPortal.Models.ViewModels;
+﻿using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Models.ViewModels;
 using NewsPortal.Models.ViewModels.News;
+using System.Collections.Generic;
 using System.Web;
 
 namespace NewsPortal.Interfaces
@@ -12,10 +14,10 @@ namespace NewsPortal.Interfaces
 
         void Delete(int id);
 
-        NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string userId);
+        NewsItem Get(int id);
 
-        HomePageModel GetHomePage(int page = 0, bool sortedByDate = true);
+        List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate = true);
 
-        NewsItemMainPageViewModel GetMainNews(int id);
+        int Length();
     }
 }

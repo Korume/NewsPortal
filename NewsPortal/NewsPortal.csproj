@@ -549,6 +549,8 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Managers\Storage\Storage.cs" />
+    <Compile Include="ModelService\ModerReturner.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -620,7 +622,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Managers\LocalMemory\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

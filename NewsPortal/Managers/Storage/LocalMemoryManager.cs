@@ -31,6 +31,17 @@ namespace NewsPortal.Managers.LocalMemory
             });
         }
 
+        public void Delete(int id)
+        {
+            foreach (var news in allNews.ToList())
+            {
+                if (news.Id == id)
+                {
+                    allNews.Remove(news);
+                }
+            }
+        }
+
         public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             foreach (var news in allNews.ToList())
@@ -49,101 +60,44 @@ namespace NewsPortal.Managers.LocalMemory
             }
         }
 
-        public void Delete(int id)
+        public NewsItem Get(int id)
         {
+            NewsItem article=null;
             foreach (var news in allNews.ToList())
             {
                 if (news.Id == id)
                 {
-                    allNews.Remove(news);
+                   article=news;
                 }
+                break;   
             }
+            return article;
         }
 
-        public HomePageModel GetHomePage(int page, bool sortedByDate)
+        public List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate = true)
         {
-            int newsItemsQuantity = 15;
             var sortedNews = sortedByDate ? allNews.OrderBy(x => x.CreationDate).ToList() :
                     allNews.OrderByDescending(x => x.CreationDate).ToList();
-            //var some = allNews.GetRange(page * newsItemsQuantity, newsItemsQuantity);
-            var lastPage = (int)allNews.Count / newsItemsQuantity;
-            var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
-
-            foreach (var item in sortedNews)
+ 
+            List<NewsItem> articleRange=null;
+            if (sortedNews.Count > 0)
             {
-                string userName;
-                using (var manager = new NHibernateManager())
+                try
                 {
-                    var session = manager.GetSession();
-                    userName = session.Get<User>(item.UserId)?.UserName ?? String.Empty;
+                    articleRange = sortedNews.GetRange(firstIndex, itemsCount);
                 }
-
-                thumbnails.Add(new NewsItemThumbnailViewModel()
+                catch
                 {
-                    Id = item.Id,
-                    Title = item.Title,
-                    UserId = item.UserId,
-                    UserName = userName,
-                    CreationDate = item.CreationDate
-                });
+                    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count-firstIndex);
+                }
             }
-            var homePageModel = new HomePageModel()
-            {
-                Thumbnails = thumbnails,
-                CurrentPage = page,
-                SortedByDate = sortedByDate,
-                LastPage = lastPage
-            };
-            return homePageModel;
+            return articleRange;
+
         }
 
-        public NewsItemMainPageViewModel GetMainNews(int id)
+        public int Length()
         {
-            foreach (var news in allNews.ToList())
-            {
-                if (news.Id == id)
-                {
-                    var commentItems = CommentaryManager.ReturnCommentaries(news.Id);
-                    var newsUser = NHibernateManager.ReturnDB_User(news.UserId);
-                    var showMainNews = new NewsItemMainPageViewModel()
-                    {
-                        Id = news.Id,
-                        Title = news.Title,
-                        Content = news.Content,
-                        SourceImage = news.SourceImage,
-                        CreationDate = news.CreationDate,
-                        UserId = news.UserId,
-                        UserName = newsUser.UserName,
-                        CommentItems = commentItems
-                    };
-                    return showMainNews;
-                }
-            }
-            return null;
-        }
-
-        public NewsItemEditViewModel GetEditedNewsItem(int? newsItemId, string UserId)
-        {
-            foreach (var news in allNews.ToList())
-            {
-                if (news.Id == newsItemId)
-                {
-                    bool isUserOwner = news.UserId == Convert.ToInt32(UserId);
-                    if (!isUserOwner)
-                    {
-                        return null;
-                    }
-                    var editedNewsItem = new NewsItemEditViewModel()
-                    {
-                        Id = news.Id,
-                        Title = news.Title,
-                        Content = news.Content,
-                        SourceImage = news.SourceImage
-                    };
-                    return editedNewsItem;
-                }
-            }
-            return null;
+            return allNews.Capacity;
         }
     }
 }
