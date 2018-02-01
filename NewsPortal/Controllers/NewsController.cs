@@ -28,9 +28,9 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(bool isDatabase)
+        public ActionResult Index(string storage)
         {
-            if (isDatabase || cookie.Value == "Database")
+            if (storage == "Database" || cookie.Value == "Database")
             {
                 MemoryMode.CurrentMemoryMode = MemMode.Database;
                 if (cookie.Value != "Database")
@@ -38,7 +38,7 @@ namespace NewsPortal.Controllers
                     cookie.Value = "Database";
                 }
             }
-            else if (!isDatabase || cookie.Value == "LocalStorage")
+            else if (storage == "LocalStorage" || cookie.Value == "LocalStorage")
             {
                 MemoryMode.CurrentMemoryMode = MemMode.LocalStorage;
                 if (cookie.Value != "LocalStorage")
@@ -50,6 +50,7 @@ namespace NewsPortal.Controllers
             Response.Cookies.Add(cookie);
             return View(StorageManager.GetHomePage(0, true));
         }
+
 
         [Authorize]
         public ActionResult Add()
