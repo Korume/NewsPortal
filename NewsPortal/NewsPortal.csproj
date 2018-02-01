@@ -354,6 +354,7 @@
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
     <Content Include="Content\AdditionalFiles\Icon\user.png" />
+    <Content Include="Content\AdditionalFiles\Image\image-startpage.jpg" />
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
@@ -500,6 +501,7 @@
     <Content Include="Content\StyleSheet_HomePage.css" />
     <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
+    <Content Include="Content\StyleSheet_StartPage.css" />
     <Content Include="Content\UploadedImages\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
