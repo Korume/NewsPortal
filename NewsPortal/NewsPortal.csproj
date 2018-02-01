@@ -500,7 +500,6 @@
     <Content Include="Content\StyleSheet_HomePage.css" />
     <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
-    <Content Include="Content\UploadedImages\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Models\DataBaseModels\User.hbm.xml">
@@ -624,6 +623,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\UploadedImages\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup />
