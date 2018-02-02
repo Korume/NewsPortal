@@ -22,7 +22,7 @@ namespace NewsPortal.Controllers
                 cookie.Expires = DateTime.Now.AddDays(10);
                 Response.Cookies.Add(cookie);
             }
-            return View(ModelReturner.GetHomePage(page, sortedByDate));
+            return View(ModelProvider.GetHomePage(page, sortedByDate));
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace NewsPortal.Controllers
             }
             cookie.Expires = DateTime.Now.AddDays(10);
             Response.Cookies.Add(cookie);
-            return View(ModelReturner.GetHomePage(0, true));
+            return View(ModelProvider.GetHomePage(0, true));
         }
 
         [Authorize]
@@ -77,7 +77,7 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
+            var editedNewsItem = ModelProvider.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
@@ -105,7 +105,7 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            return View(ModelReturner.GetMainNews(newsItemId));
+            return View(ModelProvider.GetMainNews(newsItemId));
         }
 
         [HttpPost]

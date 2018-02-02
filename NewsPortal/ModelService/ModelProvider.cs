@@ -11,19 +11,21 @@ using System.Web;
 
 namespace NewsPortal.ModelService
 {
-    public static class ModelReturner
+    public static class ModelProvider
     {
         static public HomePageModel GetHomePage(int page, bool sortedByDate)
         {
             int newsItemsQuantity = 15;
 
             var lastPage = (int)Math.Ceiling(Storage.Length() / (double)newsItemsQuantity) - 1;
-            /*
+            if (lastPage == -1)
+            {
+                lastPage = 0;
+            }
             if (page < 0 || page > lastPage)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
-             */
+            {
+                throw new HttpException(404, "Error 404, bad page");
+            }
             List<NewsItem> newsItemList = Storage.GetItems(page * newsItemsQuantity, newsItemsQuantity, sortedByDate);
             /*
             if (newsItemList == null)

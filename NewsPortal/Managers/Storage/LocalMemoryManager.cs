@@ -58,7 +58,7 @@ namespace NewsPortal.Managers.LocalMemory
         public NewsItem Get(int id)
         {
             NewsItem article = null;
-            foreach (var news in allNews.ToList())
+            foreach (var news in allNews)
             {
                 if (news.Id == id)
                 {

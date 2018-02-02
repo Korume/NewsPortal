@@ -553,7 +553,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Managers\Storage\Storage.cs" />
-    <Compile Include="ModelService\ModelReturner.cs" />
+    <Compile Include="ModelService\ModelProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

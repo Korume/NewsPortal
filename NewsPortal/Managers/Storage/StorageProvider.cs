@@ -14,6 +14,7 @@ namespace NewsPortal.Managers.Storage
 
         static StorageProvider()
         {
+            currentStorageMode = MemoryMode.Database;
             storageManagers.Add(MemoryMode.Database, new DataBaseManager());
             storageManagers.Add(MemoryMode.LocalStorage, new LocalMemoryManager());
         }
