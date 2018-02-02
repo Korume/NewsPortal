@@ -23,6 +23,7 @@ namespace NewsPortal.Managers.Storage
 
         public static IStorage GetStorage()
         {
+            currentStorageMode = MemoryMode.LocalStorage;
             return storageManagers[currentStorageMode];
         }
 

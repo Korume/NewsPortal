@@ -66,9 +66,8 @@ namespace NewsPortal.Managers.LocalMemory
             {
                 if (news.Id == id)
                 {
-                   article=news;
-                }
-                break;   
+                   article=news;break;
+                }  
             }
             return article;
         }
