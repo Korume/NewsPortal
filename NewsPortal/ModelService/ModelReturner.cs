@@ -99,16 +99,16 @@ namespace NewsPortal.ModelService
             return showMainNews;
         }
 
-        static public NewsItemEditViewModel GetEditedNewsItem(int newsItemId, string UserId)
+        static public NewsItemEditViewModel GetEditedNewsItem(int newsItemId, string userId)
         {
            var newsItem = Storage.Get(newsItemId);
 
            if (newsItem == null)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
+           {
+              throw new HttpException(404, "Error 404, bad page");
+           }
 
-           bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
+           bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(userId);
 
            if (!isUserNewsItemOwner)
            {

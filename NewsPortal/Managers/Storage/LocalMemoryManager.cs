@@ -50,7 +50,6 @@ namespace NewsPortal.Managers.LocalMemory
                 {
                     news.Title = editModel.Title;
                     news.Content = editModel.Content;
-                    
                     // перенести
                     if (uploadedImage != null)
                     {
