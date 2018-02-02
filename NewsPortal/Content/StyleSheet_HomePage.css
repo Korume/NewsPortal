@@ -3,7 +3,7 @@
 }
 
     main .back-image {
-        height: 450px;
+        height: 91vh;
         position: relative;
         border: 1px solid white;
         border-left: none;
@@ -36,11 +36,7 @@
     }
 
         .background-text span:first-child {
-            font-size: 100px;
-        }
-
-        .background-text span:last-child {
-            font-size: 80px;
+            font-size: 120px;
         }
 /*-----------------------NewsHead---------------------------*/
 main .news-head {
@@ -51,6 +47,7 @@ main .news-head {
     font-size: 50px;
     background-color: white;
     box-sizing: border-box;
+    z-index: 1;
 }
 
     main .news-head span {

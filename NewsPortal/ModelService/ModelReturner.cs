@@ -14,7 +14,7 @@ namespace NewsPortal.ModelService
     public static class ModelReturner
     {
         static public HomePageModel GetHomePage(int page, bool sortedByDate)
-        {   
+        {
             int newsItemsQuantity = 15;
 
             var lastPage = (int)Math.Ceiling(Storage.Length() / (double)newsItemsQuantity) - 1;
@@ -56,19 +56,19 @@ namespace NewsPortal.ModelService
             }
             catch
             {
-                
+
             }
 
             var homePageModel = new HomePageModel()
             {
                 Thumbnails = thumbnails,
                 CurrentPageIndex = page,
-                LastPageIndex=lastPage,
+                LastPageIndex = lastPage,
                 SortedByDate = sortedByDate,
 
             };
 
-                return homePageModel;
+            return homePageModel;
         }
 
         static public NewsItemMainPageViewModel GetMainNews(int id)
@@ -77,7 +77,7 @@ namespace NewsPortal.ModelService
 
             if (newsItem == null)
             {
-               throw new HttpException(404, "Error 404, bad page");
+                throw new HttpException(404, "Error 404, bad page");
             }
 
             var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
@@ -86,45 +86,47 @@ namespace NewsPortal.ModelService
 
             var showMainNews = new NewsItemMainPageViewModel()
             {
-               Id = newsItem.Id,
-               Title = newsItem.Title,
-               Content = newsItem.Content,
-               SourceImage = newsItem.SourceImage,
-               CreationDate = newsItem.CreationDate,
-               UserId = newsItem.UserId,
-               UserName = newsUser.UserName,
-               CommentItems = commentItems
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName,
+                CommentItems = commentItems
             };
-            
+
             return showMainNews;
         }
 
-        static public NewsItemEditViewModel GetEditedNewsItem(int newsItemId, string userId)
+        static public NewsItemViewModel GetEditedNewsItem(int newsItemId, int userId)
         {
-           var newsItem = Storage.Get(newsItemId);
+            var newsItem = Storage.Get(newsItemId);
+            var newsItemUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
 
-           if (newsItem == null)
-           {
-              throw new HttpException(404, "Error 404, bad page");
-           }
+            if (newsItem == null)
+            {
+                throw new HttpException(404, "Error 404, bad page");
+            }
+            bool isUserNewsItemOwner = newsItem.UserId == userId;
 
-           bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(userId);
+            if (!isUserNewsItemOwner)
+            {
+                return null;
+            }
 
-           if (!isUserNewsItemOwner)
-           {
-              return null;
-           }
+            var editedNewsItem = new NewsItemViewModel()
+            {
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserName = newsItemUser.UserName
+            };
 
-           var editedNewsItem = new NewsItemEditViewModel()
-           {
-              Id = newsItem.Id,
-              Title = newsItem.Title,
-              Content = newsItem.Content,
-              SourceImage = newsItem.SourceImage
-           };
+            return editedNewsItem;
 
-           return editedNewsItem;
-            
         }
     }
 }

@@ -354,6 +354,7 @@
     <Content Include="Content\AdditionalFiles\Icon\ISortable.png" />
     <Content Include="Content\AdditionalFiles\Icon\pass-lock.png" />
     <Content Include="Content\AdditionalFiles\Icon\user.png" />
+    <Content Include="Content\AdditionalFiles\Image\image-startpage.jpg" />
     <Content Include="Content\AdditionalFiles\Image\NewYork.jpg" />
     <Content Include="Content\AdditionalFiles\Sprite\BSprite.png" />
     <Content Include="Content\AdditionalFiles\Sprite\white_sprait.png" />
@@ -500,7 +501,7 @@
     <Content Include="Content\StyleSheet_HomePage.css" />
     <Content Include="Content\StyleSheet_NewsPage.css" />
     <Content Include="Content\StyleSheet_ServicePages.css" />
-    <Content Include="Content\UploadedImages\Site.css" />
+    <Content Include="Content\StyleSheet_StartPage.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Models\DataBaseModels\User.hbm.xml">
@@ -572,11 +573,10 @@
     <Compile Include="Managers\Identity\SignInManager.cs" />
     <Compile Include="Managers\Identity\UserManager.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\Partial\DialogViewModel.cs" />
+    <Compile Include="Models\ViewModels\News\Partial\DialogViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomePageModel.cs" />
     <!-- <Compile Include="Models\ViewModels\NewsItemViewModel.cs" /> -->
-    <Compile Include="Models\ViewModels\News\NewsItemAddViewModel.cs" />
-    <Compile Include="Models\ViewModels\News\NewsItemEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\News\NewsItemViewModel.cs" />
     <Compile Include="Models\ViewModels\News\NewsItemMainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\NewsItemThumbnailViewModel.cs" />
     <!-- Slava -->
@@ -622,7 +622,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\UploadedImages\" />
+  </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

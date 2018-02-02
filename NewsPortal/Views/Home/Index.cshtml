@@ -1,5 +1,14 @@
 ﻿@section StyleSheet{
-    @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
+    @Styles.Render("~/bundles/stylesheet-Home", "~/bundles/stylesheet-Start")
 }
-<h1>Welcome to our site</h1>
-@Html.ActionLink("To the news", "Index", "News")
+
+<section class="back-image">
+    <div class="background-image">
+        <!--Here is the picture-->
+    </div>
+    <div class="background-text">
+        <span>Welcome to our site</span> <br />
+        @Html.ActionLink("To the news", "Index", "News")
+    </div>
+</section>
+

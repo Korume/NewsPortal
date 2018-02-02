@@ -1,0 +1,51 @@
+﻿main {
+    height: 90vh !important;
+}
+
+footer {
+    display: none;
+}
+
+main .back-image {
+    height: inherit;
+    position: relative;
+    border: none;
+}
+
+.background-image {
+    background: url("/Content/AdditionalFiles/Image/image-startpage.jpg") no-repeat fixed;
+    background-size: cover;
+    filter: blur(10px);
+}
+
+.background-text {
+    position: inherit;
+    height: inherit;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+    .background-text span {
+        color: white;
+        text-align: center; 
+    }
+
+        .background-text span:first-child {
+            font-size: 100px;
+        }
+
+    .background-text a:last-child {
+        font-size: 8vw;
+        text-decoration: none;
+        color: white;
+        border: 2px solid white;
+        padding: 10px;
+        transition-duration: 1s;
+    }
+
+        .background-text a:last-child:hover {
+            background-color: rgba(37, 37, 37, 0.4588235294117647);
+        }

@@ -11,6 +11,5 @@ namespace NewsPortal.Controllers
         {
             return View();
         }
-
     }
 }

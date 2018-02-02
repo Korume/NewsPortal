@@ -1,37 +1,40 @@
-﻿@model NewsPortal.Models.ViewModels.NewsItemEditViewModel
+﻿@model NewsPortal.Models.ViewModels.NewsItemViewModel
 
-@section StyleSheet{
-    @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
-}
-<section class="Section-NewsEdit">
-    <div class="title-head">
-        <span>News editing</span>
-    </div>
-    <div class="form-news-edit">
-        @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.EditorForModel()
-            <div class="form-news-submits">
-                <input type="submit" value="Save changes" class="btn-submit-edit" />
-                <div>
-                    <div class="file_upload">
-                        <button type="button"></button>
-                        <input type="file" name="uploadedImage" />
-                    </div>
-                    <div class="form-news-clean">
-                        @Html.ActionLink(" ", "Add", "News")
+    @section StyleSheet{
+        @Styles.Render("~/bundles/stylesheet-Site", "~/bundles/stylesheet-Service", "~/bundles/stylesheet-Help")
+    }
+    <section class="Section-NewsEdit">
+        <div class="title-head">
+            <span>News editing</span>
+        </div>
+        <div class="form-news-edit">
+            @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.EditorForModel()
+                <div class="form-news-submits">
+                    <input type="submit" value="Save changes" class="btn-submit-edit" />
+                    <div>
+                        <div class="file_upload">
+                            <button type="button"></button>
+                            <input type="file" name="uploadedImage" />
+                        </div>
+                        <div class="form-news-clean">
+                            @Html.ActionLink(" ", "Add", "News")
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        }
-    </div>
-   
-</section>
+            }
+        </div>
+        @Html.Partial("Preview", new NewsPortal.Models.ViewModels.News.NewsItemMainPageViewModel { CreationDate = Model.CreationDate, UserName = Model.UserName})
+    </section>
 
-@section scripts{
-    <script src="~/CKEditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace("Content", { height: 250 });
-    </script>
-}
+    @section scripts{
+        <script src="~/CKEditor/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace("Content", { height: 250 });
+        </script>
+        <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+        <script src="~/Scripts/jquery.preview.js"></script>
+    }

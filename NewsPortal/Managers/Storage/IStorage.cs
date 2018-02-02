@@ -8,16 +8,14 @@ namespace NewsPortal.Interfaces
 {
     public interface IStorage
     {
-        void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage);
-
-        void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId);
-
+        void Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage);
+        void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int UserId);
         void Delete(int id);
 
+        #region Вспомогательные функции
         NewsItem Get(int id);
-
         List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate = true);
-
         int Length();
+        #endregion
     }
 }

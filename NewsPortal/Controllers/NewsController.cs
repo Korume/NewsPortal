@@ -29,14 +29,16 @@ namespace NewsPortal.Controllers
         public ActionResult Index(string storage)
         {
             if (storage == "Database" || cookie.Value == "Database")
+            {
+                StorageProvider.SwitchStorage(MemoryMode.Database);
                 if (cookie.Value != "Database")
                 {
                     cookie.Value = "Database";
                 }
-            else 
+            }
             if (storage == "LocalStorage" || cookie.Value == "LocalStorage")
             {
-
+                StorageProvider.SwitchStorage(MemoryMode.LocalStorage);
                 if (cookie.Value != "LocalStorage")
                 {
                     cookie.Value = "LocalStorage";
@@ -56,15 +58,14 @@ namespace NewsPortal.Controllers
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(newsModel.Title) && string.IsNullOrEmpty(newsModel.Content))
             {
                 return View(newsModel);
             }
-
-            Storage.Add(newsModel, uploadedImage, User.Identity.GetUserId());
-
+            Storage.Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
             return RedirectToAction("Index", "News");
         }
 
@@ -75,7 +76,8 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, User.Identity.GetUserId());
+
+            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
@@ -86,13 +88,13 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             if (!ModelState.IsValid)
             {
                 return View(editModel);
             }
-
             Storage.Edit(editModel, uploadedImage);
             return RedirectToAction("Index", "News");
         }
@@ -103,7 +105,6 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-
             return View(ModelReturner.GetMainNews(newsItemId));
         }
 
