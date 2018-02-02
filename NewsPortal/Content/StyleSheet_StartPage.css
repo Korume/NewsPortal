@@ -47,6 +47,5 @@ main .back-image {
     }
 
         .background-text a:last-child:hover {
-            background-color: #252525;
-            border:;
+            background-color: rgba(37, 37, 37, 0.4588235294117647);
         }

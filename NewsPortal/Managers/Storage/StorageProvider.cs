@@ -1,9 +1,6 @@
-﻿using NewsPortal.Models.ViewModels;
-using System.Collections.Generic;
-using System.Web;
+﻿using System.Collections.Generic;
 using NewsPortal.Interfaces;
 using NewsPortal.Managers.LocalMemory;
-using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Managers.Storage
 {
