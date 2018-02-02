@@ -9,12 +9,12 @@ namespace NewsPortal.Managers.Storage
 {
     public static class Storage
     {
-        public static void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
+        public static void Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             StorageProvider.GetStorage().Edit(editModel, uploadedImage);
         }
 
-        public static void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string userId)
+        public static void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int userId)
         {
             StorageProvider.GetStorage().Add(newsModel, uploadedImage, userId);
         }

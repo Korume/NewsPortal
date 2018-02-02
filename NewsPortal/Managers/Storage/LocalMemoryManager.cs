@@ -3,27 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NewsPortal.Interfaces;
-using NewsPortal.Managers.Commentary;
-using NewsPortal.Managers.NHibernate;
 using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
-using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.LocalMemory
 {
-    public class LocalMemoryManager :  IStorage
+    public class LocalMemoryManager : IStorage
     {
         static int id = 0;
         List<NewsItem> allNews = new List<NewsItem>();
 
-        public void Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage, string UserId)
+        public void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int userId)
         {
             id++;
             allNews.Add(new NewsItem()
             {
                 Id = id,
-                UserId = Convert.ToInt32(UserId),
+                UserId = userId,
                 Title = newsModel.Title,
                 Content = newsModel.Content,
                 CreationDate = DateTime.Now,
@@ -42,7 +39,7 @@ namespace NewsPortal.Managers.LocalMemory
             }
         }
 
-        public void Edit(NewsItemEditViewModel editModel, HttpPostedFileBase uploadedImage)
+        public void Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             foreach (var news in allNews.ToList())
             {
@@ -50,19 +47,15 @@ namespace NewsPortal.Managers.LocalMemory
                 {
                     news.Title = editModel.Title;
                     news.Content = editModel.Content;
-                    // перенести
-                    if (uploadedImage != null)
-                    {
-                        news.SourceImage = PictureManager.Upload(uploadedImage, id);
-                    }
+                    news.SourceImage = PictureManager.Upload(uploadedImage, id);
                 }
             }
         }
 
         public NewsItem Get(int id)
         {
-            NewsItem article=null;
-            foreach (var news in allNews.ToList())
+            NewsItem article = null;
+            foreach (var news in allNews)
             {
                 if (news.Id == id)
                 {
@@ -76,8 +69,8 @@ namespace NewsPortal.Managers.LocalMemory
         {
             var sortedNews = sortedByDate ? allNews.OrderBy(x => x.CreationDate).ToList() :
                     allNews.OrderByDescending(x => x.CreationDate).ToList();
- 
-            List<NewsItem> articleRange=null;
+
+            List<NewsItem> articleRange = null;
             if (sortedNews.Count > 0)
             {
                 try
@@ -86,7 +79,7 @@ namespace NewsPortal.Managers.LocalMemory
                 }
                 catch
                 {
-                    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count-firstIndex);
+                    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count - firstIndex);
                 }
             }
             return articleRange;

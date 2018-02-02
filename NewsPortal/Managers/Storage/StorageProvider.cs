@@ -1,9 +1,6 @@
-﻿using NewsPortal.Models.ViewModels;
-using System.Collections.Generic;
-using System.Web;
+﻿using System.Collections.Generic;
 using NewsPortal.Interfaces;
 using NewsPortal.Managers.LocalMemory;
-using NewsPortal.Models.DataBaseModels;
 
 namespace NewsPortal.Managers.Storage
 {
@@ -13,23 +10,30 @@ namespace NewsPortal.Managers.Storage
     {
         static MemoryMode currentStorageMode;
 
-        static Dictionary<MemoryMode,IStorage> storageManagers=new Dictionary<MemoryMode,IStorage>(2);
+        static Dictionary<MemoryMode, IStorage> storageManagers = new Dictionary<MemoryMode, IStorage>(2);
 
         static StorageProvider()
         {
-            storageManagers.Add(MemoryMode.Database,new DataBaseManager());
-            storageManagers.Add(MemoryMode.LocalStorage,new LocalMemoryManager());
+            storageManagers.Add(MemoryMode.Database, new DataBaseManager());
+            storageManagers.Add(MemoryMode.LocalStorage, new LocalMemoryManager());
         }
 
         public static IStorage GetStorage()
         {
-            currentStorageMode = MemoryMode.LocalStorage;
             return storageManagers[currentStorageMode];
         }
 
         public static void SwitchStorage(MemoryMode value)
         {
             currentStorageMode = value;
+        }
+
+        public static MemoryMode ModeStorage
+        {
+            get
+            {
+                return currentStorageMode;
+            }
         }
     }
 
