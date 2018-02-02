@@ -99,7 +99,7 @@ namespace NewsPortal.ModelService
             return showMainNews;
         }
 
-        static public NewsItemViewModel GetEditedNewsItem(int newsItemId, string UserId)
+        static public NewsItemViewModel GetEditedNewsItem(int newsItemId, int userId)
         {
             var newsItem = Storage.Get(newsItemId);
             var newsItemUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
@@ -108,7 +108,7 @@ namespace NewsPortal.ModelService
             {
                 throw new HttpException(404, "Error 404, bad page");
             }
-            bool isUserNewsItemOwner = newsItem.UserId == Convert.ToInt32(UserId);
+            bool isUserNewsItemOwner = newsItem.UserId == userId;
 
             if (!isUserNewsItemOwner)
             {

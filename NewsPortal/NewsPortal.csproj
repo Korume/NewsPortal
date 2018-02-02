@@ -625,7 +625,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\UploadedImages\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

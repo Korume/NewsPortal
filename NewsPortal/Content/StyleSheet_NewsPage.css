@@ -101,6 +101,12 @@ main {
             font-size: 35px;
             font-family: 'Roboto', sans-serif;
         }
+        .content-left > p {
+            padding: 10px;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            font-size: 25px;
+        }
 
 .content-list {
     list-style-type: none;

@@ -10,12 +10,12 @@ namespace NewsPortal.Managers.Storage
     {
         static MemoryMode currentStorageMode;
 
-        static Dictionary<MemoryMode,IStorage> storageManagers=new Dictionary<MemoryMode,IStorage>(2);
+        static Dictionary<MemoryMode, IStorage> storageManagers = new Dictionary<MemoryMode, IStorage>(2);
 
         static StorageProvider()
         {
-            storageManagers.Add(MemoryMode.Database,new DataBaseManager());
-            storageManagers.Add(MemoryMode.LocalStorage,new LocalMemoryManager());
+            storageManagers.Add(MemoryMode.Database, new DataBaseManager());
+            storageManagers.Add(MemoryMode.LocalStorage, new LocalMemoryManager());
         }
 
         public static IStorage GetStorage()
@@ -26,6 +26,14 @@ namespace NewsPortal.Managers.Storage
         public static void SwitchStorage(MemoryMode value)
         {
             currentStorageMode = value;
+        }
+
+        public static MemoryMode ModeStorage
+        {
+            get
+            {
+                return currentStorageMode;
+            }
         }
     }
 

@@ -77,7 +77,7 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, User.Identity.GetUserId());
+            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
