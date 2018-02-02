@@ -80,7 +80,7 @@ namespace NewsPortal.Controllers
             {
                 return View("NewsOwnerError");
             }
-            return View(ModelReturner.GetEditedNewsItem(newsItemId.Value, User.Identity.GetUserId()));
+            return View(editedNewsItem);
         }
 
         [HttpPost]

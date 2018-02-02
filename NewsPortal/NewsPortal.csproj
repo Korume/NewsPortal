@@ -624,7 +624,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
