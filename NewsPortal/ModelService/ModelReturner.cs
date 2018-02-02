@@ -18,12 +18,12 @@ namespace NewsPortal.ModelService
             int newsItemsQuantity = 15;
 
             var lastPage = (int)Math.Ceiling(Storage.Length() / (double)newsItemsQuantity) - 1;
-            /*
+
             if (page < 0 || page > lastPage)
-                {
-                    throw new HttpException(404, "Error 404, bad page");
-                }
-             */
+            {
+                throw new HttpException(404, "Error 404, bad page");
+            }
+
             List<NewsItem> newsItemList = Storage.GetItems(page * newsItemsQuantity, newsItemsQuantity, sortedByDate);
             /*
             if (newsItemList == null)

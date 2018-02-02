@@ -81,14 +81,14 @@ namespace NewsPortal.Managers.LocalMemory
             List<NewsItem> articleRange=null;
             if (sortedNews.Count > 0)
             {
-                try
-                {
+                //try
+                //{
                     articleRange = sortedNews.GetRange(firstIndex, itemsCount);
-                }
-                catch
-                {
-                    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count-firstIndex);
-                }
+                //}
+                //catch
+                //{
+                //    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count-firstIndex);
+                //}
             }
             return articleRange;
 
