@@ -7,7 +7,7 @@ using NewsPortal.Models.ViewModels.News;
 using System;
 using System.Collections.Generic;
 using System.Web;
-
+using System.Configuration;
 
 namespace NewsPortal.ModelService
 {
@@ -15,16 +15,21 @@ namespace NewsPortal.ModelService
     {
         static public HomePageModel GetHomePage(int page, bool sortedByDate)
         {
-            int newsItemsQuantity = 15;
+            int newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["pathForImage"]);
 
-            var lastPage = (int)Math.Ceiling(Storage.Length() / (double)newsItemsQuantity) - 1;
+            int lastPage = (int)Math.Ceiling(StorageManager.GetStorage().Length() / (double)newsItemsQuantity) - 1;
+
+            if(lastPage == -1)
+            {
+                lastPage = 0;
+            }
 
             if (page < 0 || page > lastPage)
             {
                 throw new HttpException(404, "Error 404, bad page");
             }
 
-            List<NewsItem> newsItemList = Storage.GetItems(page * newsItemsQuantity, newsItemsQuantity, sortedByDate);
+            List<NewsItem> newsItemList = StorageManager.GetStorage().GetItems(page * newsItemsQuantity, newsItemsQuantity, sortedByDate);
             /*
             if (newsItemList == null)
             {
@@ -73,7 +78,7 @@ namespace NewsPortal.ModelService
 
         static public NewsItemMainPageViewModel GetMainNews(int id)
         {
-            var newsItem = Storage.Get(id);
+            var newsItem = StorageManager.GetStorage().Get(id);
 
             if (newsItem == null)
             {
@@ -101,7 +106,7 @@ namespace NewsPortal.ModelService
 
         static public NewsItemViewModel GetEditedNewsItem(int newsItemId, int userId)
         {
-            var newsItem = Storage.Get(newsItemId);
+            var newsItem = StorageManager.GetStorage().Get(newsItemId);
             var newsItemUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
 
             if (newsItem == null)

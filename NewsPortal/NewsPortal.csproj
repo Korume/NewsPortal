@@ -552,7 +552,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Managers\Storage\Storage.cs" />
     <Compile Include="ModelService\ModelReturner.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -564,7 +563,7 @@
     <Compile Include="Managers\NHibernate\NHibernateManager.cs" />
     <Compile Include="Managers\Storage\DataBaseManager.cs" />
     <Compile Include="Managers\Picture\PictureManager.cs" />
-    <Compile Include="Managers\Storage\StorageProvider.cs" />
+    <Compile Include="Managers\Storage\StorageManager.cs" />
     <Compile Include="ModelBinders\RegisterModelBinder.cs" />
     <Compile Include="Models\DataBaseModels\CommentItem.cs" />
     <Compile Include="Models\DataBaseModels\NewsItem.cs" />

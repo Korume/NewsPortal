@@ -12,7 +12,6 @@ namespace NewsPortal.Managers.Storage
 {
     public class DataBaseManager :  IStorage
     {
-
         public void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int userId)
         {
             using (var manager = new NHibernateManager())
@@ -83,12 +82,10 @@ namespace NewsPortal.Managers.Storage
         {
             using (var manager = new NHibernateManager())
             {
-                var propertyForOrder = "CreationDate";
-
                 var session = manager.GetSession();
 
+                var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
-
                 var newsItemList = session.CreateCriteria<NewsItem>().
                 AddOrder(orderType).
                 SetFirstResult(firstIndex).
@@ -104,7 +101,6 @@ namespace NewsPortal.Managers.Storage
             using (var manager = new NHibernateManager())
             {
                 var session = manager.GetSession();
-
                 return session.QueryOver<NewsItem>().RowCount();
             }
         }

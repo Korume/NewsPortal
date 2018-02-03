@@ -11,20 +11,21 @@ namespace NewsPortal.App_Code
     {
         public static MvcHtmlString PageLinks(this HtmlHelper html, int lastPageIndex, int currentPageIndex, Func<int, string> pageUrl)
         {
+            if(lastPageIndex == 0)
+            {
+                return MvcHtmlString.Empty;
+            }
+
             const int boundaryPagesQuantity = 5;
             const int centerPagesQuantity = 2;
             const int farPagesQuantity = 2;
 
             var result = new StringBuilder();
-            if (currentPageIndex == 0)
-
-            {
-                result.Append(CreateSpan("Previous"));
-            }
-            else
+            if (currentPageIndex != 0)
             {
                 result.Append(CreateLink("Previous", currentPageIndex - 1, pageUrl));
             }
+
             bool isPagingHaveGap = currentPageIndex + centerPagesQuantity * 2 < lastPageIndex || 
                 currentPageIndex - centerPagesQuantity * 2 >= 0;
             if (isPagingHaveGap)
@@ -58,11 +59,7 @@ namespace NewsPortal.App_Code
                 result.Append(CreateLinksInInterval(0, lastPageIndex, currentPageIndex, pageUrl));
             }
 
-            if (currentPageIndex == lastPageIndex)
-            {
-                result.Append(CreateSpan("Next"));
-            }
-            else
+            if (currentPageIndex != lastPageIndex)
             {
                 result.Append(CreateLink("Next", currentPageIndex + 1, pageUrl));
             }

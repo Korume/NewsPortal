@@ -11,7 +11,6 @@ namespace NewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        const int newsItemsQuantity = 15;
         HttpCookie cookie = new HttpCookie("Storage");
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
@@ -22,6 +21,7 @@ namespace NewsPortal.Controllers
                 cookie.Expires = DateTime.Now.AddDays(10);
                 Response.Cookies.Add(cookie);
             }
+
             return View(ModelReturner.GetHomePage(page, sortedByDate));
         }
 
@@ -30,7 +30,7 @@ namespace NewsPortal.Controllers
         {
             if (storage == "Database" || cookie.Value == "Database")
             {
-                StorageProvider.SwitchStorage(MemoryMode.Database);
+                StorageManager.SwitchStorage(MemoryMode.Database);
                 if (cookie.Value != "Database")
                 {
                     cookie.Value = "Database";
@@ -38,7 +38,7 @@ namespace NewsPortal.Controllers
             }
             if (storage == "LocalStorage" || cookie.Value == "LocalStorage")
             {
-                StorageProvider.SwitchStorage(MemoryMode.LocalStorage);
+                StorageManager.SwitchStorage(MemoryMode.LocalStorage);
                 if (cookie.Value != "LocalStorage")
                 {
                     cookie.Value = "LocalStorage";
@@ -65,7 +65,8 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
-            Storage.Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
+
+            StorageManager.GetStorage().Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
             return RedirectToAction("Index", "News");
         }
 
@@ -95,7 +96,7 @@ namespace NewsPortal.Controllers
             {
                 return View(editModel);
             }
-            Storage.Edit(editModel, uploadedImage);
+            StorageManager.GetStorage().Edit(editModel, uploadedImage);
             return RedirectToAction("Index", "News");
         }
 
@@ -112,7 +113,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            Storage.Delete(newsItemId);
+            StorageManager.GetStorage().Delete(newsItemId);
             return RedirectToAction("Index", "News");
         }
     }

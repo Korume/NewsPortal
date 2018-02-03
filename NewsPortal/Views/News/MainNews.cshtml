@@ -36,7 +36,7 @@
             <div class="content-head">
                 <span>Commentaries</span>
             </div>
-            @if (StorageProvider.ModeStorage == MemoryMode.LocalStorage)
+            @if (StorageManager.ModeStorage == MemoryMode.LocalStorage)
             {
                 <p>Comments are not available for local storage</p>
             }
@@ -77,7 +77,7 @@
                 </ul>
             }
             <div class="comment-form">
-                @if (User.Identity.IsAuthenticated && StorageProvider.ModeStorage == MemoryMode.Database)
+                @if (User.Identity.IsAuthenticated && StorageManager.ModeStorage == MemoryMode.Database)
                 {
                     <form>
                         <label for="comment">Comment</label>
@@ -90,7 +90,7 @@
                 }
                 else
                 {
-                    if(StorageProvider.ModeStorage != MemoryMode.LocalStorage)
+                    if(StorageManager.ModeStorage != MemoryMode.LocalStorage)
                     {
                         <p>Please log in to add your comments.</p>
                     }

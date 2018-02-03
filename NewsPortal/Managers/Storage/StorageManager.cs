@@ -4,15 +4,19 @@ using NewsPortal.Managers.LocalMemory;
 
 namespace NewsPortal.Managers.Storage
 {
-    public enum MemoryMode { Database, LocalStorage };
+    public enum MemoryMode
+    {
+        Database,
+        LocalStorage
+    }
 
-    public class StorageProvider
+    public class StorageManager
     {
         static MemoryMode currentStorageMode;
 
         static Dictionary<MemoryMode, IStorage> storageManagers = new Dictionary<MemoryMode, IStorage>(2);
 
-        static StorageProvider()
+        static StorageManager()
         {
             storageManagers.Add(MemoryMode.Database, new DataBaseManager());
             storageManagers.Add(MemoryMode.LocalStorage, new LocalMemoryManager());

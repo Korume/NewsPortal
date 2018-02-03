@@ -12,21 +12,14 @@ namespace NewsPortal.Managers.Identity
     {
         public async Task SendAsync(IdentityMessage identityMessage)
         {
-            var smtpSettings = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-
-            using (var message = new MailMessage(smtpSettings.From, identityMessage.Destination))
+            using (var message = new MailMessage())
             using (var smtpServer = new SmtpClient())
             {
+                message.To.Add(identityMessage.Destination);
                 message.Subject = identityMessage.Subject;
                 message.Body = identityMessage.Body;
                 message.IsBodyHtml = true;
 
-                smtpServer.Host = smtpSettings.Network.Host;
-                smtpServer.Port = smtpSettings.Network.Port;
-                smtpServer.EnableSsl = smtpSettings.Network.EnableSsl;
-                smtpServer.DeliveryMethod = smtpSettings.DeliveryMethod;
-                smtpServer.UseDefaultCredentials = smtpSettings.Network.DefaultCredentials;
-                smtpServer.Credentials = new NetworkCredential(smtpSettings.Network.UserName, smtpSettings.Network.Password);
                 await smtpServer.SendMailAsync(message);
             }
         }
