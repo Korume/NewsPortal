@@ -65,7 +65,7 @@ namespace NewsPortal.Controllers
             {
                 return View(newsModel);
             }
-            Storage.Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
+            StorageProvider.GetStorage().Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
             return RedirectToAction("Index", "News");
         }
 
@@ -95,7 +95,7 @@ namespace NewsPortal.Controllers
             {
                 return View(editModel);
             }
-            Storage.Edit(editModel, uploadedImage);
+            StorageProvider.GetStorage().Edit(editModel, uploadedImage);
             return RedirectToAction("Index", "News");
         }
 
@@ -112,7 +112,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public ActionResult DeleteNewsItem(int newsItemId)
         {
-            Storage.Delete(newsItemId);
+            StorageProvider.GetStorage().Delete(newsItemId);
             return RedirectToAction("Index", "News");
         }
     }
