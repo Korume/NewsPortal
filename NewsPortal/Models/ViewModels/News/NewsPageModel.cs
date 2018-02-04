@@ -5,7 +5,7 @@ using System.Web;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class HomePageModel
+    public class NewsPageModel
     {
         public IEnumerable<NewsItemThumbnailViewModel> Thumbnails { set; get; }
         public int CurrentPageIndex { set; get; }

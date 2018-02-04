@@ -78,7 +78,7 @@ namespace NewsPortal.Managers.Storage
            return NHibernateManager.ReturnDB_News(id);
         }
 
-        public List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate=true)
+        public IList<NewsItem> GetItems(int pageIndex, int itemsQuantity, bool sortedByDate = true)
         {
             using (var manager = new NHibernateManager())
             {
@@ -86,13 +86,13 @@ namespace NewsPortal.Managers.Storage
 
                 var propertyForOrder = "CreationDate";
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
-                var newsItemList = session.CreateCriteria<NewsItem>().
+                var newsItemsList = session.CreateCriteria<NewsItem>().
                 AddOrder(orderType).
-                SetFirstResult(firstIndex).
-                SetMaxResults(itemsCount).
+                SetFirstResult(pageIndex * itemsQuantity).
+                SetMaxResults(itemsQuantity).
                 List<NewsItem>();
 
-                return newsItemList as List<NewsItem>;
+                return newsItemsList;
             }
         }
 

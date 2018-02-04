@@ -57,37 +57,14 @@ namespace NewsPortal.Managers.LocalMemory
 
         public NewsItem Get(int id)
         {
-            NewsItem article = null;
-            foreach (var news in allNews.ToList())
-            {
-                if (news.Id == id)
-                {
-                    article = news;
-                }
-                break;
-            }
-            return article;
+            return allNews.SingleOrDefault(n => n.Id == id);
         }
 
-        public List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate = true)
+        public IList<NewsItem> GetItems(int pageIndex, int itemsQuantity, bool sortedByDate = true)
         {
-            var sortedNews = sortedByDate ? allNews.OrderBy(x => x.CreationDate).ToList() :
-                    allNews.OrderByDescending(x => x.CreationDate).ToList();
-
-            List<NewsItem> articleRange = null;
-            if (sortedNews.Count > 0)
-            {
-                try
-                {
-                    articleRange = sortedNews.GetRange(firstIndex, itemsCount);
-                }
-                catch
-                {
-                    articleRange = sortedNews.GetRange(firstIndex, sortedNews.Count - firstIndex);
-                }
-            }
-            return articleRange;
-
+            var sortedList = sortedByDate ? allNews.OrderBy(x => x.CreationDate) : allNews.OrderByDescending(x => x.CreationDate);
+            var newsItemList = sortedList.Skip(pageIndex * itemsQuantity).Take(itemsQuantity).ToList();
+            return newsItemList;
         }
 
         public int Length()

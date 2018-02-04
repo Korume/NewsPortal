@@ -14,7 +14,7 @@ namespace NewsPortal.Interfaces
 
         #region Вспомогательные функции
         NewsItem Get(int id);
-        List<NewsItem> GetItems(int firstIndex, int itemsCount, bool sortedByDate = true);
+        IList<NewsItem> GetItems(int pageIndex, int itemsQuantity, bool sortedByDate);
         int Length();
         #endregion
     }

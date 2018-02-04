@@ -4,8 +4,14 @@ using Microsoft.AspNet.Identity;
 using System.Web;
 using NewsPortal.Managers.News;
 using System;
-using NewsPortal.ModelService;
 using NewsPortal.Managers.Storage;
+using System.Collections.Generic;
+using NewsPortal.Models.DataBaseModels;
+using NewsPortal.Managers.NHibernate;
+using System.Configuration;
+using NewsPortal.Managers.Commentary;
+using NewsPortal.Models.ViewModels.News;
+using System.Web.WebPages;
 
 namespace NewsPortal.Controllers
 {
@@ -15,6 +21,8 @@ namespace NewsPortal.Controllers
 
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
+            int newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantity"]);
+
             if (cookie.Value == null)
             {
                 cookie.Value = "Database";
@@ -22,7 +30,46 @@ namespace NewsPortal.Controllers
                 Response.Cookies.Add(cookie);
             }
 
-            return View(ModelReturner.GetHomePage(page, sortedByDate));
+            int lastPage = (int)Math.Ceiling(StorageManager.GetStorage().Length() / (double)newsItemsQuantity) - 1;
+            if (lastPage == -1)
+            {
+                lastPage = 0;
+            }
+            else if (page < 0 || page > lastPage)
+            {
+                throw new HttpException(404, "Not found");
+            }
+
+            var newsItemsList = StorageManager.GetStorage().GetItems(page, newsItemsQuantity, sortedByDate);
+            var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
+            using (var manager = new NHibernateManager())
+            {
+                var session = manager.GetSession();
+
+                foreach (var item in newsItemsList)
+                {
+                    var userName = session.Get<User>(item.UserId)?.UserName ?? string.Empty;
+                    thumbnails.Add(new NewsItemThumbnailViewModel()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        UserId = item.UserId,
+                        CreationDate = item.CreationDate,
+                        UserName = userName
+                    });
+                }
+            }
+
+            var newsPageModel = new NewsPageModel()
+            {
+                Thumbnails = thumbnails,
+                CurrentPageIndex = page,
+                LastPageIndex = lastPage,
+                SortedByDate = sortedByDate,
+
+            };
+
+            return View(newsPageModel);
         }
 
         [HttpPost]
@@ -46,7 +93,8 @@ namespace NewsPortal.Controllers
             }
             cookie.Expires = DateTime.Now.AddDays(10);
             Response.Cookies.Add(cookie);
-            return View(ModelReturner.GetHomePage(0, true));
+
+            return Index(); // Переделать это говно! (c) def1x
         }
 
         [Authorize]
@@ -78,11 +126,29 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
-            if (editedNewsItem == null)
+            var newsItem = StorageManager.GetStorage().Get(newsItemId.Value); // Переделать (c) def1x
+            if (newsItem == null)
+            {
+                throw new HttpException(404, "Error 404, bad page");
+            }
+
+            bool isUserNewsItemOwner = newsItem.UserId == User.Identity.GetUserId().AsInt();
+            if (!isUserNewsItemOwner)
             {
                 return View("NewsOwnerError");
             }
+
+            var userName = NHibernateManager.ReturnDB_User(newsItem.UserId).UserName; // Переделать (c) def1x
+            var editedNewsItem = new NewsItemViewModel()
+            {
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserName = userName
+            };
+
             return View(editedNewsItem);
         }
 
@@ -106,7 +172,28 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            return View(ModelReturner.GetMainNews(newsItemId));
+
+            var newsItem = StorageManager.GetStorage().Get(newsItemId);
+            if (newsItem == null)
+            {
+                throw new HttpException(404, "Error 404, bad page");
+            }
+
+            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
+            var commentItems = CommentaryManager.ReturnCommentaries(newsItemId);
+            var showMainNews = new NewsItemMainPageViewModel()
+            {
+                Id = newsItem.Id,
+                Title = newsItem.Title,
+                Content = newsItem.Content,
+                SourceImage = newsItem.SourceImage,
+                CreationDate = newsItem.CreationDate,
+                UserId = newsItem.UserId,
+                UserName = newsUser.UserName,
+                CommentItems = commentItems
+            };
+
+            return View(showMainNews);
         }
 
         [HttpPost]
