@@ -1,6 +1,7 @@
 ﻿@using NewsPortal.Models.ViewModels;
 @using Microsoft.AspNet.Identity;
 @using NewsPortal.App_Code;
+@using NewsPortal.Managers.News
 @model NewsPageModel
 
 @section StyleSheet {
@@ -99,8 +100,9 @@
             }
             <div class="Title">
                 <span>
-                    @Html.ActionLink(item.Title, "MainNews", "News", new { newsItemId = item.Id, title = item.Title },
-                                  new { @class = "show-MainNews" })
+                    @Html.ActionLink(item.Title, "MainNews", "News",
+                   new { newsItemId = item.Id, title = @NewsManager.EditNewsTitleForUrl(item.Title) },
+                   new { @class = "show-MainNews" })
                 </span>
             </div>
             <div class="NewsInformation">

@@ -115,7 +115,6 @@ namespace NewsPortal.Controllers
                 return View(newsModel);
             }
 
-            // Надо загрузить картинку (c) def1x
             var sourceImage = PictureManager.Upload(uploadedImage);
 
             var newsItem = new NewsItem()
@@ -205,6 +204,9 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Error 404, bad page");
             }
 
+            string canonicalUrl = NewsManager.EditNewsTitleForUrl(newsItem.Title);
+            bool isCanonical = title.ToLower() == canonicalUrl.ToLower();
+
             var userRepository = UnityConfig.Resolve<IUserRepository>();
             var newsUser = await userRepository.GetById(newsItem.UserId);
 
@@ -220,7 +222,9 @@ namespace NewsPortal.Controllers
                 CreationDate = newsItem.CreationDate,
                 UserId = newsItem.UserId,
                 UserName = newsUser.UserName,
-                CommentItems = commentItems
+                CommentItems = commentItems,
+                IsCanonical = isCanonical,
+                CanonicalUrl = canonicalUrl
             };
 
             return View(showMainNews);

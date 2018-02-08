@@ -5,6 +5,10 @@
 
 @section StyleSheet{
     @Styles.Render("~/bundles/stylesheet-News")
+    @if (!Model.IsCanonical)
+    {
+        <link rel="canonical" href="@Url.Action("MainNews", "News", new { newsItemId = Model.Id, title = Model.CanonicalUrl })" />
+    }
 }
 <section class="main-news-items">
     <div class="main-news-items-info">
@@ -90,11 +94,11 @@
                 }
                 else
                 {
-                    if(StorageManager.ModeStorage != MemoryMode.LocalStorage)
+                    if (StorageManager.ModeStorage != MemoryMode.LocalStorage)
                     {
                         <p>Please log in to add your comments.</p>
                     }
-                    
+
                 }
             </div>
         </section>

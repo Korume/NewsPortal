@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace NewsPortal.Managers.News
@@ -11,9 +12,8 @@ namespace NewsPortal.Managers.News
     {
         public static string EditNewsTitleForUrl(string title)
         {
-            StringBuilder builder = new StringBuilder(title);
-            builder.Replace(' ', '-');
-            return builder.ToString();
+            string titleForEdit = Regex.Replace(title, @"(^\W+|\W+$)", "").Trim();
+            return Regex.Replace(titleForEdit, @"\W+", "-");
         }
     }
 }

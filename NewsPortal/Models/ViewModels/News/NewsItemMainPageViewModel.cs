@@ -14,5 +14,7 @@ namespace NewsPortal.Models.ViewModels.News
         public string SourceImage { set; get; }
         public string UserName { set; get; }
         public IList<CommentItem> CommentItems { set; get; }
+        public bool IsCanonical { set; get; }
+        public string CanonicalUrl { set; get; }
     }
 }
