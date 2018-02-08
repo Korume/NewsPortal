@@ -9,11 +9,13 @@ using NewsPortal.Managers.Storage;
 
 namespace NewsPortal.Controllers
 {
+
     public class NewsController : Controller
     {
         const int newsItemsQuantity = 15;
         HttpCookie cookie = new HttpCookie("Storage");
 
+        [OutputCache(CacheProfile = "cacheProfile")]
         public ActionResult Index(int page = 0, bool sortedByDate = true)
         {
             if (cookie.Value == null)
@@ -26,6 +28,7 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
+        [OutputCache(CacheProfile = "cacheProfile")]
         public ActionResult Index(string storage)
         {
             if (storage == "Database" || cookie.Value == "Database")
@@ -99,6 +102,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "News");
         }
 
+        [OutputCache(CacheProfile = "cacheProfile")]
         public ActionResult MainNews(int newsItemId, string title)
         {
             if (!NewsManager.CheckedNewsItem(newsItemId))
