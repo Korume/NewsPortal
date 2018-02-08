@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using NewsPortal.Managers.Storage;
-using NewsPortal.ModelService;
 
 namespace NewsPortal.Controllers
 {

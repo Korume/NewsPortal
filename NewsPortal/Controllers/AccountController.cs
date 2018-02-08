@@ -5,9 +5,8 @@ using NewsPortal.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NewsPortal.Managers.Identity;
-using NewsPortal.Managers.NHibernate;
 using System.Threading.Tasks;
-
+using NewsPortal.Domain;
 
 namespace NewsPortal.Controllers
 {
@@ -55,59 +54,61 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var manager = new NHibernateManager())
+                var userRepository = UnityConfig.Resolve<IUserRepository>();
+
+                var userByEmail = await userRepository.GetByEmail(registerModel.Email);
+                if (userByEmail != null)
                 {
-                    var session = manager.GetSession();
-
-                    var userByEmail = await session.QueryOver<User>().
-                        Where(u => u.Email == registerModel.Email).
-                        SingleOrDefaultAsync();
-                    if (userByEmail != null)
-                    {
-                        ModelState.AddModelError("Email", $"This E-mail address is not available.");
-                        return View(registerModel);
-                    }
-
-                    var userByUserName = await session.QueryOver<User>().
-                        Where(u => u.UserName == registerModel.UserName).
-                        SingleOrDefaultAsync();
-                    if (userByUserName != null)
-                    {
-                        ModelState.AddModelError("UserName", "This UserName is not available.");
-                        return View(registerModel);
-                    }
-
-                    var newUser = new User()
-                    {
-                        Email = registerModel.Email,
-                        UserName = registerModel.UserName,
-                        Password = registerModel.Password,
-                        EmailConfirmed = false
-                    };
-
-                    var creationResult = UserManager.Create(newUser, newUser.Password);
-                    if (creationResult.Succeeded)
-                    {
-                        session.Save(newUser);
-
-                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code },
-                            protocol: Request.Url.Scheme);
-                        var message = new IdentityMessage()
-                        {
-                            Body = "Confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
-                            Subject = "Account confirmation",
-                            Destination = newUser.Email
-                        };
-                        await UserManager.EmailService.SendAsync(message);
-
-                        return View("SuccesfulRegistration");
-                    }
-                    ModelState.AddModelError("", "Unsuccessful registration. Please try again");
+                    ModelState.AddModelError("Email", $"This E-mail address is not available.");
+                    return View(registerModel);
                 }
+
+                var userByUserName = await userRepository.GetByName(registerModel.UserName);
+                if (userByUserName != null)
+                {
+                    ModelState.AddModelError("UserName", "This UserName is not available.");
+                    return View(registerModel);
+                }
+
+                var newUser = new User()
+                {
+                    Email = registerModel.Email,
+                    UserName = registerModel.UserName,
+                    Password = registerModel.Password,
+                    EmailConfirmed = false
+                };
+
+                var creationResult = await UserManager.CreateAsync(newUser, newUser.Password);
+                if (creationResult.Succeeded)
+                {
+                    var userId = newUser.Id;
+
+                    await SendEmailConfirmation(userId, newUser.Email);
+
+                    return View("SuccesfulRegistration");
+                }
+                ModelState.AddModelError("", "Unsuccessful registration. Please try again");
             }
 
             return View(registerModel);
+        }
+
+        private async Task SendEmailConfirmation(int? userId, string email)
+        {
+            if (userId != null && email != null)
+            {
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId.Value);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                    new { userId = userId.Value, code = code },
+                    protocol: Request.Url.Scheme);
+                var message = new IdentityMessage()
+                {
+                    Body = "Confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                    Subject = "Account confirmation",
+                    Destination = email
+                };
+                await UserManager.EmailService.SendAsync(message);
+            }
         }
 
         public async Task<ActionResult> ConfirmEmail(int? userId, string code)
@@ -118,21 +119,18 @@ namespace NewsPortal.Controllers
 
                 if (result.Succeeded)
                 {
-                    using (var manager = new NHibernateManager())
-                    {
-                        var session = manager.GetSession();
+                    var userRepository = UnityConfig.Resolve<IUserRepository>();
 
-                        var user = session.Get<User>(userId);
-                        user.EmailConfirmed = true;
-                        session.Update(user);
-                    }
+                    var user = await userRepository.GetById(userId.Value);
+                    user.EmailConfirmed = true;
+                    await userRepository.Update(user);
+
                     return View("SuccesfulConfirmation");
                 }
             }
             return View("UnsuccesfulConfirmation");
         }
 
-        #region Вспомогательные приложения
         private SignInManager SignInManager
         {
             get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
@@ -142,6 +140,5 @@ namespace NewsPortal.Controllers
         {
             get { return HttpContext.GetOwinContext().GetUserManager<UserManager>(); }
         }
-        #endregion
     }
 }

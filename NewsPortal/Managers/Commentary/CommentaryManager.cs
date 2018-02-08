@@ -1,68 +1,41 @@
 ﻿using System.Collections.Generic;
 using System;
-using NewsPortal.Managers.NHibernate;
 using NewsPortal.Models.DataBaseModels;
 using System.Linq;
+using NewsPortal.Domain;
+using System.Threading.Tasks;
 
 namespace NewsPortal.Managers.Commentary
 {
     public class CommentaryManager
     {
-
-        public static int ReturnCommentId(int newsId)
+        public static async Task<IList<CommentItem>> GetCommentsOnNewsPage(int newsId)
         {
-            using (var manager = new NHibernateManager())
-            {
-                return manager.GetSession().QueryOver<CommentItem>().Where(u => u.NewsId == newsId).SingleOrDefault().Id;
-            }
+            var commentRepository = UnityConfig.Resolve<ICommentRepository>();
+            return await commentRepository.GetCommentsOnNewsPage(newsId);
         }
 
-        public static CommentItem ReturnComment(int newsId)
+        public static async Task<int> SaveComment(string content, int userId, int newsId, string userName)
         {
-            using (var manager = new NHibernateManager())
+            var commentItem = new CommentItem()
             {
-                return manager.GetSession().QueryOver<CommentItem>().Where(u => u.NewsId == newsId).SingleOrDefault();
-            }
+                Content = content,
+                Timestamp = DateTime.Now,
+                UserId = userId,
+                UserName = userName,
+                NewsId = newsId
+            };
+
+            var commentRepository = UnityConfig.Resolve<ICommentRepository>();
+            var commentId = await commentRepository.Add(commentItem);
+            return commentId;
         }
 
-        public static IList<CommentItem> ReturnCommentaries(int newsId)
+        public static async Task DeleteComment(int commentId)
         {
-            using (var manager = new NHibernateManager())
-            {
-                return manager.GetSession().QueryOver<CommentItem>().Where(u => u.NewsId == newsId).List();
-            }
-        }
-
-        public static int SaveComment(string content, int userId, int newsId, string userName)
-        {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var commentItem = new CommentItem()
-                {
-                    Content = content,
-                    Timestamp = DateTime.Now,
-                    UserId = userId,
-                    UserName = userName,
-                    NewsId = newsId
-                };
-                session.Save(commentItem);
-                return commentItem.Id;
-            }
-        }
-
-        public static void DeleteComment(int commentId)
-        {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                using(var transaction = session.BeginTransaction())
-                {
-                    var commentItem = session.Get<CommentItem>(commentId);
-                    session.Delete(commentItem);
-                    transaction.Commit();
-                }
-            }
+            var commentRepository = UnityConfig.Resolve<ICommentRepository>();
+            var newsItem = await commentRepository.GetById(commentId);
+            await commentRepository.Delete(newsItem);
         }
     }
 }

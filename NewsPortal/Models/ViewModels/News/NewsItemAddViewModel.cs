@@ -6,14 +6,8 @@ using System.Web;
 
 namespace NewsPortal.Models.ViewModels
 {
-    public class NewsItemViewModel
+    public class NewsItemAddViewModel
     {
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public int Id { set; get; }
-
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public int UserId { set; get; }
-
         [StringLength(400, ErrorMessage = "Max length = 400")]
         [Required(ErrorMessage = "The field must be set!")]
         [Display(Name = "Title")]
@@ -25,15 +19,5 @@ namespace NewsPortal.Models.ViewModels
         [Display(Name = "Content")]
         [DataType(DataType.MultilineText)]
         public string Content { set; get; }
-
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        [DataType(DataType.ImageUrl)]
-        public string SourceImage { set; get; }
-
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public DateTime CreationDate { set; get; }
-
-        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
-        public string UserName { get; internal set; }
     }
 }

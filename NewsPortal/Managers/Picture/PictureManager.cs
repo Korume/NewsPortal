@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,7 @@ namespace NewsPortal.Managers.Picture
         public static string Upload(HttpPostedFileBase uploadedImage, int newsItemId)
         {
             int maxSize = 2 * 1024 * 1024;
-            List<string> mimes = new List<string>
+            var mimes = new List<string>
             {
                 "image/jpeg", "image/jpg", "image/png"
             };
@@ -21,7 +22,7 @@ namespace NewsPortal.Managers.Picture
                 {
                     return null;
                 }
-                string fileName = System.IO.Path.GetFileName(uploadedImage.FileName);
+                string fileName = Path.GetFileName(uploadedImage.FileName);
                 string path = ConfigurationManager.AppSettings["pathForImage"] + newsItemId + fileName;
                 uploadedImage.SaveAs(HttpContext.Current.Server.MapPath(path));
                 return path;
@@ -33,7 +34,7 @@ namespace NewsPortal.Managers.Picture
         {
             if (path != null)
             {
-                System.IO.File.Delete(HttpContext.Current.Server.MapPath(path));
+                File.Delete(HttpContext.Current.Server.MapPath(path));
             }
         }
     }
