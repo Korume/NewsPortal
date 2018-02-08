@@ -82,9 +82,8 @@ namespace NewsPortal.Managers.Storage
         {
             using (var manager = new NHibernateManager())
             {
-                var session = manager.GetSession();
-
                 var propertyForOrder = "CreationDate";
+                var session = manager.GetSession();
                 var orderType = sortedByDate ? Order.Desc(propertyForOrder) : Order.Asc(propertyForOrder);
                 var newsItemList = session.CreateCriteria<NewsItem>().
                 AddOrder(orderType).

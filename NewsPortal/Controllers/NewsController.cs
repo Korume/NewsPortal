@@ -22,7 +22,7 @@ namespace NewsPortal.Controllers
                 Response.Cookies.Add(cookie);
             }
 
-            return View(ModelReturner.GetHomePage(page, sortedByDate));
+            return View(ModelProvider.GetHomePage(page, sortedByDate));
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace NewsPortal.Controllers
             }
             cookie.Expires = DateTime.Now.AddDays(10);
             Response.Cookies.Add(cookie);
-            return View(ModelReturner.GetHomePage(0, true));
+            return View(ModelProvider.GetHomePage(0, true));
         }
 
         [Authorize]
@@ -67,6 +67,7 @@ namespace NewsPortal.Controllers
             }
 
             StorageManager.GetStorage().Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
+
             return RedirectToAction("Index", "News");
         }
 
@@ -78,7 +79,7 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            var editedNewsItem = ModelReturner.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
+            var editedNewsItem = ModelProvider.GetEditedNewsItem(newsItemId.Value, Convert.ToInt32(User.Identity.GetUserId()));
             if (editedNewsItem == null)
             {
                 return View("NewsOwnerError");
@@ -96,7 +97,9 @@ namespace NewsPortal.Controllers
             {
                 return View(editModel);
             }
+
             StorageManager.GetStorage().Edit(editModel, uploadedImage);
+
             return RedirectToAction("Index", "News");
         }
 
@@ -106,7 +109,7 @@ namespace NewsPortal.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            return View(ModelReturner.GetMainNews(newsItemId));
+            return View(ModelProvider.GetMainNews(newsItemId));
         }
 
         [HttpPost]
@@ -114,6 +117,7 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteNewsItem(int newsItemId)
         {
             StorageManager.GetStorage().Delete(newsItemId);
+
             return RedirectToAction("Index", "News");
         }
     }

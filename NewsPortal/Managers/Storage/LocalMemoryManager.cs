@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NewsPortal.Interfaces;
-using NewsPortal.Managers.Commentary;
-using NewsPortal.Managers.NHibernate;
 using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
-using NewsPortal.Models.ViewModels.News;
 
 namespace NewsPortal.Managers.LocalMemory
 {
@@ -58,13 +55,12 @@ namespace NewsPortal.Managers.LocalMemory
         public NewsItem Get(int id)
         {
             NewsItem article = null;
-            foreach (var news in allNews.ToList())
+            foreach (var news in allNews)
             {
                 if (news.Id == id)
                 {
-                    article = news;
-                }
-                break;
+                   article=news;break;
+                }  
             }
             return article;
         }
