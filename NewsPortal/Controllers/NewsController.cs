@@ -17,10 +17,12 @@ using System.Threading.Tasks;
 
 namespace NewsPortal.Controllers
 {
+
     public class NewsController : Controller
     {
         HttpCookie cookie = new HttpCookie("Storage");
 
+        [OutputCache(CacheProfile = "cacheProfile")]
         public async Task<ActionResult> Index(int page = 0, bool sortedByDate = true)
         {
             int newsItemsQuantityPerPage = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityPerPage"]);
@@ -73,6 +75,7 @@ namespace NewsPortal.Controllers
         }
 
         [HttpPost]
+        [OutputCache(CacheProfile = "cacheProfile")]
         public ActionResult Index(string storage)
         {
             if (storage == "Database" || cookie.Value == "Database")
@@ -189,6 +192,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "News");
         }
 
+        [OutputCache(CacheProfile = "cacheProfile")]
         public async Task<ActionResult> MainNews(int? newsItemId, string title)
         {
             if (newsItemId == null)
