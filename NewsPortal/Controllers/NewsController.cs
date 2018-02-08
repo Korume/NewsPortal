@@ -14,12 +14,13 @@ using System.Web.WebPages;
 using NewsPortal.Repositories;
 using NewsPortal.Domain;
 using System.Threading.Tasks;
+using NewsPortal.App_Cache;
 
 namespace NewsPortal.Controllers
 {
-
     public class NewsController : Controller
     {
+        ApplicationCache applicationCache_MainNews = new ApplicationCache();
         HttpCookie cookie = new HttpCookie("Storage");
 
         [OutputCache(CacheProfile = "cacheProfile")]
@@ -112,7 +113,7 @@ namespace NewsPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(newsModel);
             }
@@ -192,7 +193,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index", "News");
         }
 
-        [OutputCache(CacheProfile = "cacheProfile")]
+        //[OutputCache(CacheProfile = "cacheProfile")]
         public async Task<ActionResult> MainNews(int? newsItemId, string title)
         {
             if (newsItemId == null)
@@ -200,7 +201,13 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not Found");
             }
 
-            var newsItem = await StorageManager.GetStorage().Get(newsItemId.Value);
+            var newsItem = applicationCache_MainNews.GetValue((int)newsItemId);
+            if (newsItem == null)
+            {
+                newsItem = await StorageManager.GetStorage().Get(newsItemId.Value);
+                applicationCache_MainNews.Add(newsItem);
+            }
+
             if (newsItem == null)
             {
                 throw new HttpException(404, "Error 404, bad page");
