@@ -10,16 +10,6 @@ namespace NewsPortal.Managers.News
 {
     public class NewsManager
     {
-        public static bool CheckedNewsItem(int newsItemId)
-        {
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
-                var newsItem = session.Get<NewsItem>(newsItemId);
-                return newsItem != null;
-            }
-        }
-
         public static string EditNewsTitleForUrl(string title)
         {
             StringBuilder builder = new StringBuilder(title);

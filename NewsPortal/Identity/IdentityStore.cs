@@ -10,38 +10,39 @@ namespace NewsPortal.Models.Identity
     public class IdentityStore : IUserStore<User, int>, IUserPasswordStore<User, int>, 
         IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>, IUserEmailStore<User, int>
     {
-        private readonly ISession session;
+        private readonly ISession _session;
 
         public IdentityStore(ISession session)
         {
-            this.session = session;
+            _session = session;
         }
         
         #region IUserStore<User, int>
         public Task CreateAsync(User user)
         {
-            return Task.Run(() => session.SaveOrUpdate(user));
+            return Task.Run(() => _session.SaveOrUpdate(user));
         }
         public Task DeleteAsync(User user)
         {
-            return Task.Run(() => session.Delete(user));
+            return Task.Run(() => _session.Delete(user));
         }
         public Task<User> FindByIdAsync(int userId)
         {
-            return Task.Run(() => session.Get<User>(userId));
+            return Task.Run(() => _session.Get<User>(userId));
         }
         public Task<User> FindByNameAsync(string UserName)
         {
             return Task.Run(() =>
             {     
-                return session.QueryOver<User>().Where(u => u.UserName == UserName).SingleOrDefault();
+                return _session.QueryOver<User>().Where(u => u.UserName == UserName).SingleOrDefault();
             });
         }
         public Task UpdateAsync(User user)
         {
-            return Task.Run(() => session.SaveOrUpdate(user));
+            return Task.Run(() => _session.SaveOrUpdate(user));
         }
         #endregion
+
         #region IUserPasswordStore<User, int>
         public Task SetPasswordHashAsync(User user, string password)
         {            
@@ -56,6 +57,7 @@ namespace NewsPortal.Models.Identity
             return Task.FromResult(true);
         }
         #endregion
+
         #region IUserLockoutStore<User, int>
         public Task<DateTimeOffset> GetLockoutEndDateAsync(User user)
         {
@@ -86,6 +88,7 @@ namespace NewsPortal.Models.Identity
             return Task.CompletedTask;
         }
         #endregion
+
         #region IUserTwoFactorStore<User, int>
         public Task SetTwoFactorEnabledAsync(User user, bool enabled)
         {
@@ -96,6 +99,7 @@ namespace NewsPortal.Models.Identity
             return Task.FromResult(false);
         }
         #endregion
+
         #region IUserEmailStore<User, int>
         public Task SetEmailAsync(User user, string email)
         {
@@ -121,14 +125,14 @@ namespace NewsPortal.Models.Identity
         {
             return Task.Run(() =>
             {
-                return session.QueryOver<User>().Where(u => u.Email == email).SingleOrDefault();
+                return _session.QueryOver<User>().Where(u => u.Email == email).SingleOrDefault();
             });
         }
         #endregion
 
         public void Dispose()
         {
-            //do nothing
+            _session.Dispose();
         }
     }
 }

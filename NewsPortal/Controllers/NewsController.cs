@@ -12,6 +12,9 @@ using System.Configuration;
 using NewsPortal.Managers.Commentary;
 using NewsPortal.Models.ViewModels.News;
 using System.Web.WebPages;
+using NewsPortal.Repositories;
+using NewsPortal.Domain;
+using System.Threading.Tasks;
 
 namespace NewsPortal.Controllers
 {
@@ -19,9 +22,9 @@ namespace NewsPortal.Controllers
     {
         HttpCookie cookie = new HttpCookie("Storage");
 
-        public ActionResult Index(int page = 0, bool sortedByDate = true)
+        public async Task<ActionResult> Index(int page = 0, bool sortedByDate = true)
         {
-            int newsItemsQuantity = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantity"]);
+            int newsItemsQuantityPerPage = int.Parse(ConfigurationManager.AppSettings["newsItemsQuantityPerPage"]);
 
             if (cookie.Value == null)
             {
@@ -30,7 +33,7 @@ namespace NewsPortal.Controllers
                 Response.Cookies.Add(cookie);
             }
 
-            int lastPage = (int)Math.Ceiling(StorageManager.GetStorage().Length() / (double)newsItemsQuantity) - 1;
+            int lastPage = (int)Math.Ceiling(await StorageManager.GetStorage().NewsItemsQuantity() / (double)newsItemsQuantityPerPage) - 1;
             if (lastPage == -1)
             {
                 lastPage = 0;
@@ -40,24 +43,22 @@ namespace NewsPortal.Controllers
                 throw new HttpException(404, "Not found");
             }
 
-            var newsItemsList = StorageManager.GetStorage().GetItems(page, newsItemsQuantity, sortedByDate);
-            var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantity);
-            using (var manager = new NHibernateManager())
-            {
-                var session = manager.GetSession();
+            var newsItemsList = await StorageManager.GetStorage().GetPageItems(page, newsItemsQuantityPerPage, sortedByDate);
+            var thumbnails = new List<NewsItemThumbnailViewModel>(newsItemsQuantityPerPage);
 
-                foreach (var item in newsItemsList)
+            var userRepository = UnityConfig.Resolve<IUserRepository>();
+            foreach (var item in newsItemsList)
+            {
+                var user = await userRepository.GetById(item.UserId);
+                var userName = user?.UserName ?? string.Empty;
+                thumbnails.Add(new NewsItemThumbnailViewModel()
                 {
-                    var userName = session.Get<User>(item.UserId)?.UserName ?? string.Empty;
-                    thumbnails.Add(new NewsItemThumbnailViewModel()
-                    {
-                        Id = item.Id,
-                        Title = item.Title,
-                        UserId = item.UserId,
-                        CreationDate = item.CreationDate,
-                        UserName = userName
-                    });
-                }
+                    Id = item.Id,
+                    Title = item.Title,
+                    UserId = item.UserId,
+                    CreationDate = item.CreationDate,
+                    UserName = userName
+                });
             }
 
             var newsPageModel = new NewsPageModel()
@@ -94,7 +95,7 @@ namespace NewsPortal.Controllers
             cookie.Expires = DateTime.Now.AddDays(10);
             Response.Cookies.Add(cookie);
 
-            return Index(); // Переделать это говно! (c) def1x
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -107,26 +108,36 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage)
+        public async Task<ActionResult> Add(NewsItemAddViewModel newsModel, HttpPostedFileBase uploadedImage)
         {
-            if (string.IsNullOrEmpty(newsModel.Title) && string.IsNullOrEmpty(newsModel.Content))
+            if(!ModelState.IsValid)
             {
                 return View(newsModel);
             }
 
-            StorageManager.GetStorage().Add(newsModel, uploadedImage, Convert.ToInt32(User.Identity.GetUserId()));
+            // Надо загрузить картинку (c) def1x
+
+            var newsItem = new NewsItem()
+            {
+                UserId = Convert.ToInt32(User.Identity.GetUserId()),
+                Title = newsModel.Title,
+                Content = newsModel.Content,
+                CreationDate = DateTime.Now
+            };
+
+            await StorageManager.GetStorage().Add(newsItem);
             return RedirectToAction("Index", "News");
         }
 
         [Authorize]
-        public ActionResult Edit(int? newsItemId)
+        public async Task<ActionResult> Edit(int? newsItemId)
         {
             if (newsItemId == null)
             {
                 throw new HttpException(404, "Not Found");
             }
 
-            var newsItem = StorageManager.GetStorage().Get(newsItemId.Value); // Переделать (c) def1x
+            var newsItem = await StorageManager.GetStorage().Get(newsItemId.Value);
             if (newsItem == null)
             {
                 throw new HttpException(404, "Error 404, bad page");
@@ -138,49 +149,65 @@ namespace NewsPortal.Controllers
                 return View("NewsOwnerError");
             }
 
-            var userName = NHibernateManager.ReturnDB_User(newsItem.UserId).UserName; // Переделать (c) def1x
-            var editedNewsItem = new NewsItemViewModel()
+            var newsItemForEditing = new NewsItemViewModel()
             {
                 Id = newsItem.Id,
+                UserId = newsItem.UserId,
                 Title = newsItem.Title,
                 Content = newsItem.Content,
                 SourceImage = newsItem.SourceImage,
-                CreationDate = newsItem.CreationDate,
-                UserName = userName
+                CreationDate = newsItem.CreationDate
             };
 
-            return View(editedNewsItem);
+            return View(newsItemForEditing);
         }
 
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
+        public async Task<ActionResult> Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
         {
             if (!ModelState.IsValid)
             {
                 return View(editModel);
             }
-            StorageManager.GetStorage().Edit(editModel, uploadedImage);
+
+            // Надо сделать обновление картинки (c) def1x
+
+            var editedNewsItem = new NewsItem()
+            {
+                Id = editModel.Id,
+                UserId = editModel.UserId,
+                Title = editModel.Title,
+                Content = editModel.Content,
+                SourceImage = editModel.SourceImage, // Это тоже поменяется (c) def1x
+                CreationDate = editModel.CreationDate
+            };
+
+            await StorageManager.GetStorage().Edit(editedNewsItem);
             return RedirectToAction("Index", "News");
         }
 
-        public ActionResult MainNews(int newsItemId, string title)
+        public async Task<ActionResult> MainNews(int? newsItemId, string title)
         {
-            if (!NewsManager.CheckedNewsItem(newsItemId))
+            if (newsItemId == null)
             {
                 throw new HttpException(404, "Not Found");
             }
 
-            var newsItem = StorageManager.GetStorage().Get(newsItemId);
+            var newsItem = await StorageManager.GetStorage().Get(newsItemId.Value);
             if (newsItem == null)
             {
                 throw new HttpException(404, "Error 404, bad page");
             }
 
-            var newsUser = NHibernateManager.ReturnDB_User(newsItem.UserId);
-            var commentItems = CommentaryManager.ReturnCommentaries(newsItemId);
+            var userRepository = UnityConfig.Resolve<IUserRepository>();
+            var newsUser = await userRepository.GetById(newsItem.UserId);
+
+            var commentRepository = UnityConfig.Resolve<ICommentRepository>();
+            var commentItems = await commentRepository.GetCommentsOnNewsPage(newsItemId.Value);
+
             var showMainNews = new NewsItemMainPageViewModel()
             {
                 Id = newsItem.Id,
@@ -198,9 +225,10 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult DeleteNewsItem(int newsItemId)
+        public async Task<ActionResult> DeleteNewsItem(int newsItemId)
         {
-            StorageManager.GetStorage().Delete(newsItemId);
+            // Надо удалить картинку (c) def1x
+            await StorageManager.GetStorage().Delete(newsItemId);
             return RedirectToAction("Index", "News");
         }
     }

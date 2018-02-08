@@ -9,6 +9,7 @@ using NewsPortal.Managers.Picture;
 using NewsPortal.Models.DataBaseModels;
 using NewsPortal.Models.ViewModels;
 using NewsPortal.Models.ViewModels.News;
+using System.Threading.Tasks;
 
 namespace NewsPortal.Managers.LocalMemory
 {
@@ -17,59 +18,80 @@ namespace NewsPortal.Managers.LocalMemory
         static int id = 0;
         List<NewsItem> allNews = new List<NewsItem>();
 
-        public void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int userId)
+        public Task Add(NewsItem newsItem)
         {
-            id++;
-            allNews.Add(new NewsItem()
+            return Task.Run(() =>
             {
-                Id = id,
-                UserId = userId,
-                Title = newsModel.Title,
-                Content = newsModel.Content,
-                CreationDate = DateTime.Now,
-                SourceImage = PictureManager.Upload(uploadedImage, id)
+                newsItem.Id = ++id;
+                allNews.Add(newsItem);
             });
         }
 
-        public void Delete(int id)
+        //public void Add(NewsItemViewModel newsModel, HttpPostedFileBase uploadedImage, int userId)
+        //{
+        //    id++;
+        //    allNews.Add(new NewsItem()
+        //    {
+        //        Id = id,
+        //        UserId = userId,
+        //        Title = newsModel.Title,
+        //        Content = newsModel.Content,
+        //        CreationDate = DateTime.Now,
+        //        SourceImage = PictureManager.Upload(uploadedImage, id)
+        //    });
+        //}
+
+        public Task Delete(int id)
         {
-            foreach (var news in allNews.ToList())
+            return Task.Run(() =>
             {
-                if (news.Id == id)
-                {
-                    allNews.Remove(news);
-                }
-            }
+                return allNews.RemoveAll(n => n.Id == id);
+            });
         }
 
-        public void Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
+        public async Task Edit(NewsItem newsItem)
         {
-            foreach (var news in allNews.ToList())
+            await Delete(newsItem.Id);
+            allNews.Add(newsItem);
+        }
+
+        //public void Edit(NewsItemViewModel editModel, HttpPostedFileBase uploadedImage)
+        //{
+        //    foreach (var news in allNews.ToList())
+        //    {
+        //        if (news.Id == editModel.Id)
+        //        {
+        //            news.Title = editModel.Title;
+        //            news.Content = editModel.Content;
+        //            news.SourceImage = PictureManager.Upload(uploadedImage, id);
+        //        }
+        //    }
+        //}
+
+        public Task<NewsItem> Get(int id)
+        {
+            return Task.Run(() =>
             {
-                if (news.Id == editModel.Id)
-                {
-                    news.Title = editModel.Title;
-                    news.Content = editModel.Content;
-                    news.SourceImage = PictureManager.Upload(uploadedImage, id);
-                }
-            }
+                return allNews.SingleOrDefault(n => n.Id == id);
+            });
         }
 
-        public NewsItem Get(int id)
+        public Task<IEnumerable<NewsItem>> GetPageItems(int pageIndex, int itemsQuantity, bool sortedByDate = true)
         {
-            return allNews.SingleOrDefault(n => n.Id == id);
+            return Task.Run(() =>
+            {
+                var sortedList = sortedByDate ? allNews.OrderBy(x => x.CreationDate) : allNews.OrderByDescending(x => x.CreationDate);
+                var newsItemList = sortedList.Skip(pageIndex * itemsQuantity).Take(itemsQuantity);
+                return newsItemList;
+            });
         }
 
-        public IList<NewsItem> GetItems(int pageIndex, int itemsQuantity, bool sortedByDate = true)
+        public Task<int> NewsItemsQuantity()
         {
-            var sortedList = sortedByDate ? allNews.OrderBy(x => x.CreationDate) : allNews.OrderByDescending(x => x.CreationDate);
-            var newsItemList = sortedList.Skip(pageIndex * itemsQuantity).Take(itemsQuantity).ToList();
-            return newsItemList;
-        }
-
-        public int Length()
-        {
-            return allNews.Capacity;
+            return Task.Run(() =>
+            {
+                return allNews.Count;
+            });
         }
     }
 }

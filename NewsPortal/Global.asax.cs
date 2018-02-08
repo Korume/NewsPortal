@@ -13,12 +13,12 @@ namespace NewsPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            UnityConfig.BuildUnityContainer();
         }
     }
 }
