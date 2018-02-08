@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -8,13 +9,14 @@ namespace NewsPortal.Managers.Picture
 {
     public class PictureManager
     {
-        public static string Upload(HttpPostedFileBase uploadedImage, int newsItemId)
+        public static string Upload(HttpPostedFileBase uploadedImage)
         {
             int maxSize = 2 * 1024 * 1024;
             var mimes = new List<string>
             {
                 "image/jpeg", "image/jpg", "image/png"
             };
+
             if (uploadedImage != null)
             {
                 if (uploadedImage.ContentLength > maxSize || 
@@ -22,8 +24,9 @@ namespace NewsPortal.Managers.Picture
                 {
                     return null;
                 }
+                string id = Guid.NewGuid().ToString();
                 string fileName = Path.GetFileName(uploadedImage.FileName);
-                string path = ConfigurationManager.AppSettings["pathForImage"] + newsItemId + fileName;
+                string path = ConfigurationManager.AppSettings["pathForImage"] + id + fileName;
                 uploadedImage.SaveAs(HttpContext.Current.Server.MapPath(path));
                 return path;
             }

@@ -10,10 +10,10 @@
       <column name="UserId" sql-type="int" not-null="true"/>
     </property>
     <property name="Title">
-      <column name="Title" sql-type="nvarchar(250)" not-null="true"/>
+      <column name="Title" sql-type="nvarchar(400)" not-null="true"/>
     </property>
     <property name="Content">
-      <column name="Content" sql-type="nvarchar(MAX)" not-null="true"/>
+      <column name="Content" sql-type="nvarchar(MAX)" length="8000" not-null="true"/>
     </property>
     <property name="SourceImage">
       <column name="SourceImage" sql-type="url" not-null="false"/>

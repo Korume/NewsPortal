@@ -14,6 +14,7 @@ using System.Web.WebPages;
 using NewsPortal.Repositories;
 using NewsPortal.Domain;
 using System.Threading.Tasks;
+using NewsPortal.Managers.Picture;
 
 namespace NewsPortal.Controllers
 {
@@ -115,12 +116,14 @@ namespace NewsPortal.Controllers
             }
 
             // Надо загрузить картинку (c) def1x
+            var sourceImage = PictureManager.Upload(uploadedImage);
 
             var newsItem = new NewsItem()
             {
                 UserId = Convert.ToInt32(User.Identity.GetUserId()),
                 Title = newsModel.Title,
                 Content = newsModel.Content,
+                SourceImage = sourceImage,
                 CreationDate = DateTime.Now
             };
 
@@ -227,6 +230,7 @@ namespace NewsPortal.Controllers
         [Authorize]
         public async Task<ActionResult> DeleteNewsItem(int newsItemId)
         {
+            var newsItem = await StorageManager.GetStorage().Get(newsItemId);
             // Надо удалить картинку (c) def1x
             await StorageManager.GetStorage().Delete(newsItemId);
 
